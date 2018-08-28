@@ -14,6 +14,7 @@ import styles from './LaunchScreenStyles'
 
 // Screens
 import Register from '../Register/Register'
+import Stations from '../Stations/Stations'
 import SignIn from '../SignIn/SignIn'
 
 class LaunchScreen extends Component {
@@ -25,22 +26,20 @@ class LaunchScreen extends Component {
     this.props.navigation.navigate('Register')
   }
 
+  openStations = () => {
+    this.props.navigation.navigate('Stations')
+  }
+
   render() {
     return (
       <View style={styles.mainContainer}>
-        <Image
-          source={Images.backgroundSolid}
-          style={styles.backgroundImage}
-          resizeMode="stretch"
-        />
         <ScrollView style={styles.container}>
           <View style={styles.centered}>
             <Image source={Images.logo} style={styles.logo} />
           </View>
 
           <View style={styles.section}>
-            <RoundedButton onPress={this.openRegister}>Sign Up</RoundedButton>
-            <DevscreensButton />
+            <RoundedButton onPress={this.openStations}>Stations</RoundedButton>
           </View>
         </ScrollView>
       </View>
@@ -53,6 +52,7 @@ export default createStackNavigator(
     LaunchScreen: { screen: LaunchScreen },
     Register: { screen: Register },
     SignIn: { screen: SignIn },
+    Stations: { screen: Stations },
   },
   {
     initialRouteName: 'LaunchScreen',

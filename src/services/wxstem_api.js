@@ -1,24 +1,24 @@
 // a library to wrap and simplify api calls
-import apisauce from 'apisauce'
+import axios from 'axios'
 
 // our "constructor"
-const create = (baseURL = 'https://api.github.com') => {
+const create = (baseURL = 'https://leon.weatherstem.com/api') => {
   // ------
   // STEP 1
   // ------
   //
   // Create and configure an apisauce-based api object.
   //
-  const api = apisauce.create({
-    // base URL is read from the "constructor"
-    baseURL,
-    // here are some default headers
-    headers: {
-      'Cache-Control': 'no-cache',
-    },
-    // 10 second timeout...
-    timeout: 10000,
-  })
+  // const api = apisauce.create({
+  // base URL is read from the "constructor"
+  // baseURL,
+  // here are some default headers
+  // headers: {
+  // 'Cache-Control': 'no-cache',
+  // },
+  // 10 second timeout...
+  // timeout: 10000,
+  // })
 
   // ------
   // STEP 2
@@ -34,9 +34,16 @@ const create = (baseURL = 'https://api.github.com') => {
   // Since we can't hide from that, we embrace it by getting out of the
   // way at this level.
   //
-  const getRoot = () => api.get('')
-  const getRate = () => api.get('rate_limit')
-  const getUser = username => api.get('search/users', { q: username })
+  const get_all_stations = () => {
+    return axios({
+      method: 'post',
+      url: baseURL,
+      data: {
+        method: 'get_all_stations',
+        api_key: 'cs9ynb6t',
+      },
+    })
+  }
 
   // ------
   // STEP 3
@@ -52,9 +59,7 @@ const create = (baseURL = 'https://api.github.com') => {
   //
   return {
     // a list of the API functions from step 2
-    getRoot,
-    getRate,
-    getUser,
+    get_all_stations,
   }
 }
 
