@@ -57,7 +57,7 @@ const colors = {
   lightGreen: '#9EEBCF',
   navy: '#001B44',
   darkBlue: '#118498',
-  blue: '#18C0DD',
+  blue: '#4A87EE',
   lightBlue: '#55D6ED',
   lightestBlue: '#9AE7F4',
   washedBlue: '#F6FFFE',

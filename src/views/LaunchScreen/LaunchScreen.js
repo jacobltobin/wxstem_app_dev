@@ -30,6 +30,10 @@ class LaunchScreen extends Component {
     this.props.navigation.navigate('Stations')
   }
 
+  openSignIn = () => {
+    this.props.navigation.navigate('SignIn')
+  }
+
   render() {
     return (
       <View style={styles.mainContainer}>
@@ -40,6 +44,7 @@ class LaunchScreen extends Component {
 
           <View style={styles.section}>
             <RoundedButton onPress={this.openStations}>Stations</RoundedButton>
+            <RoundedButton onPress={this.openSignIn}>Sign In</RoundedButton>
           </View>
         </ScrollView>
       </View>

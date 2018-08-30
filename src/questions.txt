@@ -4,10 +4,19 @@ Where is my component getting navigation prop from?
 
 Say I make a station list, do I want to generate a new stack navigator?
 
+tabs with stacks within
+run-android
+
 Station page which accepts station ID as prop...
+
+caching
 
 could/should launchscreen be 'connect'd to store?
 
 do you use stories? could you explain?
 
 styling resources
+
+
+block element modifier
+

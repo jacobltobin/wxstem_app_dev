@@ -1,6 +1,6 @@
 import { call, put } from 'redux-saga/effects'
 import { path } from 'ramda'
-import WxstemActions from '../redux/WxstemAPIRedux'
+import APIActions from '../redux/APIRedux/'
 
 export function* requestAllStations(api, action) {
   // const { stations } = action
@@ -10,12 +10,10 @@ export function* requestAllStations(api, action) {
   const response = yield call(api.get_all_stations)
 
   if (response) {
-    //   // const firstUser = path(['data', 'items'], response)[0]
     const stations = response.data
-    //   // do data conversion here if needed
-    yield put(WxstemActions.requestAllStationsSuccess(stations))
+    yield put(APIActions.requestAllStationsSuccess(stations))
   } else {
-    yield put(WxstemAPIActions.fetchAllStationsFailure())
+    yield put(APIActions.fetchAllStationsFailure())
   }
 }
 

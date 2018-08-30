@@ -12,7 +12,7 @@ import PropTypes from 'prop-types'
 import { RoundedButton, StationListDefault } from '../../components'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import { NavigationActions } from 'react-navigation'
-import WxstemActions, { WxstemSelectors } from '../../redux/WxstemAPIRedux'
+import APIActions, { APISelectors } from '../../redux/APIRedux'
 
 // Styles
 import styles from './StationsStyles'
@@ -63,14 +63,14 @@ class Stations extends Component {
 
 const mapStateToProps = state => {
   return {
-    stationsArray: WxstemSelectors.selectStations(state),
-    isFetching: WxstemSelectors.isFetching(state),
+    stationsArray: APISelectors.selectStations(state),
+    isFetching: APISelectors.isFetchingStations(state),
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    request_all_stations: () => dispatch(WxstemActions.requestAllStations()),
+    request_all_stations: () => dispatch(APIActions.requestAllStations()),
   }
 }
 

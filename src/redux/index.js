@@ -6,9 +6,8 @@ import ReduxPersist from '../config/ReduxPersist'
 
 /* ------------- Assemble The Reducers ------------- */
 export const reducers = combineReducers({
-  github: require('./GithubRedux').reducer,
   search: require('./SearchRedux').reducer,
-  wxstem: require('./WxstemAPIRedux').reducer,
+  api: require('./APIRedux').reducer,
 })
 
 export default () => {

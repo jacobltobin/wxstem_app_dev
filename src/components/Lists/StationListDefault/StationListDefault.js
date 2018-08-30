@@ -11,7 +11,6 @@ export default class StationListDefault extends Component {
   }
 
   render() {
-    console.tron.log(this.props)
     const isFetching = this.props.isFetching
     if (isFetching) {
       return <Text>Loading...</Text>
