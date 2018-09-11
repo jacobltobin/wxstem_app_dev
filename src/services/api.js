@@ -39,7 +39,7 @@ const create = (baseURL = 'https://leon.weatherstem.com/api/') => {
       method: 'post',
       url: baseURL,
       data: {
-        method: 'get_all_stations',
+        method: 'get_closest_station',
         api_key: 'cs9ynb6t',
       },
     })

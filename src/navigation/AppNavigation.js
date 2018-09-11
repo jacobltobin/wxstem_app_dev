@@ -1,17 +1,17 @@
 import { createStackNavigator } from 'react-navigation'
-import { LaunchScreen } from '../views'
+import { MainDrawer } from '../views'
 
 import styles from './styles/NavigationStyles'
 
 // Manifest of possible screens
 const PrimaryNav = createStackNavigator(
   {
-    LaunchScreen: { screen: LaunchScreen },
+    MainDrawer: { screen: MainDrawer },
   },
   {
     // Default config for all screens
     headerMode: 'none',
-    initialRouteName: 'LaunchScreen',
+    initialRouteName: 'MainDrawer',
     navigationOptions: {
       headerStyle: styles.header,
     },

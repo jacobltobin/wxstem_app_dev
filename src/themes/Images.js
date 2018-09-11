@@ -20,6 +20,7 @@ const images = {
   theme: require('../images/icons/icon-theme.png'),
   tileBg: require('../images/tile_bg.png'),
   usageExamples: require('../images/icons/icon-usage-examples.png'),
+  snapshot: require('../images/snapshot.jpg'),
 }
 
 export default images

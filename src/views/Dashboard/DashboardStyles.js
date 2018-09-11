@@ -7,9 +7,10 @@ export default StyleSheet.create({
     paddingBottom: Metrics.baseMargin,
   },
   logo: {
+    flex: 1,
     marginTop: Metrics.doubleSection,
-    height: Metrics.images.logo,
-    width: Metrics.images.logo,
+    // height: Metrics.images.logo,
+    // width: Metrics.images.logo,
     resizeMode: 'contain',
   },
   centered: {
