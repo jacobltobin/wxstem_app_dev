@@ -69,7 +69,7 @@ const colors = {
 // THEME COLORS
 colors.primary = colors.blue
 colors.secondary = colors.lightBlue
-colors.background = colors.white
+colors.background = colors.red
 colors.text = colors.black
 colors.border = colors.primary
 colors.windowTint = colors.black

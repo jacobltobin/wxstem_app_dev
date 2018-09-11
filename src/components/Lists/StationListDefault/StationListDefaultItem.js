@@ -8,6 +8,10 @@ export default class StationListDefaultItem extends Component {
     station: PropTypes.object.isRequired,
   }
   render() {
-    return <Text style={styles.listItem}>{this.props.station.name}</Text>
+    return (
+      <View style={styles.listItem}>
+        <Text style={styles.listItemText}>{this.props.station.name}</Text>
+      </View>
+    )
   }
 }

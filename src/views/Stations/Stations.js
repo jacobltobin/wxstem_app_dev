@@ -13,9 +13,11 @@ import { RoundedButton, StationListDefault } from '../../components'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import { NavigationActions } from 'react-navigation'
 import APIActions, { APISelectors } from '../../redux/APIRedux'
+import { Header } from 'react-native-elements'
 
 // Styles
 import styles from './StationsStyles'
+import { Colors } from '../../themes'
 
 class Stations extends Component {
   static propTypes = {
@@ -39,24 +41,31 @@ class Stations extends Component {
       this.loadStations()
     }
     return (
-      <KeyboardAvoidingView style={styles.mainContainer}>
-        <TouchableOpacity onPress={this.goBack} style={styles.backButton}>
-          <Icon name="arrow-left" size={25} color="white" />
-        </TouchableOpacity>
-
-        <View style={styles.container}>
-          <View style={styles.section}>
-            <Text style={[styles.titleText, styles.sectionText]}>Stations</Text>
-            <RoundedButton onPress={this.loadStations}>
-              Refresh Stations
-            </RoundedButton>
-            <StationListDefault
-              isFetching={this.props.isFetching}
-              stationsArray={this.props.stationsArray}
-            />
-          </View>
-        </View>
-      </KeyboardAvoidingView>
+      <View style={{ flex: 1, backgroundColor: 'white' }}>
+        <Header
+          backgroundColor={Colors.blue.toString()}
+          leftComponent={{
+            onPress: () => this.props.navigation.toggleDrawer(),
+            icon: 'menu',
+            color: '#fff',
+            size: 30,
+          }}
+          centerComponent={{
+            text: 'Stations',
+            style: { color: '#fff', fontWeight: 'bold', fontSize: 18 },
+          }}
+          rightComponent={{
+            onPress: () => this.loadStations(),
+            icon: 'refresh',
+            color: '#fff',
+            size: 30,
+          }}
+        />
+        <StationListDefault
+          isFetching={this.props.isFetching}
+          stationsArray={this.props.stationsArray}
+        />
+      </View>
     )
   }
 }

@@ -4,14 +4,17 @@ import { Fonts, Colors, Metrics } from '../../../themes/'
 export default StyleSheet.create({
   listContainer: {
     width: Metrics.screenWidth,
-    paddingTop: 20,
     backgroundColor: Colors.white,
   },
   listItem: {
     width: Metrics.screenWidth,
-    paddingLeft: 0,
-    paddingTop: 5,
-    paddingBottom: 5,
+    paddingLeft: 10,
+    paddingTop: 15,
+    paddingBottom: 15,
     color: Colors.black,
+    borderBottomWidth: 1,
+    borderBottomColor: Colors.lightGray,
+    backgroundColor: Colors.white,
   },
+  listItemText: {},
 })

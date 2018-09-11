@@ -15,7 +15,6 @@ export default createDrawerNavigator(
   {
     MainTab: { screen: MainTab },
     Register: { screen: Register },
-    Stations: { screen: Stations },
   },
   {
     initialRouteName: 'MainTab',
