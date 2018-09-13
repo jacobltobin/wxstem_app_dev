@@ -8,6 +8,7 @@ import { AddStationButton } from '../../components'
 
 // Styles
 import { Colors } from '../../themes'
+import Styles from './DashboardStyles'
 
 class Dashboard extends Component {
   static propTypes = {
@@ -19,9 +20,11 @@ class Dashboard extends Component {
     // const openDrawer = function() {
     //     return this.navigation.navigate("DrawerOpen")
     // }
+    console.tron.log('this', Styles.headerInnerContainer)
     return (
       <View style={{ flex: 1, backgroundColor: 'white' }}>
         <Header
+          innerContainerStyles={Styles.headerInnerContainer}
           backgroundColor={Colors.blue.toString()}
           leftComponent={{
             onPress: () => this.props.navigation.toggleDrawer(),
@@ -31,7 +34,7 @@ class Dashboard extends Component {
           }}
           centerComponent={{
             text: 'Dashboard',
-            style: { color: '#fff', fontWeight: 'bold', fontSize: 18 },
+            style: Styles.headerInnerContainer,
           }}
         />
         <ScrollView>

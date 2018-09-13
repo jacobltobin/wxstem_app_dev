@@ -7,6 +7,9 @@ import Colors from './Colors'
 
 const ApplicationStyles = {
   screen: {
+    headerInnerContainer: {
+      ...Fonts.style.header,
+    },
     mainContainer: {
       flex: 1,
       alignItems: 'stretch',

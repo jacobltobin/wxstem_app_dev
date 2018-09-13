@@ -16,5 +16,7 @@ export default StyleSheet.create({
     borderBottomColor: Colors.lightGray,
     backgroundColor: Colors.white,
   },
-  listItemText: {},
+  listItemText: {
+    ...Fonts.style.normal,
+  },
 })

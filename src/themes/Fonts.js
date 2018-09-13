@@ -1,7 +1,7 @@
 const type = {
-  base: 'Avenir-Book',
-  bold: 'Avenir-Black',
-  emphasis: 'HelveticaNeue-Italic',
+  base: 'OpenSans-Regular',
+  bold: 'OpenSans-Bold',
+  emphasis: 'OpenSans-Italic',
 }
 
 const size = {
@@ -19,6 +19,15 @@ const size = {
 }
 
 const style = {
+  header: {
+    fontFamily: type.bold,
+    color: '#fff',
+    fontSize: size.regular
+  },
+  subHeader: {
+    fontFamily: type.bold,
+    fontSize: size.regular
+  },
   h1: {
     fontFamily: type.base,
     fontSize: size.h1,
@@ -32,7 +41,7 @@ const style = {
     fontSize: size.h3,
   },
   h4: {
-    fontFamily: type.base,
+    fontFamily: type.bold,
     fontSize: size.h4,
   },
   h5: {

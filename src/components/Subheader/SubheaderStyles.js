@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native'
-import { Metrics, ApplicationStyles, Colors } from '../../themes'
+import { ApplicationStyles, Colors, Fonts } from '../../themes'
 
 export default StyleSheet.create({
   ...ApplicationStyles.screen,
@@ -8,8 +8,7 @@ export default StyleSheet.create({
       padding: 17,
   },
   subheaderText: {
+    ...Fonts.style.subHeader,
     color: Colors.black60,
-    fontSize: 15,
-    fontWeight: 'bold'
   }
 })
