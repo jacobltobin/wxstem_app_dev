@@ -57,6 +57,9 @@ export default createBottomTabNavigator(
       activeTintColor: Colors.white,
       activeBackgroundColor: Colors.darkBlue,
       tabStyle: styles.tabStyle,
+      style: {
+        backgroundColor: Colors.blue,
+      },
     },
   },
 )

@@ -10,11 +10,14 @@ const ApplicationStyles = {
     headerInnerContainer: {
       ...Fonts.style.header,
     },
+    headerOuterContainer: {
+      // paddingBottom: 50,
+    },
     mainContainer: {
       flex: 1,
       alignItems: 'stretch',
       justifyContent: 'center',
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.blue,
     },
     backgroundImage: {
       position: 'absolute',
@@ -26,7 +29,7 @@ const ApplicationStyles = {
     container: {
       flex: 1,
       paddingTop: Metrics.baseMargin,
-      backgroundColor: Colors.transparent,
+      backgroundColor: Colors.blue,
     },
     section: {
       margin: Metrics.section,

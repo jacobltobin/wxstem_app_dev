@@ -22,9 +22,10 @@ class Dashboard extends Component {
     // }
     console.tron.log('this', Styles.headerInnerContainer)
     return (
-      <View style={{ flex: 1, backgroundColor: 'white' }}>
+      <View style={Styles.dashboardContainer}>
         <Header
           innerContainerStyles={Styles.headerInnerContainer}
+          outerContainerStyles={Styles.headerOuterContainer}
           backgroundColor={Colors.blue.toString()}
           leftComponent={{
             onPress: () => this.props.navigation.toggleDrawer(),
