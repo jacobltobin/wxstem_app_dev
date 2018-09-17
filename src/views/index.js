@@ -1,3 +1,3 @@
 export { default as Register } from './Register/Register'
-export { default as SignIn } from './SignIn/SignIn'
+export { default as LogIn } from './LogIn/LogIn'
 export { default as MainDrawer } from './MainDrawer/MainDrawer'

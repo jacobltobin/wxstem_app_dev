@@ -1,8 +1,12 @@
 import { StyleSheet } from 'react-native'
-import { Metrics, ApplicationStyles } from '../../themes/'
+import { Metrics, ApplicationStyles, Colors } from '../../themes/'
 
 export default StyleSheet.create({
   ...ApplicationStyles.screen,
+  dashboardContainer: {
+    flex: 1,
+    backgroundColor: Colors.white,
+  },
   backButton: {
     position: 'absolute',
     paddingTop: 60,

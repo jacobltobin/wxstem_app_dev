@@ -20,7 +20,6 @@ class Dashboard extends Component {
     // const openDrawer = function() {
     //     return this.navigation.navigate("DrawerOpen")
     // }
-    console.tron.log('this', Styles.headerInnerContainer)
     return (
       <View style={Styles.dashboardContainer}>
         <Header

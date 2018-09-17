@@ -10,7 +10,7 @@ import styles from './MainDrawerStyles'
 
 // Screens
 import Register from '../Register/Register'
-import SignIn from '../SignIn/SignIn'
+import LogIn from '../LogIn/LogIn'
 import Stations from '../Stations/Stations'
 import MainTab from '../MainTab/MainTab'
 
@@ -26,35 +26,35 @@ export default createDrawerNavigator(
         drawerLabel: () => null,
       },
     },
-    SignIn: {
-      screen: SignIn,
+    LogIn: {
+      screen: LogIn,
       navigationOptions: {
-        drawerLabel: 'Sign In',
+        drawerLabel: 'Log In',
       },
     },
     CreateAccount: {
-      screen: SignIn,
+      screen: LogIn,
       navigationOptions: {
         drawerLabel: 'Create Account',
       },
     },
     NotificationsSettings: {
-      screen: SignIn,
+      screen: LogIn,
       navigationOptions: {
         drawerLabel: 'Notifications',
       },
     },
     Settings: {
-      screen: SignIn,
+      screen: LogIn,
       navigationOptions: {
         drawerLabel: 'Settings',
       },
     },
     Help: {
-      screen: SignIn,
+      screen: LogIn,
     },
     Contact: {
-      screen: SignIn,
+      screen: LogIn,
       navigationOptions: {
         drawerLabel: 'Contact WeatherSTEM',
       },

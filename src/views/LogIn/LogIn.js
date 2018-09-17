@@ -7,17 +7,18 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native'
+import { Header } from 'react-native-elements'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { Images } from '../../themes'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import { NavigationActions } from 'react-navigation'
 
-
 // Styles
-import styles from './SignInStyles'
+import styles from './LogInStyles'
+import { Colors } from '../../themes'
 
-class SignInView extends Component {
+class LogInView extends Component {
   static propTypes = {
     navigation: PropTypes.object,
   }
@@ -29,17 +30,25 @@ class SignInView extends Component {
 
   render() {
     return (
-      <KeyboardAvoidingView style={styles.mainContainer}>
+      <View style={styles.loginContainer}>
+        <Header
+          innerContainerStyles={styles.headerInnerContainer}
+          outerContainerStyles={styles.headerOuterContainer}
+          backgroundColor={Colors.blue.toString()}
+          leftComponent={{
+            onPress: () => this.props.navigation.goBack(),
+            icon: 'arrow-left',
+            color: '#fff',
+            size: 30,
+          }}
+          centerComponent={{
+            text: 'Log In',
+            style: styles.headerInnerContainer,
+          }}
+        />
 
-        <TouchableOpacity onPress={this.goBack} style={styles.backButton}>
-          <Icon name="arrow-left" size={25} color="white" />
-        </TouchableOpacity>
-
-        <ScrollView style={styles.container}>
-
+        <ScrollView>
           <View style={styles.section}>
-            <Text style={[styles.titleText, styles.sectionText]}>Sign In</Text>
-
             <TouchableOpacity
               onPress={() => this.props.navigation.replace('Register')}
             >
@@ -49,7 +58,7 @@ class SignInView extends Component {
             </TouchableOpacity>
           </View>
         </ScrollView>
-      </KeyboardAvoidingView>
+      </View>
     )
   }
 }
@@ -65,4 +74,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(SignInView)
+)(LogInView)
