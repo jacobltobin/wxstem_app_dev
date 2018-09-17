@@ -2,7 +2,7 @@
 import axios from 'axios'
 
 // our "constructor"
-const create = (baseURL = 'https://leon.weatherstem.com/api/') => {
+const create = (baseURL = 'http://cdn.weatherstem.com') => {
   // ------
   // STEP 1
   // ------
@@ -36,12 +36,9 @@ const create = (baseURL = 'https://leon.weatherstem.com/api/') => {
   //
   const get_all_stations = () => {
     return axios({
-      method: 'post',
-      url: baseURL,
-      data: {
-        method: 'get_closest_station',
-        api_key: 'cs9ynb6t',
-      },
+      method: 'get',
+      url: 'https://cdn.weatherstem.com/orangestem/data/dynamic/model/stations.json',
+      responseType: 'json'
     })
   }
 
