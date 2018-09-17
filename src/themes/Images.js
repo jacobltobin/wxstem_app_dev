@@ -21,6 +21,7 @@ const images = {
   tileBg: require('../images/tile_bg.png'),
   usageExamples: require('../images/icons/icon-usage-examples.png'),
   snapshot: require('../images/snapshot.jpg'),
+  user: require('../images/user.png'),
 }
 
 export default images

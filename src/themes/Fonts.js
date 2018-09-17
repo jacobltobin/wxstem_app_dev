@@ -19,41 +19,32 @@ const size = {
 }
 
 const style = {
+  all: {
+    fontFamily: type.base,
+  },
   header: {
     fontFamily: type.bold,
     color: '#fff',
-    fontSize: size.regular
+    fontSize: size.regular,
   },
   subHeader: {
     fontFamily: type.bold,
-    fontSize: size.regular
+    fontSize: size.regular,
   },
-  h1: {
+  detail: {
     fontFamily: type.base,
-    fontSize: size.h1,
+    fontSize: size.medium,
   },
-  h2: {
-    fontWeight: 'bold',
-    fontSize: size.h2,
-  },
-  h3: {
-    fontFamily: type.emphasis,
-    fontSize: size.h3,
-  },
-  h4: {
+  detailBold: {
     fontFamily: type.bold,
-    fontSize: size.h4,
-  },
-  h5: {
-    fontFamily: type.base,
-    fontSize: size.h5,
-  },
-  h6: {
-    fontFamily: type.emphasis,
-    fontSize: size.h6,
+    fontSize: size.medium,
   },
   normal: {
     fontFamily: type.base,
+    fontSize: size.regular,
+  },
+  normalBold: {
+    fontFamily: type.bold,
     fontSize: size.regular,
   },
   description: {
