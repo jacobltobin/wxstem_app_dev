@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native'
-import { Metrics, ApplicationStyles } from '../../themes'
+import { Metrics, ApplicationStyles, Fonts, Colors } from '../../themes'
 
 export default StyleSheet.create({
   ...ApplicationStyles.screen,
@@ -15,5 +15,9 @@ export default StyleSheet.create({
   },
   centered: {
     alignItems: 'center',
+  },
+  drawerItemText: {
+    ...Fonts.style.drawerItem,
+    color: Colors.midGray,
   },
 })

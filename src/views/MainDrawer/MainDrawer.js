@@ -5,6 +5,7 @@ import PropTypes from 'prop-types'
 import { DrawerContent } from '../../components'
 
 // Styles
+import { Fonts } from '../../themes'
 import styles from './MainDrawerStyles'
 
 // Screens
@@ -61,6 +62,9 @@ export default createDrawerNavigator(
   },
   {
     contentComponent: DrawerContent,
+    contentOptions: {
+      labelStyle: styles.drawerItemText,
+    },
     initialRouteName: 'MainTab',
     headerMode: 'none',
     drawerWidth: returnDrawerWidth(),

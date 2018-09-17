@@ -47,6 +47,10 @@ const style = {
     fontFamily: type.bold,
     fontSize: size.regular,
   },
+  drawerItem: {
+    fontFamily: type.bold,
+    fontSize: size.regular,
+  },
   description: {
     fontFamily: type.base,
     fontSize: size.medium,

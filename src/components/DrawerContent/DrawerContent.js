@@ -36,7 +36,7 @@ export default class DrawerContent extends Component {
               <Text style={styles.userName}>guest user</Text>
             </View>
           </View>
-          <DrawerItems style={styles.drawerItems} {...this.props} />
+          <DrawerItems {...this.props} />
           <View style={styles.drawerFooter}>
             <Text style={styles.drawerFooterLink}>weatherstem.com</Text>
           </View>
