@@ -58,7 +58,6 @@ export class signUpForm extends Component {
   }
 
   render() {
-    console.tron.log(this.calculateTabContainerStyles())
     return (
       <View style={this.calculateTabContainerStyles()}>
         <Input
