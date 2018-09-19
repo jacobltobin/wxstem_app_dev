@@ -8,9 +8,13 @@ export default {
   headerCenterLogo: {
     width: 30,
     height: 30,
-    marginRight: 10,
+    marginRight: 6,
+    alignSelf: 'flex-end',
+    marginBottom: 8,
   },
   headerCenterText: {
     ...Fonts.style.header,
+    alignSelf: 'flex-end',
+    marginBottom: 10,
   },
 }
