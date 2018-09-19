@@ -31,17 +31,6 @@ const ApplicationStyles = {
       paddingTop: Metrics.baseMargin,
       backgroundColor: Colors.blue,
     },
-    section: {
-      margin: Metrics.section,
-      padding: Metrics.baseMargin,
-    },
-    sectionText: {
-      ...Fonts.style.normal,
-      paddingVertical: Metrics.doubleBaseMargin,
-      color: Colors.snow,
-      marginVertical: Metrics.smallMargin,
-      textAlign: 'center',
-    },
     subtitle: {
       color: Colors.snow,
       padding: Metrics.smallMargin,

@@ -5,6 +5,7 @@ import PropTypes from 'prop-types'
 import { Header } from 'react-native-elements'
 import { Subheader } from '../../components'
 import { AddStationButton } from '../../components'
+import { HeaderCenter } from '../../components'
 
 // Styles
 import { Colors } from '../../themes'
@@ -32,10 +33,7 @@ class Dashboard extends Component {
             color: '#fff',
             size: 30,
           }}
-          centerComponent={{
-            text: 'Dashboard',
-            style: Styles.headerInnerContainer,
-          }}
+          centerComponent={<HeaderCenter title="Dashboard" />}
         />
         <ScrollView>
           <Subheader title={'Stations'} />
