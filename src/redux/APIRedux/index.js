@@ -24,7 +24,8 @@ export const INITIAL_STATE = Immutable({
   },
   networkData: {
     stations: {
-      list: null,
+      fullList: null,
+      strippedList: null,
       fetching: null,
       error: null,
     },
@@ -34,7 +35,7 @@ export const INITIAL_STATE = Immutable({
 /* ------------- Selectors ------------- */
 
 export const APISelectors = {
-  selectStations: state => state.api.networkData.stations.list,
+  selectStations: state => state.api.networkData.stations.strippedList,
   isFetchingStations: state => state.api.networkData.stations.fetching,
 }
 
@@ -46,9 +47,10 @@ export const request = state => {
     networkData: {
       stations: {
         fetching: true,
-        list: null
-      }
-    }
+        fullList: null,
+        strippedList: null,
+      },
+    },
   }
   return state.merge(newState)
 }
@@ -61,9 +63,12 @@ export const success = (state, action) => {
       stations: {
         fetching: false,
         error: null,
-        list: list
-      }
-    }
+        fullList: list,
+        strippedList: list.map(station => {
+          return { name: station.name }
+        }),
+      },
+    },
   }
   console.tron.log('action from success action', action)
   return state.merge(newState)
@@ -76,9 +81,10 @@ export const failure = state => {
       stations: {
         fetching: false,
         error: true,
-        list: null
-      }
-    }
+        fullList: null,
+        strippedList: null,
+      },
+    },
   }
   return state.merge(newState)
 }

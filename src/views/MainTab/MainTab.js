@@ -50,6 +50,8 @@ export default createBottomTabNavigator(
     },
   },
   {
+    swipeEnabled: false,
+    animationEnabled: false,
     tabBarOptions: {
       showLabel: false,
       inactiveTintColor: Colors.white,
