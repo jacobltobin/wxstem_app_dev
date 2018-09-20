@@ -19,8 +19,16 @@ export default StyleSheet.create({
     backgroundColor: Colors.white,
   },
   listItemText: {
-    ...Fonts.style.normal,
+    ...Fonts.style.normalBold,
     color: Colors.midGray,
+  },
+  listItemMeta: {
+    ...Fonts.style.detail,
+    color: Colors.midGray,
+  },
+  listItemMetaContainer: {
+    flex: 1,
+    flexDirection: 'row',
   },
   loadingIconContainer: {
     marginTop: 75,

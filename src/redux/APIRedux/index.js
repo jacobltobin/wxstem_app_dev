@@ -58,6 +58,7 @@ export const request = state => {
 // successful station lookup
 export const success = (state, action) => {
   const list = action.stations
+  console.tron.log(list)
   const newState = {
     networkData: {
       stations: {
@@ -65,12 +66,15 @@ export const success = (state, action) => {
         error: null,
         fullList: list,
         strippedList: list.map(station => {
-          return { name: station.name }
+          return {
+            name: station.name,
+            domain: station.domain.name,
+            state: station.geo.state,
+          }
         }),
       },
     },
   }
-  console.tron.log('action from success action', action)
   return state.merge(newState)
 }
 

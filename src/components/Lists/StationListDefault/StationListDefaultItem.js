@@ -14,7 +14,17 @@ export default class StationListDefaultItem extends Component {
     return (
       <View style={styles.listItemContainer}>
         <TouchableOpacity style={styles.listItem}>
-          <Text style={styles.listItemText}>{this.props.station.name}</Text>
+          <View>
+            <Text style={styles.listItemText}>{this.props.station.name}</Text>
+            <View style={styles.listItemMetaContainer}>
+              <Text style={styles.listItemMeta}>
+                {this.props.station.domain.split(', ')[0] + ' '}
+              </Text>
+              <Text style={styles.listItemMeta}>
+                {this.props.station.state}
+              </Text>
+            </View>
+          </View>
           <View style={styles.listItemRightIconContainer}>
             <Icon
               type="font-awesome"
