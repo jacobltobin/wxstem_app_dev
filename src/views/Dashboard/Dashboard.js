@@ -6,6 +6,7 @@ import { Header } from 'react-native-elements'
 import { Subheader } from '../../components'
 import { AddStationButton } from '../../components'
 import { HeaderCenter } from '../../components'
+import { HeaderLeft } from '../../components'
 
 // Styles
 import { Colors } from '../../themes'
@@ -17,6 +18,9 @@ class Dashboard extends Component {
   }
 
   render() {
+    const openDrawer = () => {
+      this.props.navigation.toggleDrawer()
+    }
     // console.log(this.props.navigation)
     // const openDrawer = function() {
     //     return this.navigation.navigate("DrawerOpen")
@@ -27,12 +31,7 @@ class Dashboard extends Component {
           innerContainerStyles={Styles.headerInnerContainer}
           outerContainerStyles={Styles.headerOuterContainer}
           backgroundColor={Colors.blue.toString()}
-          leftComponent={{
-            onPress: () => this.props.navigation.toggleDrawer(),
-            icon: 'menu',
-            color: '#fff',
-            size: 30,
-          }}
+          leftComponent={<HeaderLeft icon="menu" action={openDrawer} />}
           centerComponent={<HeaderCenter title="Dashboard" />}
         />
         <ScrollView>
