@@ -15,6 +15,7 @@ export default class StationListDefault extends Component {
   static propTypes = {
     isFetching: PropTypes.bool,
     stationsArray: PropTypes.array,
+    navigation: PropTypes.object,
   }
 
   render() {
