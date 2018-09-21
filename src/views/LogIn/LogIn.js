@@ -12,7 +12,7 @@ import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { Images } from '../../themes'
 import { NavigationActions } from 'react-navigation'
-import { HeaderCenter } from '../../components'
+import { HeaderCenter, HeaderLeft } from '../../components'
 
 // Styles
 import styles from './LogInStyles'
@@ -35,12 +35,9 @@ class LogInView extends Component {
           innerContainerStyles={styles.headerInnerContainer}
           outerContainerStyles={styles.headerOuterContainer}
           backgroundColor={Colors.blue.toString()}
-          leftComponent={{
-            onPress: () => this.props.navigation.goBack(),
-            icon: 'arrow-back',
-            color: '#fff',
-            size: 30,
-          }}
+          leftComponent={
+            <HeaderLeft icon={'arrow-back'} action={this.goBack} />
+          }
           centerComponent={<HeaderCenter title="Log In" />}
         />
 
@@ -69,12 +66,6 @@ class LogInView extends Component {
                 leftIcon={{ type: 'font-awesome', name: 'lock', color: '#ccc' }}
               />
               <Button title="Sign In" buttonStyle={styles.login_buttonStyle} />
-              {/* <TouchableOpacity>
-                <Text>Forgot password</Text>
-              </TouchableOpacity>
-              <TouchableOpacity>
-                <Text>Create Account</Text>
-              </TouchableOpacity> */}
             </View>
           </KeyboardAvoidingView>
         </ScrollView>

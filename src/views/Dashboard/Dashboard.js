@@ -3,10 +3,12 @@ import { View, Text, ScrollView } from 'react-native'
 import { createStackNavigator } from 'react-navigation'
 import PropTypes from 'prop-types'
 import { Header } from 'react-native-elements'
-import { Subheader } from '../../components'
-import { AddStationButton } from '../../components'
-import { HeaderCenter } from '../../components'
-import { HeaderLeft } from '../../components'
+import {
+  AddStationButton,
+  Subheader,
+  HeaderCenter,
+  HeaderLeft,
+} from '../../components'
 
 // Styles
 import { Colors } from '../../themes'
