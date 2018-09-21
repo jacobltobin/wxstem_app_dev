@@ -4,10 +4,9 @@
 
 [![Build Status](https://codebuild.us-east-1.amazonaws.com/badges?uuid=eyJlbmNyeXB0ZWREYXRhIjoidFJBcVo3VitQdmx5dklOWVdxbXdjbnVQdnovdFVJOE5NM3VzZEw4elBCNW9UZmhkR2wrYmNTcUtOVERyS1cxMURiMXEwWUg1RCt5QmJKSVZzdDBWbTRZPSIsIml2UGFyYW1ldGVyU3BlYyI6Ik5EbEZSNHNaZ0dJM1c3ZU0iLCJtYXRlcmlhbFNldFNlcmlhbCI6MX0%3D&branch=master)](https://console.aws.amazon.com/codebuild/home?region=us-east-1#/projects/cuttlesoft-boilerplate-mobile/view)
 
-- Standard compliant React Native App Utilizing [Ignite](https://github.com/infinitered/ignite)
+Standard compliant React Native App Utilizing:
 
-## :arrow_backward: Using
-
+- [Ignite](https://github.com/infinitered/ignite)
 - [Node v8](https://nodejs.org/en/download/)
 - [React Native](https://facebook.github.io/react-native/docs/getting-started.html)
 - [Yarn](https://yarnpkg.com/lang/en/docs/install)
