@@ -1,4 +1,4 @@
-# Cuttlesoft Boilerplate
+# WxSTEM Mobile 3.0 - built on [Cuttlesoft Boilerplate](https://github.com/cuttlesoft/react-native-boilerplate)
 
 [![JavaScript Style Guide](https://cdn.rawgit.com/standard/standard/master/badge.svg)](https://github.com/standard/standard)
 
@@ -6,14 +6,14 @@
 
 - Standard compliant React Native App Utilizing [Ignite](https://github.com/infinitered/ignite)
 
-## :arrow_backward: Prerequisites
+## :arrow_backward: Using
 
 - [Node v8](https://nodejs.org/en/download/)
 - [React Native](https://facebook.github.io/react-native/docs/getting-started.html)
 - [Yarn](https://yarnpkg.com/lang/en/docs/install)
 - [React Native Dev Tools](https://github.com/facebook/react-devtools/tree/master/packages/react-devtools)
 
-## :arrow_up: Quick Start
+<!-- ## :arrow_up: Quick Start
 
 ```sh
 # Install dependencies with `yarn`
@@ -78,4 +78,4 @@ The `.env` file is ignored by git keeping those secrets out of your repo.
 1.  Copy .env.example to .env
 2.  Add your config variables
 3.  Follow instructions at [https://github.com/luggit/react-native-config#setup](https://github.com/luggit/react-native-config#setup)
-4.  Done!
+4.  Done! -->
