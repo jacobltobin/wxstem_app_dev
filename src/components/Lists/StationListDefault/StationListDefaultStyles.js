@@ -34,5 +34,8 @@ export default StyleSheet.create({
     marginTop: 75,
     alignSelf: 'center',
   },
-  listItemRightIconContainer: {},
+  filterHeader: {
+    flex: 1,
+    flexDirection: 'column',
+  },
 })

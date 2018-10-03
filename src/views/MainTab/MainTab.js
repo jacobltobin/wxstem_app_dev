@@ -15,19 +15,19 @@ import { Colors } from '../../themes'
 
 export default createBottomTabNavigator(
   {
-    Dashboard: {
-      screen: Dashboard,
-      navigationOptions: ({ navigation }) => ({
-        tabBarIcon: ({ tintColor }) => (
-          <Icon name="home" size={30} color={tintColor} />
-        ),
-      }),
-    },
     Stations: {
       screen: StationsStack,
       navigationOptions: ({ navigation }) => ({
         tabBarIcon: ({ tintColor }) => (
           <Icon name="crosshairs" size={30} color={tintColor} />
+        ),
+      }),
+    },
+    Dashboard: {
+      screen: Dashboard,
+      navigationOptions: ({ navigation }) => ({
+        tabBarIcon: ({ tintColor }) => (
+          <Icon name="home" size={30} color={tintColor} />
         ),
       }),
     },
