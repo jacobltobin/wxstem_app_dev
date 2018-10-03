@@ -5,8 +5,7 @@ import PropTypes from 'prop-types'
 
 import Dashboard from '../Dashboard/Dashboard'
 import Stations from '../Stations/Stations'
-import Learn from '../Stations/Stations'
-import Tropical from '../Stations/Stations'
+import StationsStack from '../StationsStack/StationsStack'
 
 import Icon from 'react-native-vector-icons/FontAwesome'
 
@@ -25,7 +24,7 @@ export default createBottomTabNavigator(
       }),
     },
     Stations: {
-      screen: Stations,
+      screen: StationsStack,
       navigationOptions: ({ navigation }) => ({
         tabBarIcon: ({ tintColor }) => (
           <Icon name="crosshairs" size={30} color={tintColor} />
@@ -33,7 +32,7 @@ export default createBottomTabNavigator(
       }),
     },
     Learn: {
-      screen: Stations,
+      screen: StationsStack,
       navigationOptions: ({ navigation }) => ({
         tabBarIcon: ({ tintColor }) => (
           <Icon name="book" size={30} color={tintColor} />
@@ -41,7 +40,7 @@ export default createBottomTabNavigator(
       }),
     },
     Tropical: {
-      screen: Stations,
+      screen: StationsStack,
       navigationOptions: ({ navigation }) => ({
         tabBarIcon: ({ tintColor }) => (
           <Icon name="life-ring" size={30} color={tintColor} />
