@@ -26,7 +26,6 @@ export const INITIAL_STATE = Immutable({
     stations: {
       fullList: null,
       strippedList: null,
-      filteredList: null,
       fetching: null,
       error: null,
     },
@@ -39,8 +38,6 @@ export const APISelectors = {
   selectStationsFullList: state => state.api.networkData.stations.fullList,
   selectStationsStrippedList: state =>
     state.api.networkData.stations.strippedList,
-  selectStationsFilteredList: state =>
-    state.api.networkData.stations.filteredList,
   isFetchingStations: state => state.api.networkData.stations.fetching,
   selectStationByHandle: (state, handle, domainHandle) =>
     state.api.networkData.stations.fullList.filter(station => {
@@ -83,7 +80,6 @@ export const success = (state, action) => {
         error: null,
         fullList: list,
         strippedList: strippedList,
-        filteredList: strippedList,
       },
     },
   }
