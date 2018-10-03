@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
 import { Text, View, TouchableOpacity } from 'react-native'
 import { Divider, Icon } from 'react-native-elements'
-import { NavigationActions, withNavigation } from 'react-navigation'
+// import { NavigationActions, withNavigation } from 'react-navigation'
+import ViewActions, { ViewSelectors } from '../../../redux/ViewRedux'
 
 import { Colors } from '../../../themes'
 import styles from './StationListDefaultStyles'
@@ -11,16 +13,25 @@ class StationListDefaultItem extends Component {
   static propTypes = {
     navigation: PropTypes.object,
     station: PropTypes.object.isRequired,
+    set_selected_station: PropTypes.func,
   }
 
   goBack = () => {
     this.props.navigation.navigate('Dashboard')
   }
 
+  goToStation = handle => {
+    this.props.set_selected_station(handle)
+    this.props.navigation.navigate('Station')
+  }
+
   render() {
     return (
       <View style={styles.listItemContainer}>
-        <TouchableOpacity onPress={this.goBack} style={styles.listItem}>
+        <TouchableOpacity
+          onPress={() => this.goToStation(this.props.station.handle)}
+          style={styles.listItem}
+        >
           <View>
             <Text style={styles.listItemText}>{this.props.station.name}</Text>
             <View style={styles.listItemMetaContainer}>
@@ -46,4 +57,18 @@ class StationListDefaultItem extends Component {
   }
 }
 
-export default withNavigation(StationListDefaultItem)
+const mapStateToProps = state => {
+  return {}
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    set_selected_station: handle =>
+      dispatch(ViewActions.setSelectedStation(handle)),
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(StationListDefaultItem)

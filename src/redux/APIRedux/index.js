@@ -35,8 +35,14 @@ export const INITIAL_STATE = Immutable({
 /* ------------- Selectors ------------- */
 
 export const APISelectors = {
-  selectStations: state => state.api.networkData.stations.strippedList,
+  selectStationsFullList: state => state.api.networkData.stations.fullList,
+  selectStationsStrippedList: state =>
+    state.api.networkData.stations.strippedList,
   isFetchingStations: state => state.api.networkData.stations.fetching,
+  selectStationByHandle: (state, handle) =>
+    state.api.networkData.stations.fullList.filter(station => {
+      return station.handle === handle
+    })[0],
 }
 
 /* ------------- Reducers ------------- */
@@ -58,7 +64,6 @@ export const request = state => {
 // successful station lookup
 export const success = (state, action) => {
   const list = action.stations
-  console.tron.log(list)
   const newState = {
     networkData: {
       stations: {
@@ -70,6 +75,7 @@ export const success = (state, action) => {
             name: station.name,
             domain: station.domain.name,
             state: station.geo.state,
+            handle: station.handle,
           }
         }),
       },

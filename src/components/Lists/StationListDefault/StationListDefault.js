@@ -1,21 +1,15 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import {
-  Text,
-  View,
-  ScrollView,
-  ActivityIndicator,
-  FlatList,
-} from 'react-native'
+import { Text, View, ActivityIndicator, FlatList } from 'react-native'
 import StationListDefaultItem from './StationListDefaultItem'
 import styles from './StationListDefaultStyles'
 import { Colors } from '../../../themes'
 
 export default class StationListDefault extends Component {
   static propTypes = {
+    navigation: PropTypes.object,
     isFetching: PropTypes.bool,
     stationsArray: PropTypes.array,
-    navigation: PropTypes.object,
   }
 
   render() {
@@ -32,13 +26,13 @@ export default class StationListDefault extends Component {
       return (
         <FlatList
           data={this.props.stationsArray}
-          renderItem={({ item }) => <StationListDefaultItem station={item} />}
+          renderItem={({ item }) => (
+            <StationListDefaultItem
+              station={item}
+              navigation={this.props.navigation}
+            />
+          )}
         />
-        // <ScrollView style={styles.listContainer}>
-        //   {this.props.stationsArray.map(station => (
-        //     <StationListDefaultItem station={station} />
-        //   ))}
-        // </ScrollView>
       )
     }
   }

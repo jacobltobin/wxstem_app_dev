@@ -64,6 +64,7 @@ class Stations extends Component {
         <StationListDefault
           isFetching={this.props.isFetching}
           stationsArray={this.props.stationsArray}
+          navigation={this.props.navigation}
         />
       </View>
     )
@@ -72,7 +73,7 @@ class Stations extends Component {
 
 const mapStateToProps = state => {
   return {
-    stationsArray: APISelectors.selectStations(state),
+    stationsArray: APISelectors.selectStationsStrippedList(state),
     isFetching: APISelectors.isFetchingStations(state),
   }
 }

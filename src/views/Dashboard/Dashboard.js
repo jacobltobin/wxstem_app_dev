@@ -23,10 +23,7 @@ class Dashboard extends Component {
     const openDrawer = () => {
       this.props.navigation.toggleDrawer()
     }
-    // console.log(this.props.navigation)
-    // const openDrawer = function() {
-    //     return this.navigation.navigate("DrawerOpen")
-    // }
+
     return (
       <View style={Styles.dashboardContainer}>
         <Header
