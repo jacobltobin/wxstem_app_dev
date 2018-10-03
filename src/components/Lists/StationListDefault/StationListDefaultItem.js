@@ -20,8 +20,8 @@ class StationListDefaultItem extends Component {
     this.props.navigation.navigate('Dashboard')
   }
 
-  goToStation = handle => {
-    this.props.set_selected_station(handle)
+  goToStation = (handle, domainHandle) => {
+    this.props.set_selected_station(handle, domainHandle)
     this.props.navigation.navigate('Station')
   }
 
@@ -29,7 +29,12 @@ class StationListDefaultItem extends Component {
     return (
       <View style={styles.listItemContainer}>
         <TouchableOpacity
-          onPress={() => this.goToStation(this.props.station.handle)}
+          onPress={() =>
+            this.goToStation(
+              this.props.station.handle,
+              this.props.station.domainHandle,
+            )
+          }
           style={styles.listItem}
         >
           <View>
@@ -63,8 +68,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    set_selected_station: handle =>
-      dispatch(ViewActions.setSelectedStation(handle)),
+    set_selected_station: (handle, domainHandle) =>
+      dispatch(ViewActions.setSelectedStation(handle, domainHandle)),
   }
 }
 

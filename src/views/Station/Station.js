@@ -61,7 +61,8 @@ const mapStateToProps = state => {
     stationHandle: ViewSelectors.selectSelectedStation(state),
     stationBaseData: APISelectors.selectStationByHandle(
       state,
-      ViewSelectors.selectSelectedStation(state),
+      ViewSelectors.selectSelectedStation(state).handle,
+      ViewSelectors.selectSelectedStation(state).domainHandle,
     ),
   }
 }

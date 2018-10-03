@@ -1,11 +1,10 @@
 import { createReducer, createActions } from 'reduxsauce'
 import Immutable from 'seamless-immutable'
-import { APISelectors } from './APIRedux'
 
 /* ------------- Types and Action Creators ------------- */
 
 const { Types, Creators } = createActions({
-  setSelectedStation: ['handle'],
+  setSelectedStation: ['handle', 'domainHandle'],
 })
 
 export const ViewActionTypes = Types
@@ -27,7 +26,10 @@ export const ViewSelectors = {
 
 export const setSelectedStation = (state, action) => {
   const newState = {
-    selectedStation: action.handle,
+    selectedStation: {
+      handle: action.handle,
+      domainHandle: action.domainHandle,
+    },
   }
   return state.merge(newState)
 }

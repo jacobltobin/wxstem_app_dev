@@ -39,9 +39,9 @@ export const APISelectors = {
   selectStationsStrippedList: state =>
     state.api.networkData.stations.strippedList,
   isFetchingStations: state => state.api.networkData.stations.fetching,
-  selectStationByHandle: (state, handle) =>
+  selectStationByHandle: (state, handle, domainHandle) =>
     state.api.networkData.stations.fullList.filter(station => {
-      return station.handle === handle
+      return station.handle === handle && station.domain.handle === domainHandle
     })[0],
 }
 
@@ -76,6 +76,7 @@ export const success = (state, action) => {
             domain: station.domain.name,
             state: station.geo.state,
             handle: station.handle,
+            domainHandle: station.domain.handle,
           }
         }),
       },
