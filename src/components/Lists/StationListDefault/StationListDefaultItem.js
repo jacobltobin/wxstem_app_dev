@@ -14,6 +14,7 @@ class StationListDefaultItem extends Component {
     navigation: PropTypes.object,
     station: PropTypes.object.isRequired,
     set_selected_station: PropTypes.func,
+    // expandKey: PropTypes.object,
   }
 
   goBack = () => {

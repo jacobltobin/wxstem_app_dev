@@ -38,4 +38,16 @@ export default StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
   },
+  sectionHeader: {
+    ...Fonts.style.detail,
+    color: Colors.midGray,
+    backgroundColor: Colors.lightGray,
+    paddingTop: 5,
+    paddingBottom: 5,
+    paddingLeft: 10,
+  },
+  filterButtons: {},
+  listItemContainerCollapsed: {
+    height: 0,
+  },
 })

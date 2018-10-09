@@ -12,6 +12,45 @@ const { Types, Creators } = createActions({
 export const APIActionTypes = Types
 export default Creators
 
+const alphabetizeStations = stations => {
+  const sortableData = JSON.parse(JSON.stringify(stations))
+  function compare(a, b) {
+    if (a.name < b.name) return -1
+    if (a.name > b.name) return 1
+    return 0
+  }
+  sortableData.sort(compare)
+  return sortableData
+}
+const alphabetizeSections = sections => {
+  function compare(a, b) {
+    if (a.title < b.title) return -1
+    if (a.title > b.title) return 1
+    return 0
+  }
+  sections.sort(compare)
+  return sections
+}
+const createSectionedStations = stations => {
+  console.tron.log('hello?')
+  const data = []
+  const sectionIndex = []
+  stations.forEach(station => {
+    const stationIndex = sectionIndex.indexOf(station.state)
+    if (stationIndex > -1) {
+      data[stationIndex].data.push(station)
+    } else {
+      const entry = Object.create({
+        title: station.state,
+        data: [station],
+      })
+      data.push(entry)
+      sectionIndex.push(station.state)
+    }
+  })
+  return alphabetizeSections(data)
+}
+
 /* ------------- Initial State ------------- */
 
 export const INITIAL_STATE = Immutable({
@@ -26,6 +65,7 @@ export const INITIAL_STATE = Immutable({
     stations: {
       fullList: null,
       strippedList: null,
+      sectionedList: null,
       fetching: null,
       error: null,
     },
@@ -38,6 +78,8 @@ export const APISelectors = {
   selectStationsFullList: state => state.api.networkData.stations.fullList,
   selectStationsStrippedList: state =>
     state.api.networkData.stations.strippedList,
+  selectStationsSectionedList: state =>
+    state.api.networkData.stations.sectionedList,
   isFetchingStations: state => state.api.networkData.stations.fetching,
   selectStationByHandle: (state, handle, domainHandle) =>
     state.api.networkData.stations.fullList.filter(station => {
@@ -64,22 +106,27 @@ export const request = state => {
 // successful station lookup
 export const success = (state, action) => {
   const list = action.stations
-  const strippedList = list.map(station => {
-    return {
-      name: station.name,
-      domain: station.domain.name,
-      state: station.geo.state,
-      handle: station.handle,
-      domainHandle: station.domain.handle,
-    }
-  })
+  const strippedList = alphabetizeStations(
+    list.map(station => {
+      return {
+        name: station.name,
+        domain: station.domain.name,
+        state: station.geo.state,
+        handle: station.handle,
+        domainHandle: station.domain.handle,
+      }
+    }),
+  )
+  const fullList = alphabetizeStations(fullList)
+  const sectionedList = createSectionedStations(strippedList)
   const newState = {
     networkData: {
       stations: {
         fetching: false,
         error: null,
-        fullList: list,
+        fullList: fullList,
         strippedList: strippedList,
+        sectionedList: sectionedList,
       },
     },
   }

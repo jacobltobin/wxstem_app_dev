@@ -23,7 +23,7 @@ class Stations extends Component {
   static propTypes = {
     navigation: PropTypes.object,
     request_all_stations: PropTypes.func.isRequired,
-    stationsArray: PropTypes.array,
+    stations: PropTypes.array,
     isFetching: PropTypes.bool,
   }
 
@@ -37,7 +37,7 @@ class Stations extends Component {
   }
 
   render() {
-    if (this.props.stationsArray == null && !this.props.isFetching) {
+    if (this.props.stations == null && !this.props.isFetching) {
       this.loadStations()
     }
     return (
@@ -63,7 +63,7 @@ class Stations extends Component {
         />
         <StationListDefault
           isFetching={this.props.isFetching}
-          stationsArray={this.props.stationsArray}
+          stations={this.props.isFetching ? [] : this.props.stations}
           navigation={this.props.navigation}
         />
       </View>
@@ -73,7 +73,8 @@ class Stations extends Component {
 
 const mapStateToProps = state => {
   return {
-    stationsArray: APISelectors.selectStationsStrippedList(state),
+    stations: APISelectors.selectStationsStrippedList(state),
+    sectionedStations: APISelectors.selectStationsSectionedList(state),
     isFetching: APISelectors.isFetchingStations(state),
   }
 }
