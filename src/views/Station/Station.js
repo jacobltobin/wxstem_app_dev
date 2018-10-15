@@ -18,7 +18,6 @@ class Station extends Component {
     stationBaseData: PropTypes.object,
   }
   render() {
-    console.tron.log('base data', this.props.stationBaseData)
     goBack = () => {
       const backAction = NavigationActions.back()
       this.props.navigation.dispatch(backAction)
