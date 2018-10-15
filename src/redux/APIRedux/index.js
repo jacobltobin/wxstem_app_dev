@@ -1,5 +1,6 @@
 import { createReducer, createActions } from 'reduxsauce'
 import Immutable from 'seamless-immutable'
+import { abbreviationToFullName } from '../../transforms/stateNameUtils'
 
 /* ------------- Types and Action Creators ------------- */
 
@@ -11,6 +12,8 @@ const { Types, Creators } = createActions({
 
 export const APIActionTypes = Types
 export default Creators
+
+/* ------------- Parsing Functions ------------- */
 
 const alphabetizeStations = stations => {
   const sortableData = JSON.parse(JSON.stringify(stations))
@@ -32,7 +35,6 @@ const alphabetizeSections = sections => {
   return sections
 }
 const createSectionedStations = stations => {
-  console.tron.log('hello?')
   const data = []
   const sectionIndex = []
   stations.forEach(station => {
@@ -40,11 +42,7 @@ const createSectionedStations = stations => {
     if (stationIndex > -1) {
       data[stationIndex].data.push(station)
     } else {
-      const entry = Object.create({
-        title: station.state,
-        data: [station],
-      })
-      data.push(entry)
+      data.push({ title: station.state, data: [station] })
       sectionIndex.push(station.state)
     }
   })
@@ -97,6 +95,7 @@ export const request = state => {
         fetching: true,
         fullList: null,
         strippedList: null,
+        sectionedList: null,
       },
     },
   }
@@ -106,19 +105,18 @@ export const request = state => {
 // successful station lookup
 export const success = (state, action) => {
   const list = action.stations
-  const strippedList = alphabetizeStations(
-    list.map(station => {
-      return {
-        name: station.name,
-        domain: station.domain.name,
-        state: station.geo.state,
-        handle: station.handle,
-        domainHandle: station.domain.handle,
-      }
-    }),
-  )
-  const fullList = alphabetizeStations(fullList)
-  const sectionedList = createSectionedStations(strippedList)
+  const strippedList = list.map(station => {
+    return {
+      name: station.name,
+      domain: station.domain.name,
+      state: station.geo.state,
+      handle: station.handle,
+      domainHandle: station.domain.handle,
+    }
+  })
+  const strippedAlphabetizedList = alphabetizeStations(strippedList)
+  const fullList = alphabetizeStations(list)
+  const sectionedList = createSectionedStations(strippedAlphabetizedList)
   const newState = {
     networkData: {
       stations: {

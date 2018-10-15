@@ -14,7 +14,7 @@ class StationListDefaultItem extends Component {
     navigation: PropTypes.object,
     station: PropTypes.object.isRequired,
     set_selected_station: PropTypes.func,
-    // expandKey: PropTypes.object,
+    hidden: PropTypes.bool,
   }
 
   goBack = () => {
@@ -28,7 +28,11 @@ class StationListDefaultItem extends Component {
 
   render() {
     return (
-      <View style={styles.listItemContainer}>
+      <View
+        style={
+          this.props.hidden ? styles.noResultsHidden : styles.listItemContainer
+        }
+      >
         <TouchableOpacity
           onPress={() =>
             this.goToStation(

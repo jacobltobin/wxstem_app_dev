@@ -1,14 +1,10 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import {
-  Text,
-  View,
-  ActivityIndicator,
-  FlatList,
-  SectionList,
-} from 'react-native'
+import { Text, View, ActivityIndicator, SectionList } from 'react-native'
 import { SearchBar, ButtonGroup } from 'react-native-elements'
 import StationListDefaultItem from './StationListDefaultItem'
+import { abbreviationToFullName } from '../../../transforms/stateNameUtils'
+
 import Styles from './StationListDefaultStyles'
 import { Colors } from '../../../themes'
 
@@ -24,17 +20,11 @@ export default class StationListDefault extends Component {
     super(props)
     this.state = {
       filtering: false,
-      filterText: null,
-      filteredStations: null,
+      filterText: '',
+      filteredStations: this.props.sectionedStations,
       sortOption: 0,
-      expandKey: {
-        all: false,
-      },
+      noResults: null,
     }
-  }
-
-  updateSortOption(sortOption) {
-    this.setState({ sortOption })
   }
 
   onChangeTextFunction = text => {
@@ -46,29 +36,34 @@ export default class StationListDefault extends Component {
 
   searchFilterFunction = text => {
     const newData = this.props.stations.filter(item => {
-      const itemData = `${item.name.toUpperCase()}`
+      const itemName = `${item.name.toUpperCase()}`
+      const itemDomain = `${item.domain.toUpperCase()}`
       const textData = text.toUpperCase()
-      return itemData.indexOf(textData) > -1
+      if (itemName.indexOf(textData) < 0 && itemDomain.indexOf(textData) < 0) {
+        return false
+      }
+      return true
     })
-    this.setState({
-      filteredStations: this.createSectionedStations(newData),
-      filtering: true,
-    })
+    if (newData.length === 0) {
+      this.setState({
+        filteredStations: this.props.sectionedStations,
+        filtering: false,
+        noResults: true,
+      })
+    } else {
+      this.setState({
+        filteredStations: this.createSectionedStations(newData),
+        filtering: true,
+        noResults: false,
+      })
+    }
   }
 
   clear = () => {
-    this.search.clear()
-  }
-
-  onCancelFunction = () => {
-    this.setState({
-      filteredStations: this.props.sectionedStations,
-      filtering: false,
-    })
+    this.searchbar.clear()
   }
 
   onClearTextFunction = () => {
-    console.tron.log('hello?')
     this.setState({
       filteredStations: this.props.sectionedStations,
       filtering: false,
@@ -83,22 +78,6 @@ export default class StationListDefault extends Component {
     }
     sections.sort(compare)
     return sections
-  }
-
-  checkForProperty = (array, property, value) => {
-    const checkObj = {
-      binary: false,
-      index: null,
-    }
-    for (var i = 0, j = array.length; i < j; i++) {
-      if (array[i][property] === value) {
-        checkObj.binary = true
-        checkObj.index = i
-      } else {
-        return
-      }
-    }
-    return checkObj
   }
 
   createSectionedStations = stations => {
@@ -121,21 +100,29 @@ export default class StationListDefault extends Component {
   }
 
   renderHeader = () => {
-    // const buttons = ['By State', 'By Proximity']
     return (
       <View style={Styles.filterHeader}>
         <SearchBar
-          ref={search => (this.search = search)}
+          ref={ref => (this.searchbar = ref)}
           placeholder="Search"
           lightTheme
           clearIcon={{ onPress: this.clear }}
           platform="default"
           round
+          value={this.state.filterText}
           onChangeText={text => this.onChangeTextFunction(text)}
-          onClearText={this.onClearTextFunction}
-          onCancel={this.onCancelFunction}
+          onClear={this.onClearTextFunction}
           autoCorrect={false}
         />
+        <View
+          style={
+            this.state.noResults ? Styles.noResults : Styles.noResultsHidden
+          }
+        >
+          <Text style={Styles.noResultsText}>
+            No stations match your search...
+          </Text>
+        </View>
       </View>
     )
   }
@@ -151,31 +138,37 @@ export default class StationListDefault extends Component {
     } else if (!isFetching && this.props.stations == null) {
       return <Text>Starting Load...</Text>
     } else {
-      console.tron.log(this.props)
       return (
-        <SectionList
-          renderItem={({ item }) => (
-            <StationListDefaultItem
-              expandKey={this.state.expandKey}
-              station={item}
-              navigation={this.props.navigation}
-            />
-          )}
-          renderSectionHeader={({ section: { title } }) => (
-            <View style={Styles.sectionHeader}>
-              <Text>{title}</Text>
-            </View>
-          )}
-          // sections={
-          //   this.state.filtering
-          //     ? this.state.filteredStations
-          //     : this.props.sectionedStations
-          // }
-          sections={this.props.sectionedStations}
-          keyExtractor={(item, index) => item + index}
-          ListHeaderComponent={this.renderHeader}
-          initialNumToRender={10}
-        />
+        <View style={{ paddingBottom: 70 }}>
+          <SectionList
+            renderItem={({ item }) => (
+              <StationListDefaultItem
+                station={item}
+                hidden={this.state.noResults}
+                navigation={this.props.navigation}
+              />
+            )}
+            renderSectionHeader={({ section: { title } }) => (
+              <View
+                style={
+                  this.state.noResults
+                    ? Styles.noResultsHidden
+                    : Styles.sectionHeader
+                }
+              >
+                <Text>{abbreviationToFullName(title).toUpperCase()}</Text>
+              </View>
+            )}
+            sections={
+              this.state.filteredStations === null
+                ? this.props.sectionedStations
+                : this.state.filteredStations
+            }
+            keyExtractor={(item, index) => item + index}
+            ListHeaderComponent={this.renderHeader}
+            initialNumToRender={10}
+          />
+        </View>
       )
     }
   }

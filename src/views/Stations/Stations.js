@@ -1,22 +1,13 @@
 import React, { Component } from 'react'
-import {
-  Image,
-  KeyboardAvoidingView,
-  ScrollView,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native'
+import { View } from 'react-native'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
-import { RoundedButton, StationListDefault } from '../../components'
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
+import { HeaderCenter, StationListDefault } from '../../components'
 import { NavigationActions } from 'react-navigation'
 import APIActions, { APISelectors } from '../../redux/APIRedux'
 import { Header } from 'react-native-elements'
 
 // Styles
-import styles from './StationsStyles'
 import { Colors } from '../../themes'
 
 class Stations extends Component {
@@ -24,6 +15,7 @@ class Stations extends Component {
     navigation: PropTypes.object,
     request_all_stations: PropTypes.func.isRequired,
     stations: PropTypes.array,
+    sectionedStations: PropTypes.array,
     isFetching: PropTypes.bool,
   }
 
@@ -50,10 +42,7 @@ class Stations extends Component {
             color: '#fff',
             size: 30,
           }}
-          centerComponent={{
-            text: 'Stations',
-            style: { color: '#fff', fontWeight: 'bold', fontSize: 18 },
-          }}
+          centerComponent={<HeaderCenter title={'Stations'} />}
           rightComponent={{
             onPress: () => this.loadStations(),
             icon: 'refresh',
@@ -63,7 +52,8 @@ class Stations extends Component {
         />
         <StationListDefault
           isFetching={this.props.isFetching}
-          stations={this.props.isFetching ? [] : this.props.stations}
+          stations={this.props.stations}
+          sectionedStations={this.props.sectionedStations}
           navigation={this.props.navigation}
         />
       </View>

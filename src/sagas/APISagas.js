@@ -16,7 +16,3 @@ export function* requestAllStations(api, action) {
     yield put(APIActions.fetchAllStationsFailure())
   }
 }
-
-// const requestAllStationsSuccess = stations => {
-//   console.tron.log(stations)
-// }

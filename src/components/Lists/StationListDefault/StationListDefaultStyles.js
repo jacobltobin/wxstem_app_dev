@@ -50,4 +50,18 @@ export default StyleSheet.create({
   listItemContainerCollapsed: {
     height: 0,
   },
+  noResultsHidden: {
+    height: 0,
+  },
+  noResults: {
+    height: 35,
+    justifyContent: 'center',
+    padding: 10,
+    backgroundColor: Colors.washedRed,
+  },
+  noResultsText: {
+    color: Colors.lightRed,
+    fontSize: 12,
+    justifyContent: 'center',
+  },
 })
