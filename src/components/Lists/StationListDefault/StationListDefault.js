@@ -4,6 +4,7 @@ import { Text, View, ActivityIndicator, SectionList } from 'react-native'
 import { SearchBar, ButtonGroup } from 'react-native-elements'
 import StationListDefaultItem from './StationListDefaultItem'
 import { abbreviationToFullName } from '../../../transforms/stateNameUtils'
+import * as apiTransforms from '../../../transforms/apiTransforms'
 
 import Styles from './StationListDefaultStyles'
 import { Colors } from '../../../themes'
@@ -52,7 +53,7 @@ export default class StationListDefault extends Component {
       })
     } else {
       this.setState({
-        filteredStations: this.createSectionedStations(newData),
+        filteredStations: apiTransforms.createSectionedStations(newData),
         filtering: true,
         noResults: false,
       })
@@ -68,35 +69,6 @@ export default class StationListDefault extends Component {
       filteredStations: this.props.sectionedStations,
       filtering: false,
     })
-  }
-
-  alphabetizeSections = sections => {
-    function compare(a, b) {
-      if (a.title < b.title) return -1
-      if (a.title > b.title) return 1
-      return 0
-    }
-    sections.sort(compare)
-    return sections
-  }
-
-  createSectionedStations = stations => {
-    const data = []
-    const sectionIndex = []
-    stations.forEach(station => {
-      const stationIndex = sectionIndex.indexOf(station.state)
-      if (stationIndex > -1) {
-        data[stationIndex].data.push(station)
-      } else {
-        const entry = Object.create({
-          title: station.state,
-          data: [station],
-        })
-        data.push(entry)
-        sectionIndex.push(station.state)
-      }
-    })
-    return this.alphabetizeSections(data)
   }
 
   renderHeader = () => {

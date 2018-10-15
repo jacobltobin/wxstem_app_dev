@@ -1,6 +1,6 @@
 import { createReducer, createActions } from 'reduxsauce'
 import Immutable from 'seamless-immutable'
-import { abbreviationToFullName } from '../../transforms/stateNameUtils'
+import * as apiTransforms from '../../transforms/apiTransforms'
 
 /* ------------- Types and Action Creators ------------- */
 
@@ -12,42 +12,6 @@ const { Types, Creators } = createActions({
 
 export const APIActionTypes = Types
 export default Creators
-
-/* ------------- Parsing Functions ------------- */
-
-const alphabetizeStations = stations => {
-  const sortableData = JSON.parse(JSON.stringify(stations))
-  function compare(a, b) {
-    if (a.name < b.name) return -1
-    if (a.name > b.name) return 1
-    return 0
-  }
-  sortableData.sort(compare)
-  return sortableData
-}
-const alphabetizeSections = sections => {
-  function compare(a, b) {
-    if (a.title < b.title) return -1
-    if (a.title > b.title) return 1
-    return 0
-  }
-  sections.sort(compare)
-  return sections
-}
-const createSectionedStations = stations => {
-  const data = []
-  const sectionIndex = []
-  stations.forEach(station => {
-    const stationIndex = sectionIndex.indexOf(station.state)
-    if (stationIndex > -1) {
-      data[stationIndex].data.push(station)
-    } else {
-      data.push({ title: station.state, data: [station] })
-      sectionIndex.push(station.state)
-    }
-  })
-  return alphabetizeSections(data)
-}
 
 /* ------------- Initial State ------------- */
 
@@ -114,9 +78,13 @@ export const success = (state, action) => {
       domainHandle: station.domain.handle,
     }
   })
-  const strippedAlphabetizedList = alphabetizeStations(strippedList)
-  const fullList = alphabetizeStations(list)
-  const sectionedList = createSectionedStations(strippedAlphabetizedList)
+  const strippedAlphabetizedList = apiTransforms.alphabetizeStations(
+    strippedList,
+  )
+  const fullList = apiTransforms.alphabetizeStations(list)
+  const sectionedList = apiTransforms.createSectionedStations(
+    strippedAlphabetizedList,
+  )
   const newState = {
     networkData: {
       stations: {
