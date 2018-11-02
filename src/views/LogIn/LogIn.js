@@ -13,6 +13,7 @@ import PropTypes from 'prop-types'
 import { Images } from '../../themes'
 import { NavigationActions } from 'react-navigation'
 import { HeaderCenter, HeaderLeft } from '../../components'
+import APIActions, { APISelectors } from '../../redux/APIRedux'
 
 // Styles
 import styles from './LogInStyles'
@@ -21,11 +22,34 @@ import { Colors } from '../../themes'
 class LogInView extends Component {
   static propTypes = {
     navigation: PropTypes.object,
+    login_user: PropTypes.func,
+  }
+
+  constructor(props) {
+    super(props)
+    this.state = {
+      uid_input: null,
+      pwd_input: null,
+    }
   }
 
   goBack = () => {
     const backAction = NavigationActions.back()
     this.props.navigation.dispatch(backAction)
+  }
+
+  uid_input_change = text => {
+    this.setState({ uid_input: text })
+  }
+  pwd_input_change = text => {
+    this.setState({ pwd_input: text })
+  }
+
+  login_user = () => {
+    this.props.login_user({
+      uid: this.state.uid_input,
+      pwd: this.state.pwd_input,
+    })
   }
 
   render() {
@@ -56,16 +80,24 @@ class LogInView extends Component {
                 containerStyle={styles.login_containerStyle}
                 inputContainerStyle={styles.login_inputContainerStyle}
                 placeholder="email"
+                autoCapitalize={'none'}
+                onChangeText={text => this.uid_input_change(text)}
                 leftIcon={{ type: 'font-awesome', name: 'user', color: '#ccc' }}
               />
               <Input
                 inputStyle={styles.login_input}
                 containerStyle={styles.login_containerStyle}
                 inputContainerStyle={styles.login_inputContainerStyle}
+                secureTextEntry
+                onChangeText={text => this.pwd_input_change(text)}
                 placeholder="password"
                 leftIcon={{ type: 'font-awesome', name: 'lock', color: '#ccc' }}
               />
-              <Button title="Sign In" buttonStyle={styles.login_buttonStyle} />
+              <Button
+                title="Sign In"
+                onPress={() => this.login_user()}
+                buttonStyle={styles.login_buttonStyle}
+              />
             </View>
           </KeyboardAvoidingView>
         </ScrollView>
@@ -84,7 +116,9 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = dispatch => {
-  return {}
+  return {
+    login_user: event => dispatch(APIActions.loginUser(event)),
+  }
 }
 
 export default connect(

@@ -8,6 +8,9 @@ const { Types, Creators } = createActions({
   requestAllStations: null,
   requestAllStationsSuccess: ['stations'],
   requestAllStationsFailure: null,
+  loginUser: ['payload'],
+  loginUserSuccess: ['session_id', 'id'],
+  loginUserFailure: null,
 })
 
 export const APIActionTypes = Types
@@ -20,6 +23,7 @@ export const INITIAL_STATE = Immutable({
     loggedIn: false,
     fetching: false,
     username: null,
+    session_id: null,
     id: null,
     error: null,
   },
@@ -47,12 +51,13 @@ export const APISelectors = {
     state.api.networkData.stations.fullList.filter(station => {
       return station.handle === handle && station.domain.handle === domainHandle
     })[0],
+  selectUserId: state => state.api.userInfo.id,
 }
 
 /* ------------- Reducers ------------- */
 
 // request all the stations in the network
-export const request = state => {
+export const stationRequest = state => {
   const newState = {
     networkData: {
       stations: {
@@ -67,7 +72,7 @@ export const request = state => {
 }
 
 // successful station lookup
-export const success = (state, action) => {
+export const stationRequestSuccess = (state, action) => {
   const list = action.stations
   const strippedList = list.map(station => {
     return {
@@ -100,7 +105,7 @@ export const success = (state, action) => {
 }
 
 // failed to get the stations
-export const failure = state => {
+export const stationRequestFailure = state => {
   const newState = {
     networkData: {
       stations: {
@@ -114,10 +119,59 @@ export const failure = state => {
   return state.merge(newState)
 }
 
+/* ------------- Reducers ------------- */
+
+// request all the stations in the network
+export const loginUser = state => {
+  const newState = {
+    userInfo: {
+      loggedIn: false,
+      fetching: false,
+      session_id: null,
+      id: null,
+      error: null,
+    },
+  }
+  return state.merge(newState)
+}
+
+// successful station lookup
+export const loginUserSuccess = (state, action) => {
+  const session_id = action.session_id
+  const id = action.id
+  const newState = {
+    userInfo: {
+      loggedIn: true,
+      fetching: false,
+      session_id: session_id,
+      id: id,
+      error: null,
+    },
+  }
+  return state.merge(newState)
+}
+
+// failed to get the stations
+export const loginUserFailure = state => {
+  const newState = {
+    userInfo: {
+      loggedIn: false,
+      fetching: false,
+      session_id: null,
+      id: null,
+      error: true,
+    },
+  }
+  return state.merge(newState)
+}
+
 /* ------------- Hookup Reducers To Types ------------- */
 
 export const reducer = createReducer(INITIAL_STATE, {
-  [Types.REQUEST_ALL_STATIONS]: request,
-  [Types.REQUEST_ALL_STATIONS_SUCCESS]: success,
-  [Types.REQUEST_ALL_STATIONS_FAILURE]: failure,
+  [Types.REQUEST_ALL_STATIONS]: stationRequest,
+  [Types.REQUEST_ALL_STATIONS_SUCCESS]: stationRequestSuccess,
+  [Types.REQUEST_ALL_STATIONS_FAILURE]: stationRequestFailure,
+  [Types.LOGIN_USER]: loginUser,
+  [Types.LOGIN_USER_SUCCESS]: loginUserSuccess,
+  [Types.LOGIN_USER_FAILURE]: loginUserFailure,
 })

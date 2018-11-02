@@ -16,3 +16,14 @@ export function* requestAllStations(api, action) {
     yield put(APIActions.fetchAllStationsFailure())
   }
 }
+
+export function* loginUser(api, action) {
+  const response = yield call(api.login_user, action)
+
+  if (response) {
+    const userObj = response
+    yield put(APIActions.loginUserSuccess(response))
+  } else {
+    yield put(APIActions.loginUserFailure())
+  }
+}

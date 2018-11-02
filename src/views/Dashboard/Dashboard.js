@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Text, ScrollView } from 'react-native'
+import { View, ScrollView } from 'react-native'
 import { createStackNavigator } from 'react-navigation'
 import PropTypes from 'prop-types'
 import { Header } from 'react-native-elements'
@@ -34,7 +34,7 @@ class Dashboard extends Component {
           centerComponent={<HeaderCenter title="Dashboard" />}
         />
         <ScrollView>
-          <Subheader title={'Stations'} />
+          <Subheader title={'My Stations'} />
           <AddStationButton />
 
           <Subheader title={'Notifications'} />

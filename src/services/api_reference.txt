@@ -1,0 +1,441 @@
+Endpoint:
+https://m.weatherstem.com/api/util
+
+Method:
+login
+
+Input:
+uid (e-mail address)
+password
+
+Output:
+session_id (session "token")
+id (unique numerical ID of user)
+
+
+
+
+Endpoint:
+https://m.weatherstem.com/api/util
+
+Method:
+create_user
+
+Input:
+uid
+first_name
+last_name
+password
+
+Output:
+session_id
+id
+
+
+
+
+ALL CALLS TO ENDPOINT https://m.weatherstem.com/api/util/mobile REQUIRED INPUT PARAM session_id
+
+
+
+
+Endpoint:
+https://m.weatherstem.com/api/util/mobile
+
+Method:
+create_device
+
+Input:
+name
+device_types_id_fk
+confirmed
+
+Output:
+id
+* IGNORE OTHER PARAMS RETURNED
+
+
+
+Endpoint:
+https://m.weatherstem.com/api/util/mobile
+
+Method:
+create_event
+
+Input:
+event_types_id_fk
+name
+
+Output
+id
+* IGNORE OTHER PARAMS RETURNED
+
+
+
+
+Endpoint:
+https://m.weatherstem.com/api/util/mobile
+
+Method:
+create_macro
+
+Input:
+events_id_fk
+messages_id_fk
+devices_id_fk
+min_repeat
+name
+
+Output:
+id
+* IGNORE OTHER PARAMS RETURNED
+
+
+
+
+Endpoint:
+https://m.weatherstem.com/api/util/mobile
+
+Method:
+create_message
+
+Input:
+name
+content
+
+Output:
+id
+* IGNORE OTHER PARAMS RETURNED
+
+
+
+
+Endpoint:
+https://m.weatherstem.com/api/util/mobile
+
+Method:
+delete_device
+
+Input:
+id
+
+Output:
+status = 1 (Success)
+
+
+
+
+Endpoint:
+https://m.weatherstem.com/api/util/mobile
+
+Method:
+delete_event
+
+Input:
+id
+
+Output:
+status = 1 (Success)
+
+
+
+
+Endpoint:
+https://m.weatherstem.com/api/util/mobile
+
+Method:
+delete_macro
+
+Input:
+id
+
+Output:
+status = 1 (Success)
+
+
+
+
+Endpoint:
+https://m.weatherstem.com/api/util/mobile
+
+Method:
+delete_message
+
+Input:
+id
+
+Output:
+status = 1 (Success)
+
+
+
+
+Endpoint:
+https://m.weatherstem.com/api/util/mobile
+
+Method:
+get_all_devices
+
+Input:
+NONE
+
+Output:
+Array of devices
+
+	Each member of array is a device object which has the following properties:
+		confirmed
+		id
+		name
+		type
+		metadata
+			The metadata object is an Array which has type-specific values depending on the type of device in scope
+
+			
+			
+			
+			
+Endpoint:
+https://m.weatherstem.com/api/util/mobile
+
+Method:
+get_all_events
+
+Input:
+NONE
+
+Output:
+Array of events
+
+	Each member of array is an event object which has the following properties:
+		id
+		name
+		type
+		data
+			The data object is dependent on what type of event is in scope
+			The event types are:
+				Sensor
+				Forecast
+				Scheduled
+				TropicalSystem
+				Alert
+				Lightning
+				
+				
+				
+				
+Endpoint:
+https://m.weatherstem.com/api/util/mobile
+
+Method:
+get_all_macros
+
+Input:
+NONE
+
+Output:
+Array of macros
+
+	Each member of array is a macro object which has the following properties:
+		id
+		name
+		min_repeat
+		device
+			id
+			name
+			metadata
+			type
+		event 
+			name
+			id
+			type
+			data
+		message
+			id
+			name
+			content
+		min_repeat
+		
+		
+		
+		
+Endpoint:
+https://m.weatherstem.com/api/util/mobile
+
+Method:
+get_all_messages
+
+Input:
+NONE
+
+Output:
+Array of messages
+
+	Each member of array is a message object which has the following properties:
+		id
+		name
+		content
+		
+		
+		
+		
+Endpoint:
+https://m.weatherstem.com/api/util/mobile
+
+Method:
+get_device_type_metadata
+
+Input:
+id (the device type id)
+
+Output:
+Array of device type metadata object
+
+	EXAMPLE CALL:
+	[{"device_types_id_fk":"22","name":"Username","id":"28"},{"device_types_id_fk":"22","name":"Consumer Key","id":"29"},{"device_types_id_fk":"22","name":"Consumer Secret","id":"30"},{"device_types_id_fk":"22","name":"Access Token","id":"31"},{"device_types_id_fk":"22","name":"Access Token Secret","id":"32"}]
+
+
+
+
+Endpoint:
+https://m.weatherstem.com/api/util/mobile
+
+Method:
+get_device_types
+
+Input:
+NONE
+
+Output:
+Array of device type objects
+
+	EXAMPLE:
+	[{"classref":"WeatherSTEM::Entity::Device::DeviceType::DeviceTypes::AIM","name":"AOL Instant Messenger","id":"32"},{"classref":"WeatherSTEM::Entity::Device::DeviceType::DeviceTypes::EMail","name":"E-Mail","id":"15"},{"classref":"WeatherSTEM::Entity::Device::DeviceType::DeviceTypes::Facebook::Page","name":"Facebook Page Wall","id":"36"},{"classref":"WeatherSTEM::Entity::Device::DeviceType::DeviceTypes::Facebook::User","name":"Facebook User Wall","id":"35"},{"classref":"WeatherSTEM::Entity::Device::DeviceType::DeviceTypes::HTTPPost","name":"HTTP POST","id":"33"},{"classref":"WeatherSTEM::Entity::Device::DeviceType::DeviceTypes::Twilio::SMS","name":"Text Messaging","id":"17"},{"classref":"WeatherSTEM::Entity::Device::DeviceType::DeviceTypes::Twitter","name":"Twitter","id":"22"},{"classref":"WeatherSTEM::Entity::Device::DeviceType::DeviceTypes::Twilio::Voice","name":"Voice","id":"16"}]
+
+
+
+
+Endpoint:
+https://m.weatherstem.com/api/util/mobile
+
+Method:
+get_entities
+
+Input:
+NONE
+
+Output:
+WeatherSTEM Hierarchy tree of:
+State > Domain > Station > Transmitter > Sensor
+
+
+
+
+Endpoint:
+https://m.weatherstem.com/api/util/mobile
+
+Method:
+get_event_types
+
+Input:
+NONE
+
+Output:
+Array of event type objects
+
+	EXAMPLE:
+	[{"classref":"WeatherSTEM::Entity::Event::EventType::CustomEvent::Alert","name":"Alert","uncache":1,"id":"9"},{"classref":"WeatherSTEM::Entity::Event::EventType::CustomEvent::Forecast","name":"Forecast","uncache":1,"id":"11"},{"classref":"WeatherSTEM::Entity::Event::EventType::CustomEvent::Lightning","name":"Lightning","uncache":1,"id":"13"},{"classref":"WeatherSTEM::Entity::Event::EventType::CustomEvent::Scheduled","name":"Scheduled","uncache":1,"id":"10"},{"classref":"WeatherSTEM::Entity::Event::EventType::CustomEvent::Sensor","name":"Sensor","uncache":1,"id":"8"},{"classref":"WeatherSTEM::Entity::Event::EventType::CustomEvent::TropicalSystem","name":"TropicalSystem","uncache":1,"id":"15"}]
+
+
+
+
+Endpoint:
+https://m.weatherstem.com/api/util/mobile
+
+Method:
+update_device
+
+Input:
+name
+device_types_id_fk
+confirmed
+id
+
+Output:
+id
+* IGNORE OTHER PARAMS RETURNED
+
+
+
+
+Endpoint:
+https://m.weatherstem.com/api/util/mobile
+
+Method:
+update_event
+
+Input:
+event_types_id_fk
+name
+id
+
+Output
+id
+* IGNORE OTHER PARAMS RETURNED
+
+
+
+
+Endpoint:
+https://m.weatherstem.com/api/util/mobile
+
+Method:
+update_macro
+
+Input:
+events_id_fk
+messages_id_fk
+devices_id_fk
+min_repeat
+name
+id
+
+Output:
+id
+* IGNORE OTHER PARAMS RETURNED
+
+
+
+
+Endpoint:
+https://m.weatherstem.com/api/util/mobile
+
+Method:
+update_message
+
+Input:
+name
+content
+id
+
+Output:
+id
+* IGNORE OTHER PARAMS RETURNED
+
+
+
+
+Endpoint:
+https://m.weatherstem.com/api/util
+
+Method:
+update_user
+
+Input:
+uid
+first_name
+last_name
+password
+
+Output:
+id
+* IGNORE OTHER PARAMS RETURNED

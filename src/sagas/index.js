@@ -12,6 +12,7 @@ import { APIActionTypes } from '../redux/APIRedux'
 
 import { startup } from './StartupSagas'
 import { requestAllStations } from './APISagas'
+import { loginUser } from './APISagas'
 
 /* ------------- API ------------- */
 
@@ -28,5 +29,7 @@ export default function* root() {
 
     // some sagas receive extra parameters in addition to an action
     takeLatest(APIActionTypes.REQUEST_ALL_STATIONS, requestAllStations, api),
+
+    takeLatest(APIActionTypes.LOGIN_USER, loginUser, api),
   ])
 }

@@ -37,18 +37,20 @@ const create = (baseURL = 'http://cdn.weatherstem.com') => {
   const get_all_stations = () => {
     return axios({
       method: 'get',
-      url: 'https://cdn.weatherstem.com/orangestem/data/dynamic/model/stations.json',
-      responseType: 'json'
+      url:
+        'https://cdn.weatherstem.com/orangestem/data/dynamic/model/stations.json',
+      responseType: 'json',
     })
   }
 
-  const login_user = (email, password) => {
+  const login_user = action => {
     return axios({
       method: 'post',
-      url: 'https://m.weatherstem.com/api/util/user/login',
+      url: 'https://m.weatherstem.com/api/util',
       data: {
-        email: email,
-        password: password,
+        method: 'login',
+        uid: action.payload.uid,
+        password: action.payload.pwd,
       },
     })
   }
