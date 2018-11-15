@@ -44,6 +44,10 @@ class LogInView extends Component {
     const backAction = NavigationActions.back()
     this.props.navigation.dispatch(backAction)
   }
+  logged_in_now_navigate = () => {
+    const loggedInAction = NavigationActions.navigate({ routeName: 'MainTab' })
+    this.props.navigation.dispatch(loggedInAction)
+  }
 
   uid_input_change = text => {
     this.setState({ uid_input: text })
@@ -77,6 +81,7 @@ class LogInView extends Component {
             uid_error: true,
             uid_error_message: 'invalid email address',
           })
+          this.uid_input_component.shake()
         }
         break
       case 'pwd':
@@ -86,6 +91,7 @@ class LogInView extends Component {
             pwd_error_message: 'password should be longer than 5 characters',
             pwd_error_from_blur: true,
           })
+          this.pwd_input_component.shake()
         } else {
           this.setState({
             pwd_error: false,
@@ -93,11 +99,8 @@ class LogInView extends Component {
             pwd_error_from_blur: false,
           })
         }
-      // todo ~~
     }
   }
-
-  setError = (field, message) => {}
 
   login_user = () => {
     if (!this.state.uid_error && !this.state.pwd_error) {
@@ -110,7 +113,38 @@ class LogInView extends Component {
     }
   }
 
+  return_error = field => {
+    switch (field) {
+      case 'pwd':
+        if (this.state.pwd_error) {
+          return this.state.pwd_error_message
+        } else if (
+          this.props.login_info.api_error &&
+          this.props.login_info.api_error.indexOf('password') > 0
+        ) {
+          return 'Incorrect password'
+        } else {
+          return ''
+        }
+        break
+      case 'uid':
+        if (this.state.uid_error) {
+          return this.state.uid_error_message
+        } else if (
+          this.props.login_info.api_error &&
+          this.props.login_info.api_error.indexOf('username') > 0
+        ) {
+          return 'this email is not registered with us'
+        } else {
+          return ''
+        }
+    }
+  }
+
   render() {
+    if (this.props.login_info.logged_in) {
+      this.logged_in_now_navigate()
+    }
     return (
       <View style={styles.login_Container}>
         <Header
@@ -134,6 +168,7 @@ class LogInView extends Component {
             </View>
             <View style={styles.login_formContainer}>
               <Input
+                ref={input => (this.uid_input_component = input)}
                 inputStyle={styles.login_input}
                 containerStyle={styles.login_containerStyle}
                 inputContainerStyle={styles.login_inputContainerStyle}
@@ -141,13 +176,14 @@ class LogInView extends Component {
                 onBlur={() => {
                   this.validate('uid', this.state.uid_input)
                 }}
+                errorMessage={this.return_error('uid')}
                 errorStyle={{ color: 'red' }}
-                errorMessage={this.state.uid_error_message}
                 autoCapitalize={'none'}
                 onChangeText={text => this.uid_input_change(text)}
                 leftIcon={{ type: 'font-awesome', name: 'user', color: '#ccc' }}
               />
               <Input
+                ref={input => (this.pwd_input_component = input)}
                 inputStyle={styles.login_input}
                 containerStyle={styles.login_containerStyle}
                 inputContainerStyle={styles.login_inputContainerStyle}
@@ -158,7 +194,7 @@ class LogInView extends Component {
                   this.validate('pwd', this.state.pwd_input)
                 }}
                 errorStyle={{ color: 'red' }}
-                errorMessage={this.state.pwd_error_message}
+                errorMessage={this.return_error('pwd')}
                 leftIcon={{ type: 'font-awesome', name: 'lock', color: '#ccc' }}
               />
               <Button

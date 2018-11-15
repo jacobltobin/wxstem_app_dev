@@ -20,9 +20,9 @@ export default Creators
 
 export const INITIAL_STATE = Immutable({
   userInfo: {
-    loggedIn: false,
+    logged_in: false,
     fetching: false,
-    username: null,
+    api_error: null,
     login_info: {
       data: {
         error: null,
@@ -46,7 +46,7 @@ export const APISelectors = {
   selectStationsFullList: state => state.api.networkData.stations.fullList,
   selectStationsStrippedList: state =>
     state.api.networkData.stations.strippedList,
-  selectLoginInfo: state => state.api.userInfo.login_info,
+  selectLoginInfo: state => state.api.userInfo,
   selectStationsSectionedList: state =>
     state.api.networkData.stations.sectionedList,
   isFetchingStations: state => state.api.networkData.stations.fetching,
@@ -128,8 +128,9 @@ export const stationRequestFailure = state => {
 export const loginUser = state => {
   const newState = {
     userInfo: {
-      loggedIn: false,
-      fetching: false,
+      logged_in: false,
+      fetching: true,
+      api_error: null,
       login_info: {
         data: {
           error: null,
@@ -140,25 +141,25 @@ export const loginUser = state => {
   return state.merge(newState)
 }
 
-// successful station lookup
+// successful REQUEST not necessarily successful login
 export const loginUserSuccess = (state, action) => {
   const login_info = action.login_info
-  console.tron.log(action.login_info)
   const newState = {
     userInfo: {
-      loggedIn: true,
+      logged_in: login_info.data.error ? false : true,
       fetching: false,
+      api_error: login_info.data.error ? login_info.data.error : null,
       login_info: login_info,
     },
   }
   return state.merge(newState)
 }
 
-// failed to get the stations
+// request failed
 export const loginUserFailure = state => {
   const newState = {
     userInfo: {
-      loggedIn: false,
+      logged_in: false,
       fetching: false,
       login_info: {
         data: {
