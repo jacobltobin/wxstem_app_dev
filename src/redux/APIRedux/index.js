@@ -9,7 +9,7 @@ const { Types, Creators } = createActions({
   requestAllStationsSuccess: ['stations'],
   requestAllStationsFailure: null,
   loginUser: ['payload'],
-  loginUserSuccess: ['session_id', 'id'],
+  loginUserSuccess: ['login_info'],
   loginUserFailure: null,
 })
 
@@ -23,9 +23,11 @@ export const INITIAL_STATE = Immutable({
     loggedIn: false,
     fetching: false,
     username: null,
-    session_id: null,
-    id: null,
-    error: null,
+    login_info: {
+      data: {
+        error: null,
+      },
+    },
   },
   networkData: {
     stations: {
@@ -44,6 +46,7 @@ export const APISelectors = {
   selectStationsFullList: state => state.api.networkData.stations.fullList,
   selectStationsStrippedList: state =>
     state.api.networkData.stations.strippedList,
+  selectLoginInfo: state => state.api.userInfo.login_info,
   selectStationsSectionedList: state =>
     state.api.networkData.stations.sectionedList,
   isFetchingStations: state => state.api.networkData.stations.fetching,
@@ -127,9 +130,11 @@ export const loginUser = state => {
     userInfo: {
       loggedIn: false,
       fetching: false,
-      session_id: null,
-      id: null,
-      error: null,
+      login_info: {
+        data: {
+          error: null,
+        },
+      },
     },
   }
   return state.merge(newState)
@@ -137,15 +142,13 @@ export const loginUser = state => {
 
 // successful station lookup
 export const loginUserSuccess = (state, action) => {
-  const session_id = action.session_id
-  const id = action.id
+  const login_info = action.login_info
+  console.tron.log(action.login_info)
   const newState = {
     userInfo: {
       loggedIn: true,
       fetching: false,
-      session_id: session_id,
-      id: id,
-      error: null,
+      login_info: login_info,
     },
   }
   return state.merge(newState)
@@ -157,9 +160,11 @@ export const loginUserFailure = state => {
     userInfo: {
       loggedIn: false,
       fetching: false,
-      session_id: null,
-      id: null,
-      error: true,
+      login_info: {
+        data: {
+          error: null,
+        },
+      },
     },
   }
   return state.merge(newState)
