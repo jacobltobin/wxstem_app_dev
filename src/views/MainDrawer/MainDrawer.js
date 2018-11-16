@@ -26,12 +26,6 @@ export default createDrawerNavigator(
         drawerLabel: () => null,
       },
     },
-    LogIn: {
-      screen: LogIn,
-      navigationOptions: {
-        drawerLabel: 'Log In',
-      },
-    },
     CreateAccount: {
       screen: LogIn,
       navigationOptions: {

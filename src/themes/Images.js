@@ -19,6 +19,7 @@ const images = {
   logoIcon: require('../images/logo-icon.png'),
   logoIconWhite: require('../images/logo-icon-white.png'),
   logoIconTypeColor: require('../images/logo-icon-type-color.png'),
+  logoIconTypeColorHorizontal: require('../images/logo-icon-type-color-horizontal.png'),
   ready: require('../images/your-app.png'),
   theme: require('../images/icons/icon-theme.png'),
   tileBg: require('../images/tile_bg.png'),

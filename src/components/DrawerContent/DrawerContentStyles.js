@@ -13,6 +13,13 @@ export default {
     borderBottomWidth: 1,
     borderBottomColor: Colors.lightGray,
   },
+  drawerItem: {
+    ...Fonts.style.drawerItem,
+    color: Colors.midGray,
+    paddingTop: 25,
+    paddingLeft: 18,
+    paddingBottom: 5,
+  },
   userMetaContainer: {},
   userLabel: {
     ...Fonts.style.detail,

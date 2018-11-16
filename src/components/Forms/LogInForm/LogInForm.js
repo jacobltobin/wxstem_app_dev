@@ -11,14 +11,12 @@ import styles from './LogInFormStyles'
 // LogInForm - two input fields and a button
 //    handles form validation and
 //    submitting login request to api
-//    DOES NOT handle redirect after login!
-//    do that in the parent component
-//    that has navigation
-//    by checking for a session ID!
+//    pass on success from parent!
 class LogInForm extends Component {
   static propTypes = {
     login_user: PropTypes.func,
     login_info: PropTypes.object,
+    onSuccess: PropTypes.func,
   }
 
   constructor(props) {
@@ -128,6 +126,9 @@ class LogInForm extends Component {
   }
 
   render() {
+    if (this.props.login_info.logged_in) {
+      this.props.onSuccess()
+    }
     return (
       <View style={styles.login_formContainer}>
         <Input
