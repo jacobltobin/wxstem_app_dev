@@ -26,33 +26,33 @@ export default createDrawerNavigator(
         drawerLabel: () => null,
       },
     },
-    CreateAccount: {
-      screen: LogIn,
-      navigationOptions: {
-        drawerLabel: 'Create Account',
-      },
-    },
-    NotificationsSettings: {
-      screen: LogIn,
-      navigationOptions: {
-        drawerLabel: 'Notifications',
-      },
-    },
-    Settings: {
-      screen: LogIn,
-      navigationOptions: {
-        drawerLabel: 'Settings',
-      },
-    },
-    Help: {
-      screen: LogIn,
-    },
-    Contact: {
-      screen: LogIn,
-      navigationOptions: {
-        drawerLabel: 'Contact WeatherSTEM',
-      },
-    },
+    // CreateAccount: {
+    //   screen: LogIn,
+    //   navigationOptions: {
+    //     drawerLabel: 'Create Account',
+    //   },
+    // },
+    // NotificationsSettings: {
+    //   screen: LogIn,
+    //   navigationOptions: {
+    //     drawerLabel: 'Notifications',
+    //   },
+    // },
+    // Settings: {
+    //   screen: LogIn,
+    //   navigationOptions: {
+    //     drawerLabel: 'Settings',
+    //   },
+    // },
+    // Help: {
+    //   screen: LogIn,
+    // },
+    // Contact: {
+    //   screen: LogIn,
+    //   navigationOptions: {
+    //     drawerLabel: 'Contact WeatherSTEM',
+    //   },
+    // },
   },
   {
     contentComponent: DrawerContent,

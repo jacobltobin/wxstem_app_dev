@@ -1,30 +1,34 @@
 import React, { Component } from 'react'
-import { DrawerItems, SafeAreaView } from 'react-navigation'
 import PropTypes from 'prop-types'
-import { ScrollView, Text, View, Image, TouchableOpacity } from 'react-native'
+import { connect } from 'react-redux'
+import { APISelectors } from '../../redux/APIRedux'
 import { NavigationActions } from 'react-navigation'
-import { Images } from '../../themes'
+
+import { DrawerItems, SafeAreaView } from 'react-navigation'
+import { ScrollView, Text, View, Image, TouchableOpacity } from 'react-native'
 import LoginModal from '../Modals/LoginModal'
 
+import { Images } from '../../themes'
 import styles from './DrawerContentStyles'
 
-export default class DrawerContent extends Component {
+class DrawerContent extends Component {
   static propTypes = {
     navigation: PropTypes.object,
+    login_info: PropTypes.object,
   }
 
   constructor(props) {
     super(props)
     this.state = {
-      modalVisible: false,
+      logInModalVisible: false,
     }
   }
 
-  setModalVisible(visible) {
+  setLogInModalVisible(visible) {
     if (visible) {
       this.props.navigation.toggleDrawer()
     }
-    this.setState({ modalVisible: visible })
+    this.setState({ logInModalVisible: visible })
   }
 
   navigateToScreen = route => () => {
@@ -35,6 +39,38 @@ export default class DrawerContent extends Component {
   }
 
   render() {
+    const isLoggedIn = this.props.login_info.logged_in
+    let loginControl
+    let userName
+
+    if (isLoggedIn) {
+      loginControl = (
+        <TouchableOpacity
+          onPress={() => {
+            this.setLogInModalVisible(!this.state.logInModalVisible)
+          }}
+        >
+          <Text style={styles.drawerItem}>Log Out</Text>
+        </TouchableOpacity>
+      )
+
+      userName =
+        this.props.login_info.login_info.data.first_name +
+        ' ' +
+        this.props.login_info.login_info.data.last_name
+    } else {
+      loginControl = (
+        <TouchableOpacity
+          onPress={() => {
+            this.setLogInModalVisible(!this.state.logInModalVisible)
+          }}
+        >
+          <Text style={styles.drawerItem}>Log In</Text>
+        </TouchableOpacity>
+      )
+
+      userName = 'Guest User'
+    }
     return (
       <ScrollView>
         <SafeAreaView style={styles.container}>
@@ -48,26 +84,35 @@ export default class DrawerContent extends Component {
             </View>
             <View style={styles.userMetaContainer}>
               <Text style={styles.userLabel}>logged in as</Text>
-              <Text style={styles.userName}>guest user</Text>
+              <Text style={styles.userName}>{userName}</Text>
             </View>
           </View>
-          <TouchableOpacity
-            onPress={() => {
-              this.setModalVisible(true)
-            }}
-          >
-            <Text style={styles.drawerItem}>Log In</Text>
-          </TouchableOpacity>
           <DrawerItems {...this.props} />
+          {loginControl}
           <View style={styles.drawerFooter}>
             <Text style={styles.drawerFooterLink}>weatherstem.com</Text>
           </View>
         </SafeAreaView>
         <LoginModal
-          visible={this.state.modalVisible}
-          setModalVisible={visible => this.setModalVisible(visible)}
+          visible={this.state.logInModalVisible}
+          setLogInModalVisible={visible => this.setLogInModalVisible(visible)}
         />
       </ScrollView>
     )
   }
 }
+
+const mapStateToProps = state => {
+  return {
+    login_info: APISelectors.selectLoginInfo(state),
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {}
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(DrawerContent)

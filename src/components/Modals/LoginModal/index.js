@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import { View, TouchableOpacity, Image, Text } from 'react-native'
 import Modal from 'react-native-modal'
 import { LogInForm } from '../../'
-import { Icon, Divider } from 'react-native-elements'
+import { Icon } from 'react-native-elements'
 
 import { Images } from '../../../themes'
 import styles from './LogInModalStyles'
@@ -12,17 +12,11 @@ import styles from './LogInModalStyles'
 export default class LoginModal extends Component {
   static propTypes = {
     visible: PropTypes.bool,
-    setModalVisible: PropTypes.func,
-  }
-  constructor(props) {
-    super(props)
-    this.state = {
-      modalVisible: this.props.visible,
-    }
+    setLogInModalVisible: PropTypes.func,
   }
 
   onSuccess = () => {
-    this.props.setModalVisible(false)
+    this.props.setLogInModalVisible(false)
   }
 
   render() {
@@ -35,10 +29,10 @@ export default class LoginModal extends Component {
         backdropTransitionInTiming={500}
         isVisible={this.props.visible}
         onBackButtonPress={() => {
-          this.props.setModalVisible(false)
+          this.props.setLogInModalVisible(false)
         }}
         onBackdropPress={() => {
-          this.props.setModalVisible(false)
+          this.props.setLogInModalVisible(false)
         }}
       >
         <View style={styles.modal_inner_container}>
@@ -46,7 +40,7 @@ export default class LoginModal extends Component {
             <TouchableOpacity
               style={styles.modal_close}
               onPress={() => {
-                this.props.setModalVisible(false)
+                this.props.setLogInModalVisible(false)
               }}
             >
               <Icon name="close" size={30} color="#000" />
