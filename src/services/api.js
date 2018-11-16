@@ -51,6 +51,7 @@ const create = (baseURL = 'http://cdn.weatherstem.com') => {
         method: 'login',
         uid: action.payload.uid,
         password: action.payload.pwd,
+        permanent_key: 'd2c0de4bd62957ed906075a28b02ea62',
       },
     })
   }
