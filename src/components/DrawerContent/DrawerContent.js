@@ -47,7 +47,7 @@ class DrawerContent extends Component {
       loginControl = (
         <TouchableOpacity
           onPress={() => {
-            this.setLogInModalVisible(!this.state.logInModalVisible)
+            this.setLogInModalVisible(false)
           }}
         >
           <Text style={styles.drawerItem}>Log Out</Text>
@@ -62,7 +62,7 @@ class DrawerContent extends Component {
       loginControl = (
         <TouchableOpacity
           onPress={() => {
-            this.setLogInModalVisible(!this.state.logInModalVisible)
+            this.setLogInModalVisible(true)
           }}
         >
           <Text style={styles.drawerItem}>Log In</Text>
@@ -95,7 +95,7 @@ class DrawerContent extends Component {
         </SafeAreaView>
         <LoginModal
           visible={this.state.logInModalVisible}
-          setLogInModalVisible={visible => this.setLogInModalVisible(visible)}
+          close={() => this.setLogInModalVisible(false)}
         />
       </ScrollView>
     )

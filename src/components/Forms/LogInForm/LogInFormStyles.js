@@ -40,7 +40,8 @@ export default StyleSheet.create({
     alignSelf: 'stretch',
   },
   login_containerStyle: {
-    marginTop: 20,
+    marginTop: 10,
+    width: '100%',
     borderBottomWidth: 0,
     borderBottomColor: Colors.white,
   },
@@ -64,5 +65,19 @@ export default StyleSheet.create({
   login_signUpButtonText: {
     ...Fonts.style.detail,
     color: Colors.gray,
+  },
+  name_inputs_container: {
+    flexDirection: 'row',
+  },
+  name_input: {
+    color: Colors.nearBlack,
+    ...Fonts.style.normal,
+    width: 100,
+  },
+  name_input_containerStyle: {
+    flex: 0.45,
+    marginTop: 10,
+    borderBottomWidth: 0,
+    borderBottomColor: Colors.white,
   },
 })
