@@ -13,6 +13,7 @@ import { APIActionTypes } from '../redux/APIRedux'
 import { startup } from './StartupSagas'
 import { requestAllStations } from './APISagas'
 import { loginUser } from './APISagas'
+import { createUser } from './APISagas'
 
 /* ------------- API ------------- */
 
@@ -31,5 +32,7 @@ export default function* root() {
     takeLatest(APIActionTypes.REQUEST_ALL_STATIONS, requestAllStations, api),
 
     takeLatest(APIActionTypes.LOGIN_USER, loginUser, api),
+
+    takeLatest(APIActionTypes.CREATE_USER, createUser, api),
   ])
 }

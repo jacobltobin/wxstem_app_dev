@@ -26,3 +26,13 @@ export function* loginUser(api, action) {
     yield put(APIActions.loginUserFailure())
   }
 }
+
+export function* createUser(api, action) {
+  const response = yield call(api.create_user, action)
+
+  if (response) {
+    yield put(APIActions.createUserSuccess(response))
+  } else {
+    yield put(APIActions.createUserFailure())
+  }
+}

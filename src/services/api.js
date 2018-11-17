@@ -56,6 +56,20 @@ const create = (baseURL = 'http://cdn.weatherstem.com') => {
     })
   }
 
+  const create_user = action => {
+    return axios({
+      method: 'post',
+      url: 'https://m.weatherstem.com/api/util',
+      data: {
+        method: 'create_user',
+        uid: action.payload.uid,
+        first_name: action.payload.first_name,
+        last_name: action.payload.last_name,
+        password: action.payload.pwd,
+      },
+    })
+  }
+
   // ------
   // STEP 3
   // ------
@@ -72,6 +86,7 @@ const create = (baseURL = 'http://cdn.weatherstem.com') => {
     // a list of the API functions from step 2
     get_all_stations,
     login_user,
+    create_user,
   }
 }
 
