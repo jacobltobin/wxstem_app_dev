@@ -39,7 +39,7 @@ class Dashboard extends Component {
         />
         <ScrollView>
           <Subheader title={'My Stations'} />
-          <View style={Styles.addStationbutton}>
+          <View style={Styles.addStationButton}>
             <TouchableOpacity
               onPress={() => this.handle_add_station_press()}
               activeOpacity={0.5}
@@ -48,8 +48,11 @@ class Dashboard extends Component {
                 name={'plus-circle'}
                 type={'font-awesome'}
                 size={100}
-                color="#e9e9e9"
+                color={Colors.lightGray}
               />
+              <Text style={Styles.addStationButtonText}>
+                Add stations {'\n'}to your dashboard
+              </Text>
             </TouchableOpacity>
           </View>
           <Subheader title={'Notifications'} />

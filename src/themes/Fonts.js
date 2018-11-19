@@ -22,6 +22,9 @@ const style = {
   all: {
     fontFamily: type.base,
   },
+  italic: {
+    fontFamily: type.emphasis,
+  },
   header: {
     fontFamily: type.bold,
     color: '#fff',

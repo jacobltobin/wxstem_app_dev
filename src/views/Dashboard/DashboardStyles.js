@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native'
-import { Metrics, ApplicationStyles, Colors } from '../../themes'
+import { Fonts, Metrics, ApplicationStyles, Colors } from '../../themes'
 
 export default StyleSheet.create({
   ...ApplicationStyles.screen,
@@ -11,7 +11,13 @@ export default StyleSheet.create({
     paddingBottom: Metrics.baseMargin,
   },
   addStationButton: {
-    borderTopWidth: 20,
-    backgroundColor: 'red',
+    marginTop: 40,
+    marginBottom: 40,
+  },
+  addStationButtonText: {
+    ...Fonts.style.italic,
+    color: Colors.moonGray,
+    alignSelf: 'center',
+    textAlign: 'center',
   },
 })
