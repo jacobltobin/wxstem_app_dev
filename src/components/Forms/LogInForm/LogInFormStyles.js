@@ -57,9 +57,7 @@ export default StyleSheet.create({
   },
   login_signUpButton: {
     alignSelf: 'stretch',
-    borderTopWidth: 1,
-    backgroundColor: Colors.white,
-    borderTopColor: Colors.lightGray,
+    backgroundColor: Colors.lightGray,
     padding: 20,
   },
   login_signUpButtonText: {

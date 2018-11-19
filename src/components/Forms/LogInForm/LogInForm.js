@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import APIActions, { APISelectors } from '../../../redux/APIRedux'
 
-import { View } from 'react-native'
+import { View, TouchableOpacity, Text } from 'react-native'
 import { Input, Button } from 'react-native-elements'
 
 import styles from './LogInFormStyles'
@@ -18,13 +18,15 @@ class LogInForm extends Component {
     login_user: PropTypes.func,
     create_user: PropTypes.func,
     login_info: PropTypes.object,
+    clear_log_in_error: PropTypes.func,
     onSuccess: PropTypes.func,
-    creatingAccount: PropTypes.bool,
   }
 
   constructor(props) {
     super(props)
     this.state = {
+      creating_account: false,
+
       uid_input: '',
       uid_error: true,
       uid_error_message: '',
@@ -231,6 +233,11 @@ class LogInForm extends Component {
           this.props.login_info.api_error.indexOf('username') > 0
         ) {
           return 'this email is not registered with us'
+        } else if (
+          this.props.login_info.api_error &&
+          this.props.login_info.api_error.indexOf('exists') > 0
+        ) {
+          return 'email already registered'
         } else {
           return ''
         }
@@ -259,10 +266,10 @@ class LogInForm extends Component {
   }
 
   render() {
-    const creatingAccount = this.props.creatingAccount
-    let name_inputs, password_verify_input, form_submit_button
+    const creating_account = this.state.creating_account
+    let name_inputs, password_verify_input, form_submit_button, form_toggle
 
-    if (creatingAccount) {
+    if (creating_account) {
       name_inputs = (
         <View style={styles.name_inputs_container}>
           <Input
@@ -325,10 +332,31 @@ class LogInForm extends Component {
             this.state.first_name_error ||
             this.state.last_name_error ||
             this.state.pwd_error ||
-            this.state.pwd_verify_error
+            this.state.pwd_verify_error ||
+            this.state.uid_input.length < 1 ||
+            this.state.first_name_input.length < 1 ||
+            this.state.last_name_input.length < 1 ||
+            this.state.pwd_input.length < 1 ||
+            this.state.pwd_verify_input.length < 1 ||
+            this.state.pwd_input !== this.state.pwd_verify_input
           }
           buttonStyle={styles.login_buttonStyle}
         />
+      )
+      form_toggle = (
+        <TouchableOpacity
+          style={styles.login_signUpButton}
+          onPress={() => {
+            this.props.clear_log_in_error()
+            this.setState({
+              creating_account: false,
+            })
+          }}
+        >
+          <Text style={styles.login_signUpButtonText}>
+            Already have an account? Sign In.
+          </Text>
+        </TouchableOpacity>
       )
     } else {
       name_inputs = ''
@@ -340,6 +368,21 @@ class LogInForm extends Component {
           disabled={this.state.uid_error || this.state.pwd_error}
           buttonStyle={styles.login_buttonStyle}
         />
+      )
+      form_toggle = (
+        <TouchableOpacity
+          style={styles.login_signUpButton}
+          onPress={() => {
+            this.props.clear_log_in_error()
+            this.setState({
+              creating_account: true,
+            })
+          }}
+        >
+          <Text style={styles.login_signUpButtonText}>
+            No Account? Sign up.
+          </Text>
+        </TouchableOpacity>
       )
     }
 
@@ -382,6 +425,7 @@ class LogInForm extends Component {
         />
         {password_verify_input}
         {form_submit_button}
+        {form_toggle}
       </View>
     )
   }
@@ -397,6 +441,7 @@ const mapDispatchToProps = dispatch => {
   return {
     login_user: event => dispatch(APIActions.loginUser(event)),
     create_user: event => dispatch(APIActions.createUser(event)),
+    clear_log_in_error: event => dispatch(APIActions.clearLogInError(event)),
   }
 }
 

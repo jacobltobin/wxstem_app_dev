@@ -15,13 +15,6 @@ export default class LoginModal extends Component {
     close: PropTypes.func,
   }
 
-  constructor(props) {
-    super(props)
-    this.state = {
-      creatingAccount: false,
-    }
-  }
-
   onSuccess = () => {
     this.props.close()
   }
@@ -53,7 +46,7 @@ export default class LoginModal extends Component {
                 this.props.close()
               }}
             >
-              <Icon name="close" size={30} color="#000" />
+              <Icon name="close" size={30} color="#ccc" />
             </TouchableOpacity>
           </View>
           <View style={styles.login_LogoContainer}>
@@ -63,22 +56,7 @@ export default class LoginModal extends Component {
               resizeMode="center"
             />
           </View>
-          <LogInForm
-            onSuccess={this.onSuccess}
-            creatingAccount={this.state.creatingAccount}
-          />
-          <TouchableOpacity
-            style={styles.login_signUpButton}
-            onPress={() => {
-              this.setState({
-                creatingAccount: true,
-              })
-            }}
-          >
-            <Text style={styles.login_signUpButtonText}>
-              No Account? Sign up.
-            </Text>
-          </TouchableOpacity>
+          <LogInForm onSuccess={this.onSuccess} />
         </View>
       </Modal>
     )

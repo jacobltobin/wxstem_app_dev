@@ -14,6 +14,7 @@ const { Types, Creators } = createActions({
   createUser: ['payload'],
   createUserSuccess: ['login_info'],
   createUserFailure: null,
+  clearLogInError: null,
 })
 
 export const APIActionTypes = Types
@@ -213,10 +214,25 @@ export const createUserFailure = state => {
     userInfo: {
       logged_in: false,
       fetching: false,
+      api_error: 'server error',
       login_info: {
         data: {
           error: null,
         },
+      },
+    },
+  }
+  return state.merge(newState)
+}
+
+export const clearLogInError = state => {
+  const newState = {
+    userInfo: {
+      logged_in: false,
+      fetching: false,
+      api_error: null,
+      login_info: {
+        data: null,
       },
     },
   }
@@ -235,4 +251,5 @@ export const reducer = createReducer(INITIAL_STATE, {
   [Types.CREATE_USER]: createUser,
   [Types.CREATE_USER_SUCCESS]: createUserSuccess,
   [Types.CREATE_USER_FAILURE]: createUserFailure,
+  [Types.CLEAR_LOG_IN_ERROR]: clearLogInError,
 })
