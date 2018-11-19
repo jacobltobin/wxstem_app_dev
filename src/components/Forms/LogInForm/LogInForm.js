@@ -5,8 +5,10 @@ import APIActions, { APISelectors } from '../../../redux/APIRedux'
 
 import { View, TouchableOpacity, Text } from 'react-native'
 import { Input, Button } from 'react-native-elements'
+import { OpenURLButton } from '../../Buttons'
 
 import styles from './LogInFormStyles'
+import Colors from '../../../themes/Colors'
 
 // LogInForm -
 //    handles form validation and
@@ -267,9 +269,14 @@ class LogInForm extends Component {
 
   render() {
     const creating_account = this.state.creating_account
-    let name_inputs, password_verify_input, form_submit_button, form_toggle
+    let name_inputs,
+      password_verify_input,
+      form_submit_button,
+      form_toggle,
+      forgot_password
 
     if (creating_account) {
+      forgot_password = ''
       name_inputs = (
         <View style={styles.name_inputs_container}>
           <Input
@@ -384,6 +391,13 @@ class LogInForm extends Component {
           </Text>
         </TouchableOpacity>
       )
+      forgot_password = (
+        <OpenURLButton
+          text={'Forgot Password'}
+          url={'https://leon.weatherstem.com/forgot'}
+          style={{ color: Colors.moonGray, textAlign: 'right', marginTop: 10 }}
+        />
+      )
     }
 
     // redirect on login success
@@ -423,6 +437,7 @@ class LogInForm extends Component {
           errorMessage={this.return_error('pwd')}
           leftIcon={{ type: 'font-awesome', name: 'lock', color: '#ccc' }}
         />
+        {forgot_password}
         {password_verify_input}
         {form_submit_button}
         {form_toggle}
