@@ -138,7 +138,7 @@ export default class StationListDefault extends Component {
             }
             keyExtractor={(item, index) => item + index}
             ListHeaderComponent={this.renderHeader}
-            initialNumToRender={10}
+            initialNumToRender={5}
           />
         </View>
       )

@@ -21,6 +21,12 @@ export default StyleSheet.create({
     paddingBottom: 10,
     paddingRight: 10,
   },
+  modal_header_text: {
+    ...Fonts.style.normalBold,
+    color: Colors.midGray,
+    alignSelf: 'flex-start',
+    textAlign: 'left',
+  },
   modal_close: {
     height: 30,
   },

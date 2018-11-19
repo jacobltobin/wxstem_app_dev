@@ -7,6 +7,8 @@ import { View, TouchableOpacity, Image, Text } from 'react-native'
 import Modal from 'react-native-modal'
 import { Icon } from 'react-native-elements'
 import StationListDefault from '../../Lists/StationListDefault/StationListDefault'
+import Fade from '../../Fade/Fade'
+import FadeOutOverlay from '../../FadeOutOverlay/FadeOutOverlay'
 
 import styles from './SelectStationModalStyles'
 
@@ -21,11 +23,37 @@ class SelectStationModal extends Component {
     isFetching: PropTypes.bool,
   }
 
+  constructor(props) {
+    super(props)
+    this.state = {
+      display_station_list: false,
+    }
+  }
+
+  setDisplayStationListVisible = visible => {
+    this.setState({
+      display_station_list: visible,
+    })
+  }
+
   onSuccess = () => {
     this.props.close()
   }
 
   render() {
+    let stationList
+    if (this.state.display_station_list) {
+      stationList = (
+        <StationListDefault
+          isFetching={this.props.isFetching}
+          stations={this.props.stations}
+          sectionedStations={this.props.sectionedStations}
+          navigation={this.props.navigation}
+        />
+      )
+    } else {
+      stationList = ''
+    }
     return (
       <Modal
         animationIn={'fadeInUpBig'}
@@ -37,6 +65,12 @@ class SelectStationModal extends Component {
         backdropTransitionInTiming={200}
         isVisible={this.props.visible}
         avoidKeyboard
+        onModalShow={() => {
+          this.setDisplayStationListVisible(true)
+        }}
+        onModalHide={() => {
+          this.setDisplayStationListVisible(false)
+        }}
         onBackButtonPress={() => {
           this.props.close()
         }}
@@ -46,7 +80,9 @@ class SelectStationModal extends Component {
       >
         <View style={styles.modal_inner_container}>
           <View style={styles.modal_header}>
-            <Text>Add Stations to Dashboard</Text>
+            <Text style={styles.modal_header_text}>
+              Add Stations to Dashboard
+            </Text>
             <TouchableOpacity
               style={styles.modal_close}
               onPress={() => {
@@ -56,12 +92,16 @@ class SelectStationModal extends Component {
               <Icon name="close" size={30} color="#ccc" />
             </TouchableOpacity>
           </View>
-          <StationListDefault
-            isFetching={this.props.isFetching}
-            stations={this.props.stations}
-            sectionedStations={this.props.sectionedStations}
-            navigation={this.props.navigation}
+          <FadeOutOverlay
+            visible={this.state.display_station_list}
+            style={{
+              backgroundColor: 'white',
+              height: 100,
+              width: 100,
+              position: 'absolute',
+            }}
           />
+          {stationList}
         </View>
       </Modal>
     )
