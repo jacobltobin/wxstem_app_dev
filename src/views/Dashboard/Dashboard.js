@@ -4,7 +4,12 @@ import { createStackNavigator } from 'react-navigation'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { Header, Icon } from 'react-native-elements'
-import { Subheader, HeaderCenter, HeaderLeft } from '../../components'
+import {
+  SelectStationModal,
+  Subheader,
+  HeaderCenter,
+  HeaderLeft,
+} from '../../components'
 import APIActions, { APISelectors } from '../../redux/APIRedux'
 
 // Styles
@@ -17,8 +22,22 @@ class Dashboard extends Component {
     login_info: PropTypes.object,
   }
 
+  constructor(props) {
+    super(props)
+    this.state = {
+      select_station_modal_visible: false,
+    }
+  }
+
   handle_add_station_press = () => {
-    console.tron.log('hi')
+    this.setState({
+      select_station_modal_visible: true,
+    })
+  }
+  set_select_station_modal_visible = visible => {
+    this.setState({
+      select_station_modal_visible: visible,
+    })
   }
 
   render() {
@@ -57,6 +76,10 @@ class Dashboard extends Component {
           </View>
           <Subheader title={'Notifications'} />
         </ScrollView>
+        <SelectStationModal
+          visible={this.state.select_station_modal_visible}
+          close={() => this.set_select_station_modal_visible(false)}
+        />
       </View>
     )
   }
