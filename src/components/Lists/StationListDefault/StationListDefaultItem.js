@@ -9,17 +9,11 @@ import ViewActions, { ViewSelectors } from '../../../redux/ViewRedux'
 import { Colors } from '../../../themes'
 import styles from './StationListDefaultStyles'
 
-class StationListDefaultItem extends Component {
+export default class StationListDefaultItem extends Component {
   static propTypes = {
-    navigation: PropTypes.object,
     station: PropTypes.object.isRequired,
-    set_selected_station: PropTypes.func,
     onPress: PropTypes.func,
     hidden: PropTypes.bool,
-  }
-
-  goBack = () => {
-    this.props.navigation.navigate('Dashboard')
   }
 
   render() {
@@ -62,19 +56,3 @@ class StationListDefaultItem extends Component {
     )
   }
 }
-
-const mapStateToProps = state => {
-  return {}
-}
-
-const mapDispatchToProps = dispatch => {
-  return {
-    set_selected_station: (handle, domainHandle) =>
-      dispatch(ViewActions.setSelectedStation(handle, domainHandle)),
-  }
-}
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(StationListDefaultItem)
