@@ -6,6 +6,7 @@ import { HeaderCenter, StationListDefault } from '../../components'
 import { NavigationActions } from 'react-navigation'
 import APIActions, { APISelectors } from '../../redux/APIRedux'
 import { Header } from 'react-native-elements'
+import ViewActions, { ViewSelectors } from '../../redux/ViewRedux'
 
 // Styles
 import { Colors } from '../../themes'
@@ -17,11 +18,17 @@ class Stations extends Component {
     stations: PropTypes.array,
     sectionedStations: PropTypes.array,
     isFetching: PropTypes.bool,
+    set_selected_station: PropTypes.func,
   }
 
   goBack = () => {
     const backAction = NavigationActions.back()
     this.props.navigation.dispatch(backAction)
+  }
+
+  goToStation = (handle, domainHandle) => {
+    this.props.set_selected_station(handle, domainHandle)
+    this.props.navigation.navigate('Station')
   }
 
   loadStations = () => {
@@ -55,6 +62,9 @@ class Stations extends Component {
           stations={this.props.stations}
           sectionedStations={this.props.sectionedStations}
           navigation={this.props.navigation}
+          onPress={(handle, domainHandle) =>
+            this.goToStation(handle, domainHandle)
+          }
         />
       </View>
     )
@@ -72,6 +82,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     request_all_stations: () => dispatch(APIActions.requestAllStations()),
+    set_selected_station: (handle, domainHandle) =>
+      dispatch(ViewActions.setSelectedStation(handle, domainHandle)),
   }
 }
 

@@ -15,6 +15,7 @@ export default class StationListDefault extends Component {
     isFetching: PropTypes.bool,
     stations: PropTypes.array,
     sectionedStations: PropTypes.array,
+    onPress: PropTypes.func,
   }
 
   constructor(props) {
@@ -118,6 +119,7 @@ export default class StationListDefault extends Component {
                 station={item}
                 hidden={this.state.noResults}
                 navigation={this.props.navigation}
+                onPress={this.props.onPress}
               />
             )}
             renderSectionHeader={({ section: { title } }) => (
@@ -138,7 +140,7 @@ export default class StationListDefault extends Component {
             }
             keyExtractor={(item, index) => item + index}
             ListHeaderComponent={this.renderHeader}
-            initialNumToRender={5}
+            initialNumToRender={20}
           />
         </View>
       )

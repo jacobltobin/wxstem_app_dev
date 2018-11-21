@@ -14,16 +14,12 @@ class StationListDefaultItem extends Component {
     navigation: PropTypes.object,
     station: PropTypes.object.isRequired,
     set_selected_station: PropTypes.func,
+    onPress: PropTypes.func,
     hidden: PropTypes.bool,
   }
 
   goBack = () => {
     this.props.navigation.navigate('Dashboard')
-  }
-
-  goToStation = (handle, domainHandle) => {
-    this.props.set_selected_station(handle, domainHandle)
-    this.props.navigation.navigate('Station')
   }
 
   render() {
@@ -35,7 +31,7 @@ class StationListDefaultItem extends Component {
       >
         <TouchableOpacity
           onPress={() =>
-            this.goToStation(
+            this.props.onPress(
               this.props.station.handle,
               this.props.station.domainHandle,
             )
