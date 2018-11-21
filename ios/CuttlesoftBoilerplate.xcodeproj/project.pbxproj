@@ -44,7 +44,6 @@
 		53E1D816EE284500940B542B /* OpenSans-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 368B3CB366F247F196D9881C /* OpenSans-Italic.ttf */; };
 		58D19F926D7F406FA73BD874 /* libReactNativeConfig.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BB4A11E11A274C289E9A824D /* libReactNativeConfig.a */; };
 		5CBA82CD05144B5493C4E9DE /* MaterialCommunityIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FAF7B5A80D914F4D982D3EF4 /* MaterialCommunityIcons.ttf */; };
-		5D76718AAB6849C282FD1123 /* libRNDeviceInfo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 34DE9A20743642008B62E5E0 /* libRNDeviceInfo.a */; };
 		5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9157331DD0AC6500FF2AA8 /* libRCTAnimation.a */; };
 		5ED1BD27C01B4B6D99A6F815 /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D7CC68E61AB1497887C5697E /* Octicons.ttf */; };
 		5FF328CD5F5D4FA19CD327F6 /* OpenSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 26B9E01B49E248AEB3BE10B0 /* OpenSans-Bold.ttf */; };
@@ -449,7 +448,6 @@
 				832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */,
 				00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */,
 				139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */,
-				5D76718AAB6849C282FD1123 /* libRNDeviceInfo.a in Frameworks */,
 				D00AF9F5E5DC4E43903E5FEA /* libRNVectorIcons.a in Frameworks */,
 				58D19F926D7F406FA73BD874 /* libReactNativeConfig.a in Frameworks */,
 			);
@@ -841,14 +839,20 @@
 				TargetAttributes = {
 					00E356ED1AD99517003FC87E = {
 						CreatedOnToolsVersion = 6.2;
+						DevelopmentTeam = W625DNFABC;
 						TestTargetID = 13B07F861A680F5B00A75B9A;
+					};
+					13B07F861A680F5B00A75B9A = {
+						DevelopmentTeam = W625DNFABC;
 					};
 					2D02E47A1E0B4A5D006451C7 = {
 						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = W625DNFABC;
 						ProvisioningStyle = Automatic;
 					};
 					2D02E48F1E0B4A5D006451C7 = {
 						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = W625DNFABC;
 						ProvisioningStyle = Automatic;
 						TestTargetID = 2D02E47A1E0B4A5D006451C7;
 					};
@@ -1376,6 +1380,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = W625DNFABC;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -1409,6 +1414,7 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
+				DEVELOPMENT_TEAM = W625DNFABC;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-device-info/RNDeviceInfo",
@@ -1439,6 +1445,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
+				DEVELOPMENT_TEAM = W625DNFABC;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-device-info/RNDeviceInfo",
@@ -1462,6 +1469,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = W625DNFABC;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-device-info/RNDeviceInfo",
@@ -1490,6 +1498,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = W625DNFABC;
 				ENABLE_TESTABILITY = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
 				HEADER_SEARCH_PATHS = (
@@ -1529,6 +1538,7 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = W625DNFABC;
 				GCC_NO_COMMON_BLOCKS = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1565,6 +1575,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = W625DNFABC;
 				ENABLE_TESTABILITY = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
 				HEADER_SEARCH_PATHS = (
@@ -1603,6 +1614,7 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = W625DNFABC;
 				GCC_NO_COMMON_BLOCKS = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
