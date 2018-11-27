@@ -22,11 +22,11 @@ class RootContainer extends Component {
     if (!ReduxPersist.active) {
       this.props.startup()
     }
-    if (this.props.stations_list) {
-      console.tron.log('stations exist already')
-    } else {
-      this.props.request_all_stations()
-    }
+    // if (this.props.stations_list) {
+    //   console.tron.log('stations exist already')
+    // } else {
+    //   this.props.request_all_stations()
+    // }
   }
 
   render() {

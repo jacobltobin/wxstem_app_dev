@@ -38,7 +38,9 @@ export const INITIAL_STATE = Immutable({
       fullList: null,
       strippedList: null,
       sectionedList: null,
-      fetching: null,
+      strippedSectionedList: null,
+      fetching: false,
+      fetched: false,
       error: null,
     },
   },
@@ -50,10 +52,14 @@ export const APISelectors = {
   selectStationsFullList: state => state.api.networkData.stations.fullList,
   selectStationsStrippedList: state =>
     state.api.networkData.stations.strippedList,
+  selectStationsStrippedSectionedList: state =>
+    state.api.networkData.stations.strippedSectionedList,
+
   selectLoginInfo: state => state.api.userInfo,
   selectStationsSectionedList: state =>
     state.api.networkData.stations.sectionedList,
   isFetchingStations: state => state.api.networkData.stations.fetching,
+  stationsFetched: state => state.api.networkData.stations.fetched,
   selectStationByHandle: (state, handle, domainHandle) =>
     state.api.networkData.stations.fullList.filter(station => {
       return station.handle === handle && station.domain.handle === domainHandle
@@ -69,9 +75,11 @@ export const stationRequest = state => {
     networkData: {
       stations: {
         fetching: true,
+        fetched: false,
         fullList: null,
         strippedList: null,
         sectionedList: null,
+        strippedSectionedList: null,
       },
     },
   }
@@ -97,14 +105,19 @@ export const stationRequestSuccess = (state, action) => {
   const sectionedList = apiTransforms.createSectionedStations(
     strippedAlphabetizedList,
   )
+  const strippedSectionedList = apiTransforms.createStrippedSectionedStations(
+    strippedAlphabetizedList,
+  )
   const newState = {
     networkData: {
       stations: {
         fetching: false,
+        fetched: true,
         error: null,
         fullList: fullList,
         strippedList: strippedList,
         sectionedList: sectionedList,
+        strippedSectionedList: strippedSectionedList,
       },
     },
   }
@@ -117,9 +130,11 @@ export const stationRequestFailure = state => {
     networkData: {
       stations: {
         fetching: false,
+        fetched: false,
         error: true,
         fullList: null,
         strippedList: null,
+        strippedSectionedList: null,
       },
     },
   }

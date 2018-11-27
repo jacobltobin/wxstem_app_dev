@@ -17,6 +17,23 @@ export function alphabetizeSections(sections) {
   sections.sort(compare)
   return sections
 }
+export function createStrippedSectionedStations(stations) {
+  const data = []
+  const sectionIndex = []
+  stations.forEach(station => {
+    const stationIndex = sectionIndex.indexOf(station.state)
+    if (stationIndex > -1) {
+      // data[stationIndex].data.push([])
+    } else {
+      data.push({
+        title: station.state,
+        data: [],
+      })
+      sectionIndex.push(station.state)
+    }
+  })
+  return alphabetizeSections(data)
+}
 export function createSectionedStations(stations) {
   const data = []
   const sectionIndex = []

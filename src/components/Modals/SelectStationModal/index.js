@@ -11,6 +11,7 @@ import Fade from '../../Fade/Fade'
 import FadeOutOverlay from '../../FadeOutOverlay/FadeOutOverlay'
 
 import styles from './SelectStationModalStyles'
+import { Colors } from '../../../themes'
 
 class SelectStationModal extends Component {
   static propTypes = {
@@ -26,7 +27,7 @@ class SelectStationModal extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      display_station_list: false,
+      display_station_list: true,
     }
   }
 
@@ -66,10 +67,10 @@ class SelectStationModal extends Component {
         isVisible={this.props.visible}
         avoidKeyboard
         onModalShow={() => {
-          this.setDisplayStationListVisible(true)
+          // this.setDisplayStationListVisible(true)
         }}
         onModalHide={() => {
-          this.setDisplayStationListVisible(false)
+          // this.setDisplayStationListVisible(false)
         }}
         onBackButtonPress={() => {
           this.props.close()
@@ -81,7 +82,7 @@ class SelectStationModal extends Component {
         <View style={styles.modal_inner_container}>
           <View style={styles.modal_header}>
             <Text style={styles.modal_header_text}>
-              Add Stations to Dashboard
+              Add Station to Dashboard
             </Text>
             <TouchableOpacity
               style={styles.modal_close}
@@ -89,18 +90,9 @@ class SelectStationModal extends Component {
                 this.props.close()
               }}
             >
-              <Icon name="close" size={30} color="#ccc" />
+              <Icon name="close" size={30} color={Colors.darkBlue} />
             </TouchableOpacity>
           </View>
-          <FadeOutOverlay
-            visible={this.state.display_station_list}
-            style={{
-              backgroundColor: 'white',
-              height: 100,
-              width: 100,
-              position: 'absolute',
-            }}
-          />
           {stationList}
         </View>
       </Modal>

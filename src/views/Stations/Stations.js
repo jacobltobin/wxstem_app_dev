@@ -14,10 +14,6 @@ import { Colors } from '../../themes'
 class Stations extends Component {
   static propTypes = {
     navigation: PropTypes.object,
-    request_all_stations: PropTypes.func.isRequired,
-    stations: PropTypes.array,
-    sectionedStations: PropTypes.array,
-    isFetching: PropTypes.bool,
     set_selected_station: PropTypes.func,
   }
 
@@ -31,14 +27,7 @@ class Stations extends Component {
     this.props.navigation.navigate('Station')
   }
 
-  loadStations = () => {
-    this.props.request_all_stations()
-  }
-
   render() {
-    if (this.props.stations == null && !this.props.isFetching) {
-      this.loadStations()
-    }
     return (
       <View style={{ flex: 1, backgroundColor: 'white' }}>
         <Header
@@ -58,11 +47,7 @@ class Stations extends Component {
           }}
         />
         <StationListDefault
-          isFetching={this.props.isFetching}
-          stations={this.props.stations}
-          sectionedStations={this.props.sectionedStations}
-          navigation={this.props.navigation}
-          onPress={(handle, domainHandle) =>
+          onItemSelect={(handle, domainHandle) =>
             this.goToStation(handle, domainHandle)
           }
         />
@@ -72,16 +57,11 @@ class Stations extends Component {
 }
 
 const mapStateToProps = state => {
-  return {
-    stations: APISelectors.selectStationsStrippedList(state),
-    sectionedStations: APISelectors.selectStationsSectionedList(state),
-    isFetching: APISelectors.isFetchingStations(state),
-  }
+  return {}
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    request_all_stations: () => dispatch(APIActions.requestAllStations()),
     set_selected_station: (handle, domainHandle) =>
       dispatch(ViewActions.setSelectedStation(handle, domainHandle)),
   }

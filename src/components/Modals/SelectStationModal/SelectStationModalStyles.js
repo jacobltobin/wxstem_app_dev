@@ -4,7 +4,7 @@ import { Metrics, ApplicationStyles, Colors, Fonts } from '../../../themes/'
 export default StyleSheet.create({
   ...ApplicationStyles.screen,
   modal_inner_container: {
-    backgroundColor: Colors.white,
+    backgroundColor: Colors.lightGray,
     marginTop: 20,
     flex: 1,
     flexDirection: 'column',
@@ -13,19 +13,24 @@ export default StyleSheet.create({
     borderTopRightRadius: 10,
     borderBottomLeftRadius: 10,
     borderBottomRightRadius: 10,
+    overflow: 'hidden',
   },
   modal_header: {
     flexDirection: 'row',
-    justifyContent: 'flex-end',
+    backgroundColor: Colors.blue,
+    justifyContent: 'space-between',
     paddingTop: 10,
     paddingBottom: 10,
     paddingRight: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: Colors.darkBlue,
   },
   modal_header_text: {
     ...Fonts.style.normalBold,
-    color: Colors.midGray,
-    alignSelf: 'flex-start',
-    textAlign: 'left',
+    color: Colors.white,
+    textAlign: 'center',
+    marginLeft: 15,
+    marginTop: 3,
   },
   modal_close: {
     height: 30,
@@ -36,15 +41,5 @@ export default StyleSheet.create({
     alignSelf: 'center',
     marginTop: 20,
     marginBottom: 20,
-  },
-  login_LogoContainer: {},
-  login_signUpButton: {
-    alignSelf: 'stretch',
-    padding: 20,
-    paddingTop: 0,
-  },
-  login_signUpButtonText: {
-    ...Fonts.style.detail,
-    color: Colors.gray,
   },
 })
