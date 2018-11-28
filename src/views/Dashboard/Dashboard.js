@@ -10,7 +10,7 @@ import {
   HeaderCenter,
   HeaderLeft,
 } from '../../components'
-import APIActions, { APISelectors } from '../../redux/APIRedux'
+import { UserSelectors } from '../../redux/APIRedux/User'
 
 // Styles
 import { Colors } from '../../themes'
@@ -19,7 +19,7 @@ import Styles from './DashboardStyles'
 class Dashboard extends Component {
   static propTypes = {
     navigation: PropTypes.object,
-    login_info: PropTypes.object,
+    user: PropTypes.object,
   }
 
   constructor(props) {
@@ -41,7 +41,7 @@ class Dashboard extends Component {
   }
 
   render() {
-    const is_logged_in = this.props.login_info.logged_in
+    const is_logged_in = this.props.user.logged_in
 
     const openDrawer = () => {
       this.props.navigation.toggleDrawer()
@@ -87,7 +87,7 @@ class Dashboard extends Component {
 
 const mapStateToProps = state => {
   return {
-    login_info: APISelectors.selectLoginInfo(state),
+    user: UserSelectors.selectLoginInfo(state),
   }
 }
 

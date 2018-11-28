@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import PrimaryNav from '../../navigation/AppNavigation'
 import { connect } from 'react-redux'
 import StartupActions from '../../redux/StartupRedux'
-import APIActions, { APISelectors } from '../../redux/APIRedux'
+import StationActions, { StationSelectors } from '../../redux/APIRedux/Stations'
 import ReduxPersist from '../../config/ReduxPersist'
 
 // Styles
@@ -41,14 +41,14 @@ class RootContainer extends Component {
 
 const mapStateToProps = state => {
   return {
-    stations_list: APISelectors.selectStationsFullList(state),
+    stations_list: StationSelectors.selectStationsFullList(state),
   }
 }
 
 // wraps dispatch to create nicer functions to call within our component
 const mapDispatchToProps = dispatch => ({
   startup: () => dispatch(StartupActions.startup()),
-  request_all_stations: () => dispatch(APIActions.requestAllStations()),
+  request_all_stations: () => dispatch(StationActions.requestAllStations()),
 })
 
 export default connect(

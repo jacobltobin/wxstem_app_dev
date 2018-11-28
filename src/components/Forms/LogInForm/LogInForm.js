@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
-import APIActions, { APISelectors } from '../../../redux/APIRedux'
+import UserActions, { UserSelectors } from '../../../redux/APIRedux/User'
 
 import { View, TouchableOpacity, Text } from 'react-native'
 import { Input, Button } from 'react-native-elements'
@@ -19,7 +19,7 @@ class LogInForm extends Component {
   static propTypes = {
     login_user: PropTypes.func,
     create_user: PropTypes.func,
-    login_info: PropTypes.object,
+    user: PropTypes.object,
     clear_log_in_error: PropTypes.func,
     onSuccess: PropTypes.func,
   }
@@ -57,6 +57,9 @@ class LogInForm extends Component {
   }
 
   uid_input_change = text => {
+    if (this.props.user.api_error) {
+      this.props.clear_log_in_error()
+    }
     this.setState({ uid_input: text })
   }
   first_name_input_change = text => {
@@ -78,6 +81,9 @@ class LogInForm extends Component {
           text.length > 5 ? '' : 'password should be longer than 5 characters',
       })
     } else {
+      if (this.props.user.api_error) {
+        this.props.clear_log_in_error()
+      }
       this.setState({
         pwd_input: text,
         pwd_error: text.length > 5 ? false : true,
@@ -219,8 +225,8 @@ class LogInForm extends Component {
         if (this.state.pwd_error) {
           return this.state.pwd_error_message
         } else if (
-          this.props.login_info.api_error &&
-          this.props.login_info.api_error.indexOf('password') > 0
+          this.props.user.api_error &&
+          this.props.user.api_error.indexOf('password') > 0
         ) {
           return 'Incorrect password'
         } else {
@@ -231,13 +237,13 @@ class LogInForm extends Component {
         if (this.state.uid_error) {
           return this.state.uid_error_message
         } else if (
-          this.props.login_info.api_error &&
-          this.props.login_info.api_error.indexOf('username') > 0
+          this.props.user.api_error &&
+          this.props.user.api_error.indexOf('username') > 0
         ) {
           return 'this email is not registered with us'
         } else if (
-          this.props.login_info.api_error &&
-          this.props.login_info.api_error.indexOf('exists') > 0
+          this.props.user.api_error &&
+          this.props.user.api_error.indexOf('exists') > 0
         ) {
           return 'email already registered'
         } else {
@@ -401,7 +407,7 @@ class LogInForm extends Component {
     }
 
     // redirect on login success
-    if (this.props.login_info.logged_in) {
+    if (this.props.user.logged_in) {
       this.props.onSuccess()
     }
     return (
@@ -448,15 +454,15 @@ class LogInForm extends Component {
 
 const mapStateToProps = state => {
   return {
-    login_info: APISelectors.selectLoginInfo(state),
+    user: UserSelectors.selectLoginInfo(state),
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    login_user: event => dispatch(APIActions.loginUser(event)),
-    create_user: event => dispatch(APIActions.createUser(event)),
-    clear_log_in_error: event => dispatch(APIActions.clearLogInError(event)),
+    login_user: event => dispatch(UserActions.loginUser(event)),
+    create_user: event => dispatch(UserActions.createUser(event)),
+    clear_log_in_error: event => dispatch(UserActions.clearLogInError(event)),
   }
 }
 

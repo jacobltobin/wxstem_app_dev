@@ -6,7 +6,8 @@ import DebugConfig from '../config/DebugConfig'
 /* ------------- Types ------------- */
 
 import { StartupTypes } from '../redux/StartupRedux'
-import { APIActionTypes } from '../redux/APIRedux'
+import { UserActionTypes } from '../redux/APIRedux/User'
+import { StationActionTypes } from '../redux/APIRedux/Stations'
 
 /* ------------- Sagas ------------- */
 
@@ -29,10 +30,14 @@ export default function* root() {
     takeLatest(StartupTypes.STARTUP, startup),
 
     // some sagas receive extra parameters in addition to an action
-    takeLatest(APIActionTypes.REQUEST_ALL_STATIONS, requestAllStations, api),
+    takeLatest(
+      StationActionTypes.REQUEST_ALL_STATIONS,
+      requestAllStations,
+      api,
+    ),
 
-    takeLatest(APIActionTypes.LOGIN_USER, loginUser, api),
+    takeLatest(UserActionTypes.LOGIN_USER, loginUser, api),
 
-    takeLatest(APIActionTypes.CREATE_USER, createUser, api),
+    takeLatest(UserActionTypes.CREATE_USER, createUser, api),
   ])
 }

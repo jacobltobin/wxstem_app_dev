@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
-import APIActions, { APISelectors } from '../../../redux/APIRedux'
+import StationActions, {
+  StationSelectors,
+} from '../../../redux/APIRedux/Stations'
 import { createSectionedStations } from '../../../transforms/apiTransforms'
 
 import {
@@ -306,19 +308,19 @@ class StationListDefault extends Component {
 
 const mapStateToProps = state => {
   return {
-    stations: APISelectors.selectStationsStrippedList(state),
-    strippedSectionedStations: APISelectors.selectStationsStrippedSectionedList(
+    stations: StationSelectors.selectStationsStrippedList(state),
+    strippedSectionedStations: StationSelectors.selectStationsStrippedSectionedList(
       state,
     ),
-    sectionedStations: APISelectors.selectStationsSectionedList(state),
-    stationsFetched: APISelectors.stationsFetched(state),
-    isFetching: APISelectors.isFetchingStations(state),
+    sectionedStations: StationSelectors.selectStationsSectionedList(state),
+    stationsFetched: StationSelectors.stationsFetched(state),
+    isFetching: StationSelectors.isFetchingStations(state),
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    request_all_stations: () => dispatch(APIActions.requestAllStations()),
+    request_all_stations: () => dispatch(StationActions.requestAllStations()),
     set_selected_station: (handle, domainHandle) =>
       dispatch(ViewActions.setSelectedStation(handle, domainHandle)),
   }

@@ -1,6 +1,6 @@
 import { call, put } from 'redux-saga/effects'
-import { path } from 'ramda'
-import APIActions from '../redux/APIRedux/'
+import UserActions from '../redux/APIRedux/User'
+import StationActions from '../redux/APIRedux/Stations'
 
 export function* requestAllStations(api, action) {
   // const { stations } = action
@@ -11,9 +11,9 @@ export function* requestAllStations(api, action) {
 
   if (response) {
     const stations = response.data
-    yield put(APIActions.requestAllStationsSuccess(stations))
+    yield put(StationActions.requestAllStationsSuccess(stations))
   } else {
-    yield put(APIActions.fetchAllStationsFailure())
+    yield put(StationActions.fetchAllStationsFailure())
   }
 }
 
@@ -21,9 +21,9 @@ export function* loginUser(api, action) {
   const response = yield call(api.login_user, action)
 
   if (response) {
-    yield put(APIActions.loginUserSuccess(response))
+    yield put(UserActions.loginUserSuccess(response))
   } else {
-    yield put(APIActions.loginUserFailure())
+    yield put(UserActions.loginUserFailure())
   }
 }
 
@@ -31,8 +31,8 @@ export function* createUser(api, action) {
   const response = yield call(api.create_user, action)
 
   if (response) {
-    yield put(APIActions.createUserSuccess(response))
+    yield put(UserActions.createUserSuccess(response))
   } else {
-    yield put(APIActions.createUserFailure())
+    yield put(UserActions.createUserFailure())
   }
 }

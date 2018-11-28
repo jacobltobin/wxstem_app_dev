@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import { NavigationActions } from 'react-navigation'
 import { connect } from 'react-redux'
 import { ViewSelectors } from '../../redux/ViewRedux'
-import { APISelectors } from '../../redux/APIRedux'
+import { StationSelectors } from '../../redux/APIRedux/Stations'
 
 import { Header } from 'react-native-elements'
 import { HeaderCenter, HeaderLeft } from '../../components'
@@ -57,7 +57,7 @@ class Station extends Component {
 
 const mapStateToProps = state => {
   return {
-    stationBaseData: APISelectors.selectStationByHandle(
+    stationBaseData: StationSelectors.selectStationByHandle(
       state,
       ViewSelectors.selectSelectedStation(state).handle,
       ViewSelectors.selectSelectedStation(state).domainHandle,

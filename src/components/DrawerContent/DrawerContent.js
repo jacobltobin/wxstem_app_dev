@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { APISelectors } from '../../redux/APIRedux'
+import { UserSelectors } from '../../redux/APIRedux/User'
 import { NavigationActions } from 'react-navigation'
 
 import { DrawerItems, SafeAreaView } from 'react-navigation'
@@ -14,7 +14,7 @@ import styles from './DrawerContentStyles'
 class DrawerContent extends Component {
   static propTypes = {
     navigation: PropTypes.object,
-    login_info: PropTypes.object,
+    user: PropTypes.object,
   }
 
   constructor(props) {
@@ -39,7 +39,7 @@ class DrawerContent extends Component {
   }
 
   render() {
-    const isLoggedIn = this.props.login_info.logged_in
+    const isLoggedIn = this.props.user.logged_in
     let loginControl
     let userName
 
@@ -55,9 +55,9 @@ class DrawerContent extends Component {
       )
 
       userName =
-        this.props.login_info.login_info.data.first_name +
+        this.props.user.login_info.data.first_name +
         ' ' +
-        this.props.login_info.login_info.data.last_name
+        this.props.user.login_info.data.last_name
     } else {
       loginControl = (
         <TouchableOpacity
@@ -104,7 +104,7 @@ class DrawerContent extends Component {
 
 const mapStateToProps = state => {
   return {
-    login_info: APISelectors.selectLoginInfo(state),
+    user: UserSelectors.selectLoginInfo(state),
   }
 }
 

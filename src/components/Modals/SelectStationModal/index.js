@@ -1,14 +1,14 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import APIActions, { APISelectors } from '../../../redux/APIRedux'
+import StationActions, {
+  StationSelectors,
+} from '../../../redux/APIRedux/Stations'
 import { connect } from 'react-redux'
 
 import { View, TouchableOpacity, Image, Text } from 'react-native'
 import Modal from 'react-native-modal'
 import { Icon } from 'react-native-elements'
 import StationListDefault from '../../Lists/StationListDefault/StationListDefault'
-import Fade from '../../Fade/Fade'
-import FadeOutOverlay from '../../FadeOutOverlay/FadeOutOverlay'
 
 import styles from './SelectStationModalStyles'
 import { Colors } from '../../../themes'
@@ -18,7 +18,6 @@ class SelectStationModal extends Component {
     visible: PropTypes.bool,
     close: PropTypes.func,
     navigation: PropTypes.object,
-    request_all_stations: PropTypes.func.isRequired,
     stations: PropTypes.array,
     sectionedStations: PropTypes.array,
     isFetching: PropTypes.bool,
@@ -102,16 +101,14 @@ class SelectStationModal extends Component {
 
 const mapStateToProps = state => {
   return {
-    stations: APISelectors.selectStationsStrippedList(state),
-    sectionedStations: APISelectors.selectStationsSectionedList(state),
-    isFetching: APISelectors.isFetchingStations(state),
+    stations: StationSelectors.selectStationsStrippedList(state),
+    sectionedStations: StationSelectors.selectStationsSectionedList(state),
+    isFetching: StationSelectors.isFetchingStations(state),
   }
 }
 
 const mapDispatchToProps = dispatch => {
-  return {
-    request_all_stations: () => dispatch(APIActions.requestAllStations()),
-  }
+  return {}
 }
 
 export default connect(
