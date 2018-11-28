@@ -1,12 +1,13 @@
 import React, { Component } from 'react'
 import { View, Image, Text, ScrollView } from 'react-native'
 import PropTypes from 'prop-types'
-import { Header } from 'react-native-elements'
-import { HeaderCenter, HeaderLeft } from '../../components'
 import { NavigationActions } from 'react-navigation'
 import { connect } from 'react-redux'
 import { ViewSelectors } from '../../redux/ViewRedux'
 import { APISelectors } from '../../redux/APIRedux'
+
+import { Header } from 'react-native-elements'
+import { HeaderCenter, HeaderLeft } from '../../components'
 
 import { Colors } from '../../themes'
 import Styles from './StationStyles'
