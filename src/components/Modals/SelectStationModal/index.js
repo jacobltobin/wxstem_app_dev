@@ -31,7 +31,21 @@ class SelectStationModal extends Component {
       display_station_list: true,
       animationOut: 'fadeOutDownBig',
       animationOutTiming: 400,
+      addedStation: false,
+      stationSelected: {
+        handle: null,
+        domainHandle: null,
+      },
     }
+  }
+
+  onModalHide = () => {
+    this.state.addedStation
+      ? this.props.addStationToDashboard(
+          this.state.stationSelected.handle,
+          this.state.stationSelected.domainHandle,
+        )
+      : null
   }
 
   setDisplayStationListVisible = visible => {
@@ -44,8 +58,18 @@ class SelectStationModal extends Component {
     this.setState({
       animationOut: 'fadeOutUpBig',
       animationOutTiming: 600,
+      addedStation: true,
+      stationSelected: {
+        handle: handle,
+        domainHandle: domainHandle,
+      },
     })
-    this.props.addStationToDashboard(handle, domainHandle)
+    this.props.close()
+  }
+  closeWithoutAddingStation = () => {
+    this.setState({
+      addedStation: false,
+    })
     this.props.close()
   }
 
@@ -81,13 +105,13 @@ class SelectStationModal extends Component {
           // this.setDisplayStationListVisible(true)
         }}
         onModalHide={() => {
-          // this.setDisplayStationListVisible(false)
+          this.onModalHide()
         }}
         onBackButtonPress={() => {
-          this.props.close()
+          this.closeWithoutAddingStation()
         }}
         onBackdropPress={() => {
-          this.props.close()
+          this.closeWithoutAddingStation()
         }}
       >
         <View style={styles.modal_inner_container}>
@@ -98,7 +122,7 @@ class SelectStationModal extends Component {
             <TouchableOpacity
               style={styles.modal_close}
               onPress={() => {
-                this.props.close()
+                this.closeWithoutAddingStation()
               }}
             >
               <Icon name="close" size={30} color={Colors.darkBlue} />

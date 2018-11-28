@@ -35,10 +35,12 @@ export const StationSelectors = {
   selectStationsSectionedList: state => state.api.stations.sectionedList,
   isFetchingStations: state => state.api.stations.fetching,
   stationsFetched: state => state.api.stations.fetched,
-  selectStationByHandle: (state, handle, domainHandle) =>
-    state.api.stations.fullList.filter(station => {
+  selectStationByHandle: (state, handle, domainHandle) => {
+    let station = state.api.stations.fullList.filter(station => {
       return station.handle === handle && station.domain.handle === domainHandle
-    })[0],
+    })[0]
+    return station
+  },
 }
 
 /* ------------- Reducers ------------- */
