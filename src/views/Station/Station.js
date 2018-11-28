@@ -14,7 +14,6 @@ import Styles from './StationStyles'
 class Station extends Component {
   static propTypes = {
     navigation: PropTypes.object,
-    stationHandle: PropTypes.string,
     stationBaseData: PropTypes.object,
   }
   render() {
@@ -57,7 +56,6 @@ class Station extends Component {
 
 const mapStateToProps = state => {
   return {
-    stationHandle: ViewSelectors.selectSelectedStation(state),
     stationBaseData: APISelectors.selectStationByHandle(
       state,
       ViewSelectors.selectSelectedStation(state).handle,
