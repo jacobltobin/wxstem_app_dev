@@ -47,9 +47,10 @@ class Stations extends Component {
           }}
         />
         <StationListDefault
-          onItemSelect={(handle, domainHandle) =>
+          onItemSelect={(handle, domainHandle) => {
+            console.tron.log(handle)
             this.goToStation(handle, domainHandle)
-          }
+          }}
         />
       </View>
     )

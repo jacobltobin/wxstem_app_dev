@@ -19,7 +19,9 @@ export default class StationListDefaultItem extends Component {
     return (
       <View
         style={
-          this.props.hidden ? styles.noResultsHidden : styles.listItemContainer
+          this.props.hidden
+            ? styles.no_results_hidden
+            : styles.station_list_item_container
         }
       >
         <TouchableOpacity
@@ -29,20 +31,22 @@ export default class StationListDefaultItem extends Component {
               this.props.station.domainHandle,
             )
           }
-          style={styles.listItem}
+          style={styles.station_list_item}
         >
           <View>
-            <Text style={styles.listItemText}>{this.props.station.name}</Text>
-            <View style={styles.listItemMetaContainer}>
-              <Text style={styles.listItemMeta}>
+            <Text style={styles.station_list_item_text}>
+              {this.props.station.name}
+            </Text>
+            <View style={styles.station_list_item_meta_container}>
+              <Text style={styles.station_list_item_meta}>
                 {this.props.station.domain.split(', ')[0] + ' '}
               </Text>
-              <Text style={styles.listItemMeta}>
+              <Text style={styles.station_list_item_meta}>
                 {this.props.station.state}
               </Text>
             </View>
           </View>
-          <View style={styles.listItemRightIconContainer}>
+          <View>
             <Icon
               type="font-awesome"
               name="angle-right"

@@ -1,25 +1,24 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
+import APIActions, { APISelectors } from '../../../redux/APIRedux'
+import { createSectionedStations } from '../../../transforms/apiTransforms'
+
 import {
   Text,
   View,
   ActivityIndicator,
   SectionList,
   TouchableOpacity,
-  StyleSheet,
   FlatList,
 } from 'react-native'
 import { SearchBar, Icon } from 'react-native-elements'
 import StationListDefaultItem from './StationListDefaultItem'
 import { abbreviationToFullName } from '../../../transforms/stateNameUtils'
-import APIActions, { APISelectors } from '../../../redux/APIRedux'
 import Swiper from 'react-native-swiper'
 
-import Styles from './StationListDefaultStyles'
-import { Colors, Metrics } from '../../../themes'
-
-const swiperStyles = StyleSheet.create({})
+import styles from './StationListDefaultStyles'
+import { Colors } from '../../../themes'
 
 class StateListItem extends Component {
   static propTypes = {
@@ -28,12 +27,12 @@ class StateListItem extends Component {
   }
   render() {
     return (
-      <View style={Styles.stateListItem}>
+      <View>
         <TouchableOpacity
-          style={Styles.stateListItemTouchable}
+          style={styles.state_list_item_touchable}
           onPress={() => this.props.onPress(this.props.title)}
         >
-          <Text style={Styles.stateListItemText}>
+          <Text style={styles.state_list_item_text}>
             {abbreviationToFullName(this.props.title)}
           </Text>
           <Icon
@@ -61,6 +60,7 @@ class StationListDefault extends Component {
     strippedSectionedStations: PropTypes.array,
     onItemSelect: PropTypes.func,
     request_all_stations: PropTypes.func,
+    stations: PropTypes.array,
   }
 
   constructor(props) {
@@ -87,32 +87,38 @@ class StationListDefault extends Component {
     this.setState({
       filterText: text,
     })
-    this.searchFilterFunction(text)
+    if (text === '') {
+      this.setState({
+        filtering: false,
+      })
+    } else {
+      this.searchFilterFunction(text)
+    }
   }
 
   searchFilterFunction = text => {
-    // const newData = this.props.stations.filter(item => {
-    //   const itemName = `${item.name.toUpperCase()}`
-    //   const itemDomain = `${item.domain.toUpperCase()}`
-    //   const textData = text.toUpperCase()
-    //   if (itemName.indexOf(textData) < 0 && itemDomain.indexOf(textData) < 0) {
-    //     return false
-    //   }
-    //   return true
-    // })
-    // if (newData.length === 0) {
-    //   this.setState({
-    //     filteredStations: this.props.sectionedStations,
-    //     filtering: false,
-    //     noResults: true,
-    //   })
-    // } else {
-    //   this.setState({
-    //     filteredStations: apiTransforms.createSectionedStations(newData),
-    //     filtering: true,
-    //     noResults: false,
-    //   })
-    // }
+    const newData = this.props.stations.filter(item => {
+      const itemName = `${item.name.toUpperCase()}`
+      const itemDomain = `${item.domain.toUpperCase()}`
+      const textData = text.toUpperCase()
+      if (itemName.indexOf(textData) < 0 && itemDomain.indexOf(textData) < 0) {
+        return false
+      }
+      return true
+    })
+    if (newData.length === 0) {
+      this.setState({
+        filteredStations: this.props.sectionedStations,
+        filtering: false,
+        noResults: true,
+      })
+    } else {
+      this.setState({
+        filteredStations: createSectionedStations(newData),
+        filtering: true,
+        noResults: false,
+      })
+    }
   }
 
   clear = () => {
@@ -121,22 +127,22 @@ class StationListDefault extends Component {
 
   onClearTextFunction = () => {
     this.setState({
-      filteredStations: this.props.sectionedStations,
+      noResults: false,
       filtering: false,
     })
   }
 
-  renderSearchBar = () => {
+  renderFilterBar = () => {
     return (
-      <View style={Styles.filterHeader}>
+      <View style={styles.filterHeader}>
         <SearchBar
           ref={ref => (this.searchbar = ref)}
           placeholder="Search"
           clearIcon={{ onPress: this.clear }}
           platform="default"
-          containerStyle={Styles.searchBarContainer}
-          inputStyle={Styles.searchBarInput}
-          inputContainerStyle={Styles.searchBarInputContainer}
+          containerStyle={styles.filter_bar_container}
+          inputStyle={styles.filter_bar_input}
+          inputContainerStyle={styles.filter_bar_input_container}
           round
           value={this.state.filterText}
           onChangeText={text => this.onChangeTextFunction(text)}
@@ -145,10 +151,10 @@ class StationListDefault extends Component {
         />
         <View
           style={
-            this.state.noResults ? Styles.noResults : Styles.noResultsHidden
+            this.state.noResults ? styles.no_results : styles.no_results_hidden
           }
         >
-          <Text style={Styles.noResultsText}>
+          <Text style={styles.no_results_text}>
             No stations match your search...
           </Text>
         </View>
@@ -195,7 +201,7 @@ class StationListDefault extends Component {
     // if station data is fetching then:
     if (this.props.isFetching) {
       return (
-        <View style={Styles.loadingIconContainer}>
+        <View style={styles.loading_icon_container}>
           <ActivityIndicator size="large" color={Colors.blue} />
         </View>
       )
@@ -206,45 +212,72 @@ class StationListDefault extends Component {
     }
     // finally now, if there is station data then:
     else {
+      // if not filtering, display regular state list
+      let defaultListDisplay
+      if (!this.state.filtering) {
+        defaultListDisplay = (
+          <FlatList
+            data={this.props.strippedSectionedStations}
+            renderItem={({ item }) => (
+              <StateListItem onPress={this.toggleSection} title={item.title} />
+            )}
+          />
+        )
+        // if filtering, display filtered stations
+      } else {
+        defaultListDisplay = (
+          <SectionList
+            renderItem={({ item }) => (
+              <StationListDefaultItem
+                station={item}
+                hidden={this.state.noResults}
+                onItemSelect={() => this.props.onItemSelect}
+              />
+            )}
+            renderSectionHeader={({ section: { title } }) => (
+              <View style={styles.filter_results_header}>
+                <Text>{abbreviationToFullName(title)}</Text>
+              </View>
+            )}
+            sections={this.state.filteredStations}
+            keyExtractor={(item, index) => item + index}
+            initialNumToRender={10}
+          />
+        )
+      }
       return (
         <Swiper
           ref={swiper => {
             this._swiper = swiper
           }}
-          containerStyle={Styles.swipeWrapper}
+          containerStyle={styles.swipe_wrapper}
           showsPagination={false}
           scrollEnabled={this.state.swipeable}
           loop={false}
           onIndexChanged={index => this.onSwiperChanged(index)}
         >
           {/* STATE LIST */}
-          <View style={Styles.swiperSlide1}>
-            {this.renderSearchBar()}
-            <FlatList
-              data={this.props.strippedSectionedStations}
-              renderItem={({ item }) => (
-                <StateListItem
-                  onPress={this.toggleSection}
-                  title={item.title}
-                />
-              )}
-            />
+          <View style={styles.swiper_slide1}>
+            {this.renderFilterBar()}
+            {defaultListDisplay}
           </View>
 
           {/* STATION DETAIL LIST */}
-          <View style={Styles.swiperSlide2}>
+          <View style={styles.swiper_slide2}>
             <SectionList
               renderItem={({ item }) => (
                 <StationListDefaultItem
                   station={item}
                   hidden={this.state.noResults}
-                  onItemSelect={() => this.props.onItemSelect}
+                  onItemSelect={(handle, domainHandle) =>
+                    this.props.onItemSelect(handle, domainHandle)
+                  }
                 />
               )}
               renderSectionHeader={({ section: { title } }) => (
                 <View>
                   <TouchableOpacity
-                    style={Styles.stationListHeader}
+                    style={styles.station_list_header}
                     onPress={() => this._swiper.scrollBy(-1)}
                   >
                     <Icon
@@ -252,9 +285,9 @@ class StationListDefault extends Component {
                       type={'font-awesome'}
                       size={10}
                       color={Colors.midGray}
-                      containerStyle={{ marginRight: 10, paddingTop: 7 }}
+                      containerStyle={styles.station_list_item_icon}
                     />
-                    <Text style={Styles.stationListHeaderText}>
+                    <Text style={styles.station_list_header_text}>
                       {abbreviationToFullName(title)}
                     </Text>
                   </TouchableOpacity>
@@ -273,6 +306,7 @@ class StationListDefault extends Component {
 
 const mapStateToProps = state => {
   return {
+    stations: APISelectors.selectStationsStrippedList(state),
     strippedSectionedStations: APISelectors.selectStationsStrippedSectionedList(
       state,
     ),
