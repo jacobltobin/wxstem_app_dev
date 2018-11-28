@@ -6,9 +6,9 @@ import ReduxPersist from '../config/ReduxPersist'
 
 /* ------------- Assemble The Reducers ------------- */
 export const reducers = combineReducers({
-  search: require('./SearchRedux').reducer,
   api: require('./APIRedux').reducer,
   view: require('./ViewRedux').reducer,
+  config: require('./ConfigRedux').reducer,
 })
 
 export default () => {

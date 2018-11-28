@@ -4,6 +4,7 @@ import StationActions, {
   StationSelectors,
 } from '../../../redux/APIRedux/Stations'
 import { connect } from 'react-redux'
+import ConfigActions from '../../../redux/ConfigRedux'
 
 import { View, TouchableOpacity, Image, Text } from 'react-native'
 import Modal from 'react-native-modal'
@@ -21,12 +22,15 @@ class SelectStationModal extends Component {
     stations: PropTypes.array,
     sectionedStations: PropTypes.array,
     isFetching: PropTypes.bool,
+    addStationToDashboard: PropTypes.func,
   }
 
   constructor(props) {
     super(props)
     this.state = {
       display_station_list: true,
+      animationOut: 'fadeOutDownBig',
+      animationOutTiming: 400,
     }
   }
 
@@ -36,7 +40,12 @@ class SelectStationModal extends Component {
     })
   }
 
-  onSuccess = () => {
+  handleStationSelected = (handle, domainHandle) => {
+    this.setState({
+      animationOut: 'fadeOutUpBig',
+      animationOutTiming: 600,
+    })
+    this.props.addStationToDashboard(handle, domainHandle)
     this.props.close()
   }
 
@@ -49,6 +58,9 @@ class SelectStationModal extends Component {
           stations={this.props.stations}
           sectionedStations={this.props.sectionedStations}
           navigation={this.props.navigation}
+          onItemSelect={(handle, domainHandle) => {
+            this.handleStationSelected(handle, domainHandle)
+          }}
         />
       )
     } else {
@@ -58,8 +70,8 @@ class SelectStationModal extends Component {
       <Modal
         animationIn={'fadeInUpBig'}
         animationInTiming={400}
-        animationOut={'fadeOutDownBig'}
-        animationOutTiming={400}
+        animationOut={this.state.animationOut}
+        animationOutTiming={this.state.animationOutTiming}
         backdropColor={'black'}
         backdropOpacity={0.85}
         backdropTransitionInTiming={200}
@@ -108,7 +120,10 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = dispatch => {
-  return {}
+  return {
+    addStationToDashboard: (handle, domainHandle) =>
+      dispatch(ConfigActions.addStationToDashboard(handle, domainHandle)),
+  }
 }
 
 export default connect(
