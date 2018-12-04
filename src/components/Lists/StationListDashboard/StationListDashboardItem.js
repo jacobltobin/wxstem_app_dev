@@ -8,11 +8,11 @@ import ViewActions, { ViewSelectors } from '../../../redux/ViewRedux'
 import { Colors } from '../../../themes'
 import styles from './StationListDashboardStyles'
 import { StationSelectors } from '../../../redux/APIRedux/Stations'
+import { SwipeListView } from 'react-native-swipe-list-view'
 
 class StationListDashboardItem extends Component {
   static propTypes = {
     station: PropTypes.object,
-    onItemSelect: PropTypes.func,
     handle: PropTypes.string,
     domainHandle: PropTypes.string,
     station: PropTypes.object,
@@ -38,6 +38,7 @@ class StationListDashboardItem extends Component {
   }
 
   render() {
+
     let editing_controls
     if (this.state.editing_view) {
       editing_controls = (
@@ -54,39 +55,42 @@ class StationListDashboardItem extends Component {
       )
     }
     return (
-      <TouchableOpacity
-        onLongPress={() => { this.handleLongPress() }}
-        onPress={() => {
-          this.goToStation(
-            this.props.handle,
-            this.props.domainHandle)
-        }}
-        activeOpacity={0.7}
-      >
-        <View style={styles.list_item_container}>
-          <View style={styles.list_item_info_container}>
-            <View style={styles.list_item_name_container}>
-              <Text style={styles.list_item_station_name_text}>
-                {this.props.station.name}
-              </Text>
+      <View>
+        <TouchableOpacity
+          onLongPress={() => { this.handleLongPress() }}
+          onPress={() => {
+            this.goToStation(
+              this.props.handle,
+              this.props.domainHandle)
+          }}
+          activeOpacity={0.7}
+        >
+          <View style={styles.list_item_container}>
+            <View style={styles.list_item_info_container}>
+              <View style={styles.list_item_name_container}>
+                <Text style={styles.list_item_station_name_text}>
+                  {this.props.station.name}
+                </Text>
+              </View>
             </View>
-          </View>
-          {editing_controls}
-          <Image
-            style={styles.list_item_image}
-            source={{
-              uri:
-                'https://' +
-                this.props.station.domain.handle +
-                '.weatherstem.com/skycamera/' +
-                this.props.station.domain.handle +
-                '/' +
-                this.props.station.handle +
-                '/cumulus/snapshot.jpg',
-            }}
-          />
-        </View >
-      </TouchableOpacity>
+            {editing_controls}
+            <Image
+              style={styles.list_item_image}
+              source={{
+                uri:
+                  'https://' +
+                  this.props.station.domain.handle +
+                  '.weatherstem.com/skycamera/' +
+                  this.props.station.domain.handle +
+                  '/' +
+                  this.props.station.handle +
+                  '/cumulus/snapshot.jpg',
+              }}
+            />
+          </View >
+        </TouchableOpacity>
+
+      </View>
     )
   }
 }

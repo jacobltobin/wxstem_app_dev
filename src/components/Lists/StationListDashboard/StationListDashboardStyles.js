@@ -36,5 +36,23 @@ export default StyleSheet.create({
     position: 'absolute',
     height: '100%',
     width: '100%',
+  },
+  swipe_item_remove: {
+    textAlign: 'right',
+    backgroundColor: Colors.red,
+    fontSize: 12,
+    padding: 10,
+    color: Colors.white
+  },
+  swipe_item_row_front: {
+    backgroundColor: Colors.white
+  },
+  swipe_item_row_back: {
+    backgroundColor: Colors.red,
+    alignItems: 'center',
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingLeft: 15,
   }
 })
