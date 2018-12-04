@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { HeaderCenter, StationListDefault } from '../../components'
 import { NavigationActions } from 'react-navigation'
-import APIActions, { APISelectors } from '../../redux/APIRedux'
+import StationActions, { StationSelectors } from '../../redux/APIRedux/Stations'
 import { Header } from 'react-native-elements'
 import ViewActions, { ViewSelectors } from '../../redux/ViewRedux'
 
@@ -15,6 +15,7 @@ class Stations extends Component {
   static propTypes = {
     navigation: PropTypes.object,
     set_selected_station: PropTypes.func,
+    request_all_stations: PropTypes.func,
   }
 
   goBack = () => {
@@ -25,6 +26,10 @@ class Stations extends Component {
   goToStation = (handle, domainHandle) => {
     this.props.set_selected_station(handle, domainHandle)
     this.props.navigation.navigate('Station')
+  }
+
+  loadStations = () => {
+    this.props.request_all_stations()
   }
 
   render() {
@@ -63,6 +68,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
+    request_all_stations: () => dispatch(StationActions.requestAllStations()),
     set_selected_station: (handle, domainHandle) =>
       dispatch(ViewActions.setSelectedStation(handle, domainHandle)),
   }
