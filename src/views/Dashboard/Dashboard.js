@@ -54,7 +54,7 @@ class Dashboard extends Component {
     if (this.props.dashboard_stations.length) {
       dashboard_station_list = (
         <View>
-          <StationListDashboard />
+          <StationListDashboard navigation={this.props.navigation} />
           <View style={Styles.addStationButton}>
             <TouchableOpacity
               onPress={() => this.handle_add_station_press()}
@@ -104,7 +104,7 @@ class Dashboard extends Component {
           centerComponent={<HeaderCenter title="Dashboard" />}
         />
         <ScrollView>
-          <Subheader title={'My Stations'} />
+          {/* <Subheader title={'My Stations'} /> */}
           {dashboard_station_list}
           <Subheader title={'Notifications'} />
         </ScrollView>

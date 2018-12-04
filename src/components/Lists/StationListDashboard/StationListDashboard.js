@@ -26,6 +26,7 @@ class StationListDashboard extends Component {
     set_selected_station: PropTypes.func,
     request_all_stations: PropTypes.func,
     dashboard_stations: PropTypes.array,
+    navigation: PropTypes.object,
   }
 
   constructor(props) {
@@ -83,6 +84,7 @@ class StationListDashboard extends Component {
                 onPress={this.toggleSection}
                 handle={item.handle}
                 domainHandle={item.domainHandle}
+                navigation={this.props.navigation}
               />
             )}
           />
