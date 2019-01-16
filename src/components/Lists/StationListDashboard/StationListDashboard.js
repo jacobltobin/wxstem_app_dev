@@ -12,15 +12,16 @@ import {
   ActivityIndicator,
   TouchableOpacity,
   FlatList,
+  Animated,
   StyleSheet
 } from 'react-native'
 import { SearchBar, Icon } from 'react-native-elements'
 import StationListDashboardItem from './StationListDashboardItem'
 import { abbreviationToFullName } from '../../../transforms/stateNameUtils'
-import { SwipeListView } from 'react-native-swipe-list-view';
+import { SwipeListView } from 'react-native-swipe-list-view'
 
 import styles from './StationListDashboardStyles'
-import { Colors } from '../../../themes'
+import { Colors, Metrics } from '../../../themes'
 
 class StationListDashboard extends Component {
   static propTypes = {
@@ -28,33 +29,86 @@ class StationListDashboard extends Component {
     request_all_stations: PropTypes.func,
     dashboard_stations: PropTypes.array,
     navigation: PropTypes.object,
+    toggleScroll: PropTypes.func,
   }
 
   constructor(props) {
     super(props)
-    this.state = {}
+    this.state = {
+      // not recommended to store props in local state,
+      // but here is necessary
+      // because delay in redux store update causes
+      // the onSwipeValueChange to be triggered
+      // multiple times, deleting two items
+      // instead of one
+      listViewData: [...this.props.dashboard_stations],
+    }
+    this.animationIsRunning = false
+    this.rowTranslateAnimatedValues = {}
+    Array(20).fill('').forEach((_, i) => {
+      this.rowTranslateAnimatedValues[`${i}`] = new Animated.Value(1)
+    })
+    this.animatedTouchable = Animated.createAnimatedComponent(TouchableOpacity)
   }
 
   clear = () => {
     this.searchbar.clear()
   }
-
   onClearTextFunction = () => {
     this.setState({
       noResults: false,
       filtering: false,
     })
   }
-
   loadStations = () => {
     this.props.request_all_stations()
   }
-
   getStateEntry = state => {
     let results = this.props.sectionedStations.filter(obj => {
       return obj.title === state
     })
     return results
+  }
+
+  handleStationRemoved = (handle, domainHandle) => {
+    // this.props.remove_station_from_dashboard(handle, domainHandle)
+  }
+
+  handleSwipeGestureBegan = () => {
+    this.props.toggleScroll(false)
+  }
+  handleOnRowDidOpen = () => {
+    this.props.toggleScroll(true)
+  }
+
+  onSwipeValueChange = (swipeData) => {
+    const { key, value } = swipeData
+    // console.tron.log(swipeData)
+    if (key == 0) {
+      // console.tron.log(value)
+    }
+    if (value > -0.6 && value < 0.6) {
+      this.props.toggleScroll(true)
+    }
+    if (value < -Metrics.screenWidth && !this.animationIsRunning) {
+      this.animationIsRunning = true
+      console.tron.log(key, 'valuechange', value)
+      Animated.timing(this.rowTranslateAnimatedValues[key], { toValue: 0, duration: 200 }).start(() => {
+        // const prevIndex = this.props.dashboard_stations.findIndex(item => item.key === key)
+        // this.handleStationRemoved(
+        //   this.props.dashboard_stations[prevIndex].handle,
+        //   this.props.dashboard_stations[prevIndex].domainHandle
+        // )
+        // this.props.toggleScroll(true)
+        // this.animationIsRunning = false
+        // console.tron.log('isrunning', this.animationIsRunning)
+        const newData = [...this.state.listViewData];
+        const prevIndex = this.state.listViewData.findIndex(item => item.key === key);
+        newData.splice(prevIndex, 1);
+        this.setState({ listViewData: newData });
+        this.animationIsRunning = false;
+      })
+    }
   }
 
   render() {
@@ -80,26 +134,56 @@ class StationListDashboard extends Component {
         <View>
           <SwipeListView
             useFlatList
-            data={this.props.dashboard_stations}
+            // data={this.props.dashboard_stations}
+            data={this.state.listViewData}
             renderItem={(data, rowMap) => {
               return (
-                <View style={styles.swipe_item_row_front}>
+                <this.animatedTouchable style={[styles.swipe_item_row_front,
+                {
+                  height: this.rowTranslateAnimatedValues[data.item.key].interpolate({
+                    inputRange: [0, 1],
+                    outputRange: [0, 250],
+                  })
+                }]
+                }>
                   <StationListDashboardItem
                     handle={data.item.handle}
                     domainHandle={data.item.domainHandle}
                     navigation={this.props.navigation}
                   />
-                </View>
+                </this.animatedTouchable>
+                // <View style={styles.swipe_item_row_front}>
+                //   <StationListDashboardItem
+                //     handle={data.item.handle}
+                //     domainHandle={data.item.domainHandle}
+                //     navigation={this.props.navigation}
+                //   />
+                // </View>
               )
             }}
             renderHiddenItem={(data, rowMap) => (
               <View style={styles.swipe_item_row_back}>
-                <Text>Left</Text>
-                <Text style={styles.swipe_item_remove}>Remove{"\n"}from{"\n"}dashboard</Text>
+                <Text> </Text>
+                <View style={styles.swipe_item_remove_icon}>
+                  <Icon
+                    name={'trash'}
+                    type={'font-awesome'}
+                    size={30}
+                    color={Colors.white}
+                  />
+                </View>
+                {/* <Text style={styles.swipe_item_remove}>
+
+                </Text> */}
               </View>
             )}
-            leftOpenValue={75}
-            rightOpenValue={-75}
+            rightOpenValue={-Metrics.screenWidth}
+            onSwipeValueChange={this.onSwipeValueChange}
+            swipeGestureBegan={this.handleSwipeGestureBegan}
+            onRowDidOpen={this.handleOnRowDidOpen}
+            scrollEnabled={false}
+            disableRightSwipe
+            friction={7}
           />
           {/* <FlatList
             data={this.props.dashboard_stations}
@@ -117,82 +201,6 @@ class StationListDashboard extends Component {
   }
 }
 
-const stylesz = StyleSheet.create({
-  container: {
-    backgroundColor: 'white',
-    flex: 1,
-  },
-  standalone: {
-    marginTop: 30,
-    marginBottom: 30,
-  },
-  standaloneRowFront: {
-    alignItems: 'center',
-    backgroundColor: '#CCC',
-    justifyContent: 'center',
-    height: 50,
-  },
-  standaloneRowBack: {
-    alignItems: 'center',
-    backgroundColor: '#8BC645',
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    padding: 15,
-  },
-  backTextWhite: {
-    color: '#FFF',
-  },
-  rowFront: {
-    alignItems: 'center',
-    backgroundColor: '#CCC',
-    borderBottomColor: 'black',
-    borderBottomWidth: 1,
-    justifyContent: 'center',
-    // height: 50,
-  },
-  rowBack: {
-    alignItems: 'center',
-    backgroundColor: '#DDD',
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    paddingLeft: 15,
-  },
-  backRightBtn: {
-    alignItems: 'center',
-    bottom: 0,
-    justifyContent: 'center',
-    position: 'absolute',
-    top: 0,
-    width: 75,
-  },
-  backRightBtnLeft: {
-    backgroundColor: 'blue',
-    right: 75,
-  },
-  backRightBtnRight: {
-    backgroundColor: 'red',
-    right: 0,
-  },
-  controls: {
-    alignItems: 'center',
-    marginBottom: 30,
-  },
-  switchContainer: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    marginBottom: 5,
-  },
-  switch: {
-    alignItems: 'center',
-    borderWidth: 1,
-    borderColor: 'black',
-    paddingVertical: 10,
-    width: 100,
-  },
-});
-
 const mapStateToProps = state => {
   return {
     dashboard_stations: ConfigSelectors.selectDashboardStations(state),
@@ -204,6 +212,8 @@ const mapDispatchToProps = dispatch => {
     request_all_stations: () => dispatch(StationActions.requestAllStations()),
     set_selected_station: (handle, domainHandle) =>
       dispatch(ViewActions.setSelectedStation(handle, domainHandle)),
+    remove_station_from_dashboard: (handle, domainHandle) =>
+      dispatch(ConfigActions.removeStationFromDashboard(handle, domainHandle))
   }
 }
 

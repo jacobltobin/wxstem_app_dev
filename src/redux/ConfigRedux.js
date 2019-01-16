@@ -5,6 +5,7 @@ import Immutable from 'seamless-immutable'
 
 const { Types, Creators } = createActions({
   addStationToDashboard: ['handle', 'domainHandle'],
+  removeStationFromDashboard: ['handle', 'domainHandle']
 })
 
 export const ConfigActionTypes = Types
@@ -25,13 +26,32 @@ export const ConfigSelectors = {
 /* ------------- Login User Reducers ------------- */
 
 export const addStationToDashboard = (state, action) => {
-  console.tron.log(action)
   const station = {
     handle: action.handle,
     domainHandle: action.domainHandle,
+    key: state.dashboard_stations.length
   }
   const newState = {
     dashboard_stations: [...state.dashboard_stations, station],
+  }
+  return state.merge(newState)
+}
+
+export const removeStationFromDashboard = (state, action) => {
+  const prevIndex = state.dashboard_stations.findIndex(item => item.handle === action.handle && item.domainHandle === action.domainHandle)
+  const newData = [...state.dashboard_stations]
+  newData.splice(prevIndex, 1)
+  newNewData = []
+  newData.forEach((item, i) => {
+    newNewData.push({
+      handle: item.handle,
+      domainHandle: item.domainHandle,
+      key: i
+    })
+  })
+  console.tron.log(newNewData)
+  const newState = {
+    dashboard_stations: newNewData
   }
   return state.merge(newState)
 }
@@ -40,4 +60,5 @@ export const addStationToDashboard = (state, action) => {
 
 export const reducer = createReducer(INITIAL_STATE, {
   [Types.ADD_STATION_TO_DASHBOARD]: addStationToDashboard,
+  [Types.REMOVE_STATION_FROM_DASHBOARD]: removeStationFromDashboard,
 })

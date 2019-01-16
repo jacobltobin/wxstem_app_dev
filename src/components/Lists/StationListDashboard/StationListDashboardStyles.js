@@ -45,14 +45,17 @@ export default StyleSheet.create({
     color: Colors.white
   },
   swipe_item_row_front: {
-    backgroundColor: Colors.white
+    backgroundColor: Colors.white,
+    flex: 1,
   },
   swipe_item_row_back: {
-    backgroundColor: Colors.red,
+    backgroundColor: Colors.darkRed,
     alignItems: 'center',
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'space-between',
-    paddingLeft: 15,
+  },
+  swipe_item_remove_icon: {
+    paddingRight: 25
   }
 })

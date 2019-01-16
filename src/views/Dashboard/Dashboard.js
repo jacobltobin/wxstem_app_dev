@@ -30,6 +30,7 @@ class Dashboard extends Component {
     super(props)
     this.state = {
       select_station_modal_visible: false,
+      scrollEnabled: true,
     }
   }
 
@@ -44,6 +45,12 @@ class Dashboard extends Component {
     })
   }
 
+  toggleScroll = (bool) => {
+    this.setState({
+      scrollEnabled: bool
+    })
+  }
+
   render() {
     const openDrawer = () => {
       this.props.navigation.toggleDrawer()
@@ -54,7 +61,7 @@ class Dashboard extends Component {
     if (this.props.dashboard_stations.length) {
       dashboard_station_list = (
         <View>
-          <StationListDashboard navigation={this.props.navigation} />
+          <StationListDashboard toggleScroll={this.toggleScroll} navigation={this.props.navigation} />
           <View style={Styles.addStationButton}>
             <TouchableOpacity
               onPress={() => this.handle_add_station_press()}
@@ -103,7 +110,7 @@ class Dashboard extends Component {
           leftComponent={<HeaderLeft icon="menu" action={openDrawer} />}
           centerComponent={<HeaderCenter title="Dashboard" />}
         />
-        <ScrollView>
+        <ScrollView scrollEnabled={this.state.scrollEnabled}>
           {/* <Subheader title={'My Stations'} /> */}
           {dashboard_station_list}
           <Subheader title={'Notifications'} />
