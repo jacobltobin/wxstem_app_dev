@@ -11,6 +11,7 @@ const ApplicationStyles = {
       ...Fonts.style.header,
     },
     headerOuterContainer: {
+      borderBottomWidth: 0
       // paddingBottom: 50,
     },
     mainContainer: {
