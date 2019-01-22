@@ -15,6 +15,7 @@ class StationListDashboardItem extends Component {
     station: PropTypes.object,
     navigation: PropTypes.object,
     id: PropTypes.number,
+    set_selected_station: PropTypes.func,
   }
 
   constructor(props) {

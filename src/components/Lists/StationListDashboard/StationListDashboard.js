@@ -22,11 +22,12 @@ import { Colors, Metrics } from '../../../themes'
 
 class StationListDashboard extends Component {
   static propTypes = {
-    set_selected_station: PropTypes.func,
     request_all_stations: PropTypes.func,
     dashboard_stations: PropTypes.array,
     navigation: PropTypes.object,
     toggleScroll: PropTypes.func,
+    stationsFetched: PropTypes.bool,
+    isFetching: PropTypes.bool,
   }
 
   constructor(props) {
@@ -61,12 +62,6 @@ class StationListDashboard extends Component {
   }
   loadStations = () => {
     this.props.request_all_stations()
-  }
-  getStateEntry = state => {
-    let results = this.props.sectionedStations.filter(obj => {
-      return obj.title === state
-    })
-    return results
   }
 
   handleStationRemoved = id => {
@@ -212,13 +207,14 @@ class StationListDashboard extends Component {
 const mapStateToProps = state => {
   return {
     dashboard_stations: ConfigSelectors.selectDashboardStations(state),
+    isFetching: StationSelectors.isFetchingStations(state),
+    stationsFetched: StationSelectors.stationsFetched(state),
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
     request_all_stations: () => dispatch(StationActions.requestAllStations()),
-    set_selected_station: id => dispatch(ViewActions.setSelectedStation(id)),
     remove_station_from_dashboard: id =>
       dispatch(ConfigActions.removeStationFromDashboard(id)),
   }
