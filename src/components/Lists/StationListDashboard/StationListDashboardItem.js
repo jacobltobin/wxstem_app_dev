@@ -13,10 +13,8 @@ import { SwipeListView } from 'react-native-swipe-list-view'
 class StationListDashboardItem extends Component {
   static propTypes = {
     station: PropTypes.object,
-    handle: PropTypes.string,
-    domainHandle: PropTypes.string,
-    station: PropTypes.object,
-    navigation: PropTypes.object
+    navigation: PropTypes.object,
+    id: PropTypes.number,
   }
 
   constructor(props) {
@@ -26,8 +24,8 @@ class StationListDashboardItem extends Component {
     }
   }
 
-  goToStation = (handle, domainHandle) => {
-    this.props.set_selected_station(handle, domainHandle)
+  goToStation = id => {
+    this.props.set_selected_station(id)
     this.props.navigation.navigate('Station')
   }
 
@@ -38,7 +36,6 @@ class StationListDashboardItem extends Component {
   }
 
   render() {
-
     let editing_controls
     if (this.state.editing_view) {
       editing_controls = (
@@ -57,11 +54,11 @@ class StationListDashboardItem extends Component {
     return (
       <View>
         <TouchableOpacity
-          onLongPress={() => { this.handleLongPress() }}
+          onLongPress={() => {
+            this.handleLongPress()
+          }}
           onPress={() => {
-            this.goToStation(
-              this.props.handle,
-              this.props.domainHandle)
+            this.goToStation(this.props.station.id)
           }}
           activeOpacity={0.7}
         >
@@ -87,9 +84,8 @@ class StationListDashboardItem extends Component {
                   '/cumulus/snapshot.jpg',
               }}
             />
-          </View >
+          </View>
         </TouchableOpacity>
-
       </View>
     )
   }
@@ -97,18 +93,13 @@ class StationListDashboardItem extends Component {
 
 const mapStateToProps = (state, props) => {
   return {
-    station: StationSelectors.selectStationByHandle(
-      state,
-      props.handle,
-      props.domainHandle,
-    ),
+    station: StationSelectors.selectStationById(state, props.id),
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    set_selected_station: (handle, domainHandle) =>
-      dispatch(ViewActions.setSelectedStation(handle, domainHandle)),
+    set_selected_station: id => dispatch(ViewActions.setSelectedStation(id)),
   }
 }
 

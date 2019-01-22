@@ -23,8 +23,8 @@ class Stations extends Component {
     this.props.navigation.dispatch(backAction)
   }
 
-  goToStation = (handle, domainHandle) => {
-    this.props.set_selected_station(handle, domainHandle)
+  goToStation = id => {
+    this.props.set_selected_station(id)
     this.props.navigation.navigate('Station')
   }
 
@@ -52,9 +52,8 @@ class Stations extends Component {
           }}
         />
         <StationListDefault
-          onItemSelect={(handle, domainHandle) => {
-            console.tron.log(handle)
-            this.goToStation(handle, domainHandle)
+          onItemSelect={id => {
+            this.goToStation(id)
           }}
         />
       </View>
@@ -69,8 +68,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     request_all_stations: () => dispatch(StationActions.requestAllStations()),
-    set_selected_station: (handle, domainHandle) =>
-      dispatch(ViewActions.setSelectedStation(handle, domainHandle)),
+    set_selected_station: id => dispatch(ViewActions.setSelectedStation(id)),
   }
 }
 

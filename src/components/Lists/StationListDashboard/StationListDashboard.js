@@ -11,13 +11,10 @@ import {
   View,
   ActivityIndicator,
   TouchableOpacity,
-  FlatList,
   Animated,
-  StyleSheet
 } from 'react-native'
-import { SearchBar, Icon } from 'react-native-elements'
+import { Icon } from 'react-native-elements'
 import StationListDashboardItem from './StationListDashboardItem'
-import { abbreviationToFullName } from '../../../transforms/stateNameUtils'
 import { SwipeListView } from 'react-native-swipe-list-view'
 
 import styles from './StationListDashboardStyles'
@@ -45,9 +42,11 @@ class StationListDashboard extends Component {
     }
     this.animationIsRunning = false
     this.rowTranslateAnimatedValues = {}
-    Array(20).fill('').forEach((_, i) => {
-      this.rowTranslateAnimatedValues[`${i}`] = new Animated.Value(1)
-    })
+    Array(20)
+      .fill('')
+      .forEach((_, i) => {
+        this.rowTranslateAnimatedValues[`${i}`] = new Animated.Value(1)
+      })
     this.animatedTouchable = Animated.createAnimatedComponent(TouchableOpacity)
   }
 
@@ -70,8 +69,8 @@ class StationListDashboard extends Component {
     return results
   }
 
-  handleStationRemoved = (handle, domainHandle) => {
-    // this.props.remove_station_from_dashboard(handle, domainHandle)
+  handleStationRemoved = id => {
+    // this.props.remove_station_from_dashboard(id)
   }
 
   handleSwipeGestureBegan = () => {
@@ -81,7 +80,7 @@ class StationListDashboard extends Component {
     this.props.toggleScroll(true)
   }
 
-  onSwipeValueChange = (swipeData) => {
+  onSwipeValueChange = swipeData => {
     const { key, value } = swipeData
     // console.tron.log(swipeData)
     if (key == 0) {
@@ -93,7 +92,10 @@ class StationListDashboard extends Component {
     if (value < -Metrics.screenWidth && !this.animationIsRunning) {
       this.animationIsRunning = true
       console.tron.log(key, 'valuechange', value)
-      Animated.timing(this.rowTranslateAnimatedValues[key], { toValue: 0, duration: 200 }).start(() => {
+      Animated.timing(this.rowTranslateAnimatedValues[key], {
+        toValue: 0,
+        duration: 200,
+      }).start(() => {
         // const prevIndex = this.props.dashboard_stations.findIndex(item => item.key === key)
         // this.handleStationRemoved(
         //   this.props.dashboard_stations[prevIndex].handle,
@@ -102,11 +104,13 @@ class StationListDashboard extends Component {
         // this.props.toggleScroll(true)
         // this.animationIsRunning = false
         // console.tron.log('isrunning', this.animationIsRunning)
-        const newData = [...this.state.listViewData];
-        const prevIndex = this.state.listViewData.findIndex(item => item.key === key);
-        newData.splice(prevIndex, 1);
-        this.setState({ listViewData: newData });
-        this.animationIsRunning = false;
+        const newData = [...this.state.listViewData]
+        const prevIndex = this.state.listViewData.findIndex(
+          item => item.key === key,
+        )
+        newData.splice(prevIndex, 1)
+        this.setState({ listViewData: newData })
+        this.animationIsRunning = false
       })
     }
   }
@@ -138,18 +142,23 @@ class StationListDashboard extends Component {
             data={this.state.listViewData}
             renderItem={(data, rowMap) => {
               return (
-                <this.animatedTouchable style={[styles.swipe_item_row_front,
-                {
-                  height: this.rowTranslateAnimatedValues[data.item.key].interpolate({
-                    inputRange: [0, 1],
-                    outputRange: [0, 250],
-                  })
-                }]
-                }>
+                <this.animatedTouchable
+                  style={[
+                    styles.swipe_item_row_front,
+                    {
+                      height: this.rowTranslateAnimatedValues[
+                        data.item.key
+                      ].interpolate({
+                        inputRange: [0, 1],
+                        outputRange: [0, 250],
+                      }),
+                    },
+                  ]}
+                >
+                  {console.tron.log('list dashboard', data.item)}
                   <StationListDashboardItem
-                    handle={data.item.handle}
-                    domainHandle={data.item.domainHandle}
                     navigation={this.props.navigation}
+                    id={data.item.id}
                   />
                 </this.animatedTouchable>
                 // <View style={styles.swipe_item_row_front}>
@@ -163,7 +172,6 @@ class StationListDashboard extends Component {
             }}
             renderHiddenItem={(data, rowMap) => (
               <View style={styles.swipe_item_row_back}>
-                <Text> </Text>
                 <View style={styles.swipe_item_remove_icon}>
                   <Icon
                     name={'trash'}
@@ -210,10 +218,9 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     request_all_stations: () => dispatch(StationActions.requestAllStations()),
-    set_selected_station: (handle, domainHandle) =>
-      dispatch(ViewActions.setSelectedStation(handle, domainHandle)),
-    remove_station_from_dashboard: (handle, domainHandle) =>
-      dispatch(ConfigActions.removeStationFromDashboard(handle, domainHandle))
+    set_selected_station: id => dispatch(ViewActions.setSelectedStation(id)),
+    remove_station_from_dashboard: id =>
+      dispatch(ConfigActions.removeStationFromDashboard(id)),
   }
 }
 

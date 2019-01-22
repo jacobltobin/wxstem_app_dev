@@ -4,7 +4,7 @@ import Immutable from 'seamless-immutable'
 /* ------------- Types and Action Creators ------------- */
 
 const { Types, Creators } = createActions({
-  setSelectedStation: ['handle', 'domainHandle'],
+  setSelectedStation: ['id'],
 })
 
 export const ViewActionTypes = Types
@@ -25,10 +25,10 @@ export const ViewSelectors = {
 /* ------------- Reducers ------------- */
 
 export const setSelectedStation = (state, action) => {
+  console.log('set selected station', action)
   const newState = {
     selectedStation: {
-      handle: action.handle,
-      domainHandle: action.domainHandle,
+      id: action.id,
     },
   }
   return state.merge(newState)

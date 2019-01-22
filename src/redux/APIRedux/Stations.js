@@ -41,6 +41,13 @@ export const StationSelectors = {
     })[0]
     return station
   },
+  selectStationById: (state, id) => {
+    console.tron.log('select by id', id)
+    let station = state.api.stations.fullList.filter(station => {
+      return station.id === id
+    })[0]
+    return station
+  },
 }
 
 /* ------------- Reducers ------------- */
@@ -68,6 +75,7 @@ export const stationRequestSuccess = (state, action) => {
       state: station.geo.state,
       handle: station.handle,
       domainHandle: station.domain.handle,
+      id: station.id,
     }
   })
   const strippedAlphabetizedList = apiTransforms.alphabetizeStations(

@@ -233,7 +233,7 @@ class StationListDefault extends Component {
               <StationListDefaultItem
                 station={item}
                 hidden={this.state.noResults}
-                onItemSelect={() => this.props.onItemSelect}
+                onItemSelect={id => this.props.onItemSelect(id)}
               />
             )}
             renderSectionHeader={({ section: { title } }) => (
@@ -271,9 +271,7 @@ class StationListDefault extends Component {
                 <StationListDefaultItem
                   station={item}
                   hidden={this.state.noResults}
-                  onItemSelect={(handle, domainHandle) =>
-                    this.props.onItemSelect(handle, domainHandle)
-                  }
+                  onItemSelect={id => this.props.onItemSelect(id)}
                 />
               )}
               renderSectionHeader={({ section: { title } }) => (
@@ -321,8 +319,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     request_all_stations: () => dispatch(StationActions.requestAllStations()),
-    set_selected_station: (handle, domainHandle) =>
-      dispatch(ViewActions.setSelectedStation(handle, domainHandle)),
+    set_selected_station: id => dispatch(ViewActions.setSelectedStation(id)),
   }
 }
 

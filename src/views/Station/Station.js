@@ -57,10 +57,9 @@ class Station extends Component {
 
 const mapStateToProps = state => {
   return {
-    stationBaseData: StationSelectors.selectStationByHandle(
+    stationBaseData: StationSelectors.selectStationById(
       state,
-      ViewSelectors.selectSelectedStation(state).handle,
-      ViewSelectors.selectSelectedStation(state).domainHandle,
+      ViewSelectors.selectSelectedStation(state).id,
     ),
   }
 }

@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { Text, View, TouchableOpacity } from 'react-native'
 import { Divider, Icon } from 'react-native-elements'
-import ViewActions, { ViewSelectors } from '../../../redux/ViewRedux'
 
 import { Colors } from '../../../themes'
 import styles from './StationListDefaultStyles'
@@ -13,6 +12,10 @@ export default class StationListDefaultItem extends Component {
     station: PropTypes.object.isRequired,
     onItemSelect: PropTypes.func,
     hidden: PropTypes.bool,
+  }
+
+  onPress = () => {
+    this.props.onItemSelect(this.props.station.id)
   }
 
   render() {
@@ -25,12 +28,7 @@ export default class StationListDefaultItem extends Component {
         }
       >
         <TouchableOpacity
-          onPress={() =>
-            this.props.onItemSelect(
-              this.props.station.handle,
-              this.props.station.domainHandle,
-            )
-          }
+          onPress={() => this.onPress()}
           style={styles.station_list_item}
         >
           <View>

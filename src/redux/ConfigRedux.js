@@ -4,8 +4,8 @@ import Immutable from 'seamless-immutable'
 /* ------------- Types and Action Creators ------------- */
 
 const { Types, Creators } = createActions({
-  addStationToDashboard: ['handle', 'domainHandle'],
-  removeStationFromDashboard: ['handle', 'domainHandle']
+  addStationToDashboard: ['id'],
+  removeStationFromDashboard: ['id'],
 })
 
 export const ConfigActionTypes = Types
@@ -27,9 +27,8 @@ export const ConfigSelectors = {
 
 export const addStationToDashboard = (state, action) => {
   const station = {
-    handle: action.handle,
-    domainHandle: action.domainHandle,
-    key: state.dashboard_stations.length
+    id: action.id,
+    key: state.dashboard_stations.length,
   }
   const newState = {
     dashboard_stations: [...state.dashboard_stations, station],
@@ -38,20 +37,21 @@ export const addStationToDashboard = (state, action) => {
 }
 
 export const removeStationFromDashboard = (state, action) => {
-  const prevIndex = state.dashboard_stations.findIndex(item => item.handle === action.handle && item.domainHandle === action.domainHandle)
+  const prevIndex = state.dashboard_stations.findIndex(
+    item => item.id === action.id,
+  )
   const newData = [...state.dashboard_stations]
   newData.splice(prevIndex, 1)
   newNewData = []
   newData.forEach((item, i) => {
     newNewData.push({
-      handle: item.handle,
-      domainHandle: item.domainHandle,
-      key: i
+      id: item.id,
+      key: i,
     })
   })
   console.tron.log(newNewData)
   const newState = {
-    dashboard_stations: newNewData
+    dashboard_stations: newNewData,
   }
   return state.merge(newState)
 }

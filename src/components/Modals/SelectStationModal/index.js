@@ -33,18 +33,14 @@ class SelectStationModal extends Component {
       animationOutTiming: 400,
       addedStation: false,
       stationSelected: {
-        handle: null,
-        domainHandle: null,
+        id: null,
       },
     }
   }
 
   onModalHide = () => {
     this.state.addedStation
-      ? this.props.addStationToDashboard(
-          this.state.stationSelected.handle,
-          this.state.stationSelected.domainHandle,
-        )
+      ? this.props.addStationToDashboard(this.state.stationSelected.id)
       : null
   }
 
@@ -54,14 +50,13 @@ class SelectStationModal extends Component {
     })
   }
 
-  handleStationSelected = (handle, domainHandle) => {
+  handleStationSelected = id => {
     this.setState({
       animationOut: 'fadeOutUpBig',
       animationOutTiming: 600,
       addedStation: true,
       stationSelected: {
-        handle: handle,
-        domainHandle: domainHandle,
+        id: id,
       },
     })
     this.props.close()
@@ -82,8 +77,8 @@ class SelectStationModal extends Component {
           stations={this.props.stations}
           sectionedStations={this.props.sectionedStations}
           navigation={this.props.navigation}
-          onItemSelect={(handle, domainHandle) => {
-            this.handleStationSelected(handle, domainHandle)
+          onItemSelect={id => {
+            this.handleStationSelected(id)
           }}
         />
       )
@@ -145,8 +140,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    addStationToDashboard: (handle, domainHandle) =>
-      dispatch(ConfigActions.addStationToDashboard(handle, domainHandle)),
+    addStationToDashboard: id =>
+      dispatch(ConfigActions.addStationToDashboard(id)),
   }
 }
 
