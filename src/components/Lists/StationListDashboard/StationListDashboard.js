@@ -12,13 +12,14 @@ import {
   ActivityIndicator,
   TouchableOpacity,
   Animated,
+  Easing,
 } from 'react-native'
 import { Icon } from 'react-native-elements'
 import StationListDashboardItem from './StationListDashboardItem'
 import { SwipeListView } from 'react-native-swipe-list-view'
 
 import styles from './StationListDashboardStyles'
-import { Colors, Metrics } from '../../../themes'
+import { Colors } from '../../../themes'
 
 class StationListDashboard extends Component {
   static propTypes = {
@@ -28,86 +29,33 @@ class StationListDashboard extends Component {
     toggleScroll: PropTypes.func,
     stationsFetched: PropTypes.bool,
     isFetching: PropTypes.bool,
+    remove_station_from_dashboard: PropTypes.func,
   }
 
   constructor(props) {
     super(props)
-    this.state = {
-      // not recommended to store props in local state,
-      // but here is necessary
-      // because delay in redux store update causes
-      // the onSwipeValueChange to be triggered
-      // multiple times, deleting two items
-      // instead of one
-      listViewData: [...this.props.dashboard_stations],
-    }
-    this.animationIsRunning = false
-    this.rowTranslateAnimatedValues = {}
-    Array(20)
-      .fill('')
-      .forEach((_, i) => {
-        this.rowTranslateAnimatedValues[`${i}`] = new Animated.Value(1)
-      })
-    this.animatedTouchable = Animated.createAnimatedComponent(TouchableOpacity)
   }
-
   clear = () => {
     this.searchbar.clear()
-  }
-  onClearTextFunction = () => {
-    this.setState({
-      noResults: false,
-      filtering: false,
-    })
   }
   loadStations = () => {
     this.props.request_all_stations()
   }
-
-  handleStationRemoved = id => {
-    // this.props.remove_station_from_dashboard(id)
-  }
-
   handleSwipeGestureBegan = () => {
     this.props.toggleScroll(false)
   }
   handleOnRowDidOpen = () => {
     this.props.toggleScroll(true)
   }
+  handleRemovePress = (id, key, rowMap) => {
+    if (rowMap[key]) {
+      rowMap[key].closeRow()
+    }
+    this.props.remove_station_from_dashboard(id)
+  }
 
-  onSwipeValueChange = swipeData => {
-    const { key, value } = swipeData
-    // console.tron.log(swipeData)
-    if (key == 0) {
-      // console.tron.log(value)
-    }
-    if (value > -0.6 && value < 0.6) {
-      this.props.toggleScroll(true)
-    }
-    if (value < -Metrics.screenWidth && !this.animationIsRunning) {
-      this.animationIsRunning = true
-      console.tron.log(key, 'valuechange', value)
-      Animated.timing(this.rowTranslateAnimatedValues[key], {
-        toValue: 0,
-        duration: 200,
-      }).start(() => {
-        // const prevIndex = this.props.dashboard_stations.findIndex(item => item.key === key)
-        // this.handleStationRemoved(
-        //   this.props.dashboard_stations[prevIndex].handle,
-        //   this.props.dashboard_stations[prevIndex].domainHandle
-        // )
-        // this.props.toggleScroll(true)
-        // this.animationIsRunning = false
-        // console.tron.log('isrunning', this.animationIsRunning)
-        const newData = [...this.state.listViewData]
-        const prevIndex = this.state.listViewData.findIndex(
-          item => item.key === key,
-        )
-        newData.splice(prevIndex, 1)
-        this.setState({ listViewData: newData })
-        this.animationIsRunning = false
-      })
-    }
+  onAnimCallback = complete => {
+    this.animationIsRunning = false
   }
 
   render() {
@@ -133,54 +81,44 @@ class StationListDashboard extends Component {
         <View>
           <SwipeListView
             useFlatList
-            // data={this.props.dashboard_stations}
-            data={this.state.listViewData}
+            closeOnRowOpen
+            data={this.props.dashboard_stations}
             renderItem={(data, rowMap) => {
+              console.tron.log('rendering item', data.item.id)
               return (
-                <this.animatedTouchable
-                  style={[
-                    styles.swipe_item_row_front,
-                    {
-                      height: this.rowTranslateAnimatedValues[
-                        data.item.key
-                      ].interpolate({
-                        inputRange: [0, 1],
-                        outputRange: [0, 250],
-                      }),
-                    },
-                  ]}
-                >
-                  {console.tron.log('list dashboard', data.item)}
+                <View style={styles.swipe_item_row_front}>
                   <StationListDashboardItem
                     navigation={this.props.navigation}
                     id={data.item.id}
                   />
-                </this.animatedTouchable>
-                // <View style={styles.swipe_item_row_front}>
-                //   <StationListDashboardItem
-                //     handle={data.item.handle}
-                //     domainHandle={data.item.domainHandle}
-                //     navigation={this.props.navigation}
-                //   />
-                // </View>
+                </View>
               )
             }}
-            renderHiddenItem={(data, rowMap) => (
-              <View style={styles.swipe_item_row_back}>
-                <View style={styles.swipe_item_remove_icon}>
-                  <Icon
-                    name={'trash'}
-                    type={'font-awesome'}
-                    size={30}
-                    color={Colors.white}
-                  />
+            renderHiddenItem={(data, rowMap) => {
+              return (
+                <View style={styles.swipe_item_row_back}>
+                  <View style={styles.swipe_item_remove_icon}>
+                    <TouchableOpacity
+                      onPress={() => {
+                        this.handleRemovePress(
+                          data.item.id,
+                          data.item.key,
+                          rowMap,
+                        )
+                      }}
+                    >
+                      <Icon
+                        name={'trash'}
+                        type={'font-awesome'}
+                        size={30}
+                        color={Colors.white}
+                      />
+                    </TouchableOpacity>
+                  </View>
                 </View>
-                {/* <Text style={styles.swipe_item_remove}>
-
-                </Text> */}
-              </View>
-            )}
-            rightOpenValue={-Metrics.screenWidth}
+              )
+            }}
+            rightOpenValue={-75}
             onSwipeValueChange={this.onSwipeValueChange}
             swipeGestureBegan={this.handleSwipeGestureBegan}
             onRowDidOpen={this.handleOnRowDidOpen}
@@ -188,16 +126,6 @@ class StationListDashboard extends Component {
             disableRightSwipe
             friction={7}
           />
-          {/* <FlatList
-            data={this.props.dashboard_stations}
-            renderItem={({ item }) => (
-              <StationListDashboardItem
-                handle={item.handle}
-                domainHandle={item.domainHandle}
-                navigation={this.props.navigation}
-              />
-            )}
-          /> */}
         </View>
       )
     }

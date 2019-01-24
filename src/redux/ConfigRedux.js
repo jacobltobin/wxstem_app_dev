@@ -28,7 +28,7 @@ export const ConfigSelectors = {
 export const addStationToDashboard = (state, action) => {
   const station = {
     id: action.id,
-    key: state.dashboard_stations.length,
+    key: state.dashboard_stations.length + 1,
   }
   const newState = {
     dashboard_stations: [...state.dashboard_stations, station],
@@ -46,7 +46,7 @@ export const removeStationFromDashboard = (state, action) => {
   newData.forEach((item, i) => {
     newNewData.push({
       id: item.id,
-      key: i,
+      key: i + 1,
     })
   })
   console.tron.log(newNewData)

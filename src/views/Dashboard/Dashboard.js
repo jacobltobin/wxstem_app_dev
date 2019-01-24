@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import { createStackNavigator } from 'react-navigation'
 import { connect } from 'react-redux'
 import { UserSelectors } from '../../redux/APIRedux/User'
-import { ConfigSelectors } from '../../redux/ConfigRedux'
 
 import { StationListDashboard } from '../../components'
 import { View, ScrollView, TouchableOpacity, Text } from 'react-native'
@@ -23,7 +22,6 @@ class Dashboard extends Component {
   static propTypes = {
     navigation: PropTypes.object,
     user: PropTypes.object,
-    dashboard_stations: PropTypes.array,
   }
 
   constructor(props) {
@@ -45,9 +43,9 @@ class Dashboard extends Component {
     })
   }
 
-  toggleScroll = (bool) => {
+  toggleScroll = bool => {
     this.setState({
-      scrollEnabled: bool
+      scrollEnabled: bool,
     })
   }
 
@@ -57,31 +55,12 @@ class Dashboard extends Component {
     }
 
     let dashboard_station_list
-
-    if (this.props.dashboard_stations.length) {
-      dashboard_station_list = (
-        <View>
-          <StationListDashboard toggleScroll={this.toggleScroll} navigation={this.props.navigation} />
-          <View style={Styles.addStationButton}>
-            <TouchableOpacity
-              onPress={() => this.handle_add_station_press()}
-              activeOpacity={0.5}
-            >
-              <Icon
-                name={'plus-circle'}
-                type={'font-awesome'}
-                size={100}
-                color={Colors.lightGray}
-              />
-              <Text style={Styles.addStationButtonText}>
-                Add stations {'\n'}to your dashboard
-              </Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-      )
-    } else {
-      dashboard_station_list = (
+    dashboard_station_list = (
+      <View>
+        <StationListDashboard
+          toggleScroll={this.toggleScroll}
+          navigation={this.props.navigation}
+        />
         <View style={Styles.addStationButton}>
           <TouchableOpacity
             onPress={() => this.handle_add_station_press()}
@@ -98,8 +77,8 @@ class Dashboard extends Component {
             </Text>
           </TouchableOpacity>
         </View>
-      )
-    }
+      </View>
+    )
 
     return (
       <View style={Styles.dashboardContainer}>
@@ -127,7 +106,6 @@ class Dashboard extends Component {
 const mapStateToProps = state => {
   return {
     user: UserSelectors.selectLoginInfo(state),
-    dashboard_stations: ConfigSelectors.selectDashboardStations(state),
   }
 }
 

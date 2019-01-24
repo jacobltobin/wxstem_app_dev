@@ -42,7 +42,6 @@ export const StationSelectors = {
     return station
   },
   selectStationById: (state, id) => {
-    console.tron.log('select by id', id)
     let station = state.api.stations.fullList.filter(station => {
       return station.id === id
     })[0]

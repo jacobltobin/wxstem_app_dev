@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native'
 import { Fonts, Colors, Metrics } from '../../../themes/'
-import colors from '../../../themes/Colors';
+import colors from '../../../themes/Colors'
 
 export default StyleSheet.create({
   list_item_container: {
@@ -22,7 +22,7 @@ export default StyleSheet.create({
     backgroundColor: Colors.white80,
     padding: 5,
     width: '100%',
-    shadowOffset: { width: 0, height: 5, },
+    shadowOffset: { width: 0, height: 5 },
     shadowColor: colors.black10,
     shadowOpacity: 1.0,
   },
@@ -42,20 +42,20 @@ export default StyleSheet.create({
     backgroundColor: Colors.red,
     fontSize: 12,
     padding: 10,
-    color: Colors.white
+    color: Colors.white,
   },
   swipe_item_row_front: {
     backgroundColor: Colors.white,
     flex: 1,
   },
   swipe_item_row_back: {
-    backgroundColor: Colors.darkRed,
+    backgroundColor: Colors.red,
     alignItems: 'center',
     flex: 1,
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'flex-end',
   },
   swipe_item_remove_icon: {
-    paddingRight: 25
-  }
+    paddingRight: 25,
+  },
 })
