@@ -7,6 +7,11 @@ const { Types, Creators } = createActions({
   loginUser: ['payload'],
   loginUserSuccess: ['login_info'],
   loginUserFailure: null,
+
+  logoutUser: ['payload'],
+  logoutUserSuccess: ['login_info'],
+  logoutUserFailure: null,
+
   createUser: ['payload'],
   createUserSuccess: ['login_info'],
   createUserFailure: null,
@@ -92,6 +97,49 @@ export const clearLogInError = state => {
   return state.merge(newState)
 }
 
+/* ------------- Logout User Reducers ------------- */
+
+// request all the stations in the network
+export const logoutUser = state => {
+  const newState = {
+    logged_in: true,
+    fetching: true,
+    api_error: null,
+    login_info: {
+      data: {
+        error: null,
+      },
+    },
+  }
+  return state.merge(newState)
+}
+
+// successful REQUEST not necessarily successful login
+export const logoutUserSuccess = (state, action) => {
+  const logout_info = action.logout_info
+  const newState = {
+    logged_in: logout_info.data.error ? false : true,
+    fetching: false,
+    api_error: logout_info.data.error ? logout_info.data.error : null,
+    login_info: logout_info,
+  }
+  return state.merge(newState)
+}
+
+// request failed
+export const logoutUserFailure = state => {
+  const newState = {
+    logged_in: true,
+    fetching: false,
+    login_info: {
+      data: {
+        error: null,
+      },
+    },
+  }
+  return state.merge(newState)
+}
+
 /* ------------- Create User Reducers ------------- */
 
 // request all the stations in the network
@@ -142,6 +190,10 @@ export const reducer = createReducer(INITIAL_STATE, {
   [Types.LOGIN_USER]: loginUser,
   [Types.LOGIN_USER_SUCCESS]: loginUserSuccess,
   [Types.LOGIN_USER_FAILURE]: loginUserFailure,
+
+  [Types.LOGOUT_USER]: logoutUser,
+  [Types.LOGOUT_USER_SUCCESS]: logoutUserSuccess,
+  [Types.LOGOUT_USER_FAILURE]: logoutUserFailure,
 
   [Types.CREATE_USER]: createUser,
   [Types.CREATE_USER_SUCCESS]: createUserSuccess,

@@ -56,6 +56,17 @@ const create = (baseURL = 'http://cdn.weatherstem.com') => {
     })
   }
 
+  const logout_user = action => {
+    return axios({
+      method: 'post',
+      url: 'https://m.weatherstem.com/api/util',
+      data: {
+        method: 'log_off',
+        uid: action.payload.uid,
+      },
+    })
+  }
+
   const create_user = action => {
     return axios({
       method: 'post',

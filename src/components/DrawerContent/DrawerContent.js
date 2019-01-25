@@ -24,20 +24,21 @@ class DrawerContent extends Component {
     }
   }
 
-  setLogInModalVisible(visible) {
-    if (visible) {
-      this.props.navigation.toggleDrawer()
-    }
-    this.setState({ logInModalVisible: visible })
-  }
-
   navigateToScreen = route => () => {
     const navigateAction = NavigationActions.navigate({
       routeName: route,
     })
     this.props.navigation.dispatch(navigateAction)
   }
-
+  setLogInModalVisible(visible) {
+    if (visible) {
+      this.props.navigation.toggleDrawer()
+    }
+    this.setState({ logInModalVisible: visible })
+  }
+  handleLogOutPress = () => {
+    console.tron.log('logout')
+  }
   render() {
     const isLoggedIn = this.props.user.logged_in
     let loginControl
@@ -47,7 +48,7 @@ class DrawerContent extends Component {
       loginControl = (
         <TouchableOpacity
           onPress={() => {
-            this.setLogInModalVisible(false)
+            this.handleLogOutPress()
           }}
         >
           <Text style={styles.drawerItem}>Log Out</Text>
