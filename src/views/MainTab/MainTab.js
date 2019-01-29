@@ -3,7 +3,7 @@ import { View, Text } from 'react-native'
 import { createBottomTabNavigator } from 'react-navigation'
 import PropTypes from 'prop-types'
 
-import Dashboard from '../Dashboard/Dashboard'
+import DashboardStack from '../DashboardStack/DashboardStack'
 import Stations from '../Stations/Stations'
 import StationsStack from '../StationsStack/StationsStack'
 
@@ -16,7 +16,7 @@ import { Colors } from '../../themes'
 export default createBottomTabNavigator(
   {
     Dashboard: {
-      screen: Dashboard,
+      screen: DashboardStack,
       navigationOptions: ({ navigation }) => ({
         tabBarIcon: ({ tintColor }) => (
           <Icon name="home" size={30} color={tintColor} />

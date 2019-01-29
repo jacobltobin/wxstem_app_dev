@@ -31,7 +31,7 @@ class StationListDashboardItem extends Component {
 
   goToStation = id => {
     this.props.set_selected_station(id)
-    this.props.navigation.navigate('Station')
+    this.props.navigation.navigate('Station', { transition: 'slideFromBottom' })
   }
   handleRemovePress = id => {
     Animated.timing(this.heightValue, {
