@@ -97,7 +97,7 @@ class StationListDashboardItem extends Component {
               onPress={() => {
                 this.goToStation(this.props.station.id)
               }}
-              activeOpacity={0.7}
+              activeOpacity={0.9}
             >
               <View style={styles.list_item_container}>
                 <View style={styles.list_item_info_container}>
@@ -190,13 +190,14 @@ class StationListDashboardItem extends Component {
             ]}
           >
             <TouchableOpacity
+              delayPressIn={50}
               style={styles.swipe_item_remove_button}
               onPress={() => {
                 this.handleRemovePress(this.props.station.id)
               }}
             >
               <Icon
-                name={'trash'}
+                name={'minus'}
                 type={'font-awesome'}
                 size={20}
                 color={Colors.white}

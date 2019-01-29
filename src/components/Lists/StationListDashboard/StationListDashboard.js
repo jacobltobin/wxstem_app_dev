@@ -56,7 +56,7 @@ class StationListDashboard extends Component {
         </View>
       )
     }
-    // finally now, if there is station data then:
+    // if there is station data then:
     else {
       return (
         <FlatList

@@ -127,7 +127,7 @@ export default StyleSheet.create({
     backgroundColor: Colors.red,
     width: 40,
     height: 40,
-    paddingTop: 9,
+    paddingTop: 10,
     borderTopLeftRadius: 20,
     borderBottomLeftRadius: 20,
     borderTopRightRadius: 20,

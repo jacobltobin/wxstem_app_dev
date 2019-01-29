@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import UserActions, { UserSelectors } from '../../../redux/APIRedux/User'
 
-import { View, TouchableOpacity, Text } from 'react-native'
+import { View, TouchableOpacity, Text, ActivityIndicator } from 'react-native'
 import { Input, Button } from 'react-native-elements'
 import { OpenURLButton } from '../../Buttons'
 
@@ -279,7 +279,8 @@ class LogInForm extends Component {
       password_verify_input,
       form_submit_button,
       form_toggle,
-      forgot_password
+      forgot_password,
+      activityIndicator
 
     if (creating_account) {
       forgot_password = ''
@@ -410,8 +411,22 @@ class LogInForm extends Component {
     if (this.props.user.logged_in) {
       this.props.onSuccess()
     }
+
+    if (this.props.user.isFetching) {
+      activityIndicator = (
+        <ActivityIndicator
+          size="large"
+          style={{ paddingTop: 20 }}
+          color={Colors.blue}
+        />
+      )
+    } else {
+      activityIndicator = ''
+    }
+
     return (
       <View style={styles.login_formContainer}>
+        {activityIndicator}
         <Input
           ref={input => (this.uid_input_component = input)}
           inputStyle={styles.login_input}

@@ -20,4 +20,14 @@ export default StyleSheet.create({
     alignSelf: 'center',
     textAlign: 'center',
   },
+  user_indicator: {
+    backgroundColor: Colors.lightBlue,
+    padding: 3,
+  },
+  user_indicator_text: {
+    ...Fonts.style.detail,
+    color: Colors.midGray,
+    textAlign: 'center',
+    fontSize: 12,
+  },
 })

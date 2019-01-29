@@ -80,6 +80,20 @@ class Dashboard extends Component {
       </View>
     )
 
+    let user_indicator
+    if (this.props.user.logged_in) {
+      user_indicator = (
+        <View style={Styles.user_indicator}>
+          <Text style={Styles.user_indicator_text}>
+            Logged in as {this.props.user.login_info.data.first_name}{' '}
+            {this.props.user.login_info.data.last_name}
+          </Text>
+        </View>
+      )
+    } else {
+      user_indicator = ''
+    }
+
     return (
       <View style={Styles.dashboardContainer}>
         <Header
@@ -89,6 +103,7 @@ class Dashboard extends Component {
           leftComponent={<HeaderLeft icon="menu" action={openDrawer} />}
           centerComponent={<HeaderCenter title="Dashboard" />}
         />
+        {user_indicator}
         <ScrollView scrollEnabled={this.state.scrollEnabled}>
           {/* <Subheader title={'My Stations'} /> */}
           {dashboard_station_list}

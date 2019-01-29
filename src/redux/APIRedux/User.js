@@ -34,6 +34,7 @@ export const INITIAL_STATE = Immutable({
 export const UserSelectors = {
   selectLoginInfo: state => state.api.user,
   selectUserId: state => state.api.user.id,
+  selectIsFetching: state => state.api.user.fetching,
 }
 
 /* ------------- Login User Reducers ------------- */
