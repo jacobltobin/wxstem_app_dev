@@ -13,7 +13,6 @@ import styles from './RootContainerStyles'
 class RootContainer extends Component {
   static propTypes = {
     startup: PropTypes.func,
-    request_all_stations: PropTypes.func,
     stations_list: PropTypes.object,
   }
 
@@ -22,11 +21,6 @@ class RootContainer extends Component {
     if (!ReduxPersist.active) {
       this.props.startup()
     }
-    // if (this.props.stations_list) {
-    //   console.tron.log('stations exist already')
-    // } else {
-    //   this.props.request_all_stations()
-    // }
   }
 
   render() {
@@ -48,7 +42,6 @@ const mapStateToProps = state => {
 // wraps dispatch to create nicer functions to call within our component
 const mapDispatchToProps = dispatch => ({
   startup: () => dispatch(StartupActions.startup()),
-  request_all_stations: () => dispatch(StationActions.requestAllStations()),
 })
 
 export default connect(
