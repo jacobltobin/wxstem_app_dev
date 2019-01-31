@@ -12,6 +12,10 @@ const { Types, Creators } = createActions({
   requestOneStationCurrent: ['payload'],
   requestOneStationCurrentSuccess: ['payload'],
   requestOneStationCurrentFailure: null,
+
+  requestOneStationForecast: ['payload'],
+  requestOneStationForecastSuccess: ['payload'],
+  requestOneStationForecastFailure: null,
 })
 
 export const StationActionTypes = Types
@@ -27,6 +31,7 @@ export const INITIAL_STATE = Immutable({
   fetching: false,
   fetched: false,
   stationsCurrentData: null,
+  stationsForecastData: null,
   error: null,
 })
 
@@ -59,6 +64,16 @@ export const StationSelectors = {
       state.api.stations.stationsCurrentData[id]
     ) {
       data = state.api.stations.stationsCurrentData[id]
+    }
+    return data
+  },
+  selectStationForecastData: (state, id) => {
+    let data = null
+    if (
+      state.api.stations.stationsForecastData &&
+      state.api.stations.stationsForecastData[id]
+    ) {
+      data = state.api.stations.stationsForecastData[id]
     }
     return data
   },
@@ -152,6 +167,31 @@ export const requestOneStationCurrentFailure = (state, action) => {
   // }
 }
 
+// request one station current readings
+export const requestOneStationForecast = state => {
+  return state
+}
+
+export const requestOneStationForecastSuccess = (state, action) => {
+  const newState = {
+    stationsForecastData: {
+      ...state.stationsForecastData,
+      [action.payload.id]: action.payload.data,
+    },
+  }
+  return state.merge(newState)
+}
+
+export const requestOneStationForecastFailure = (state, action) => {
+  console.tron.log('failure', action)
+  return state
+  // const newState = {
+  //   stationsForecastData: {
+  //     action.payload.data
+  //   }
+  // }
+}
+
 /* ------------- Hookup Reducers To Types ------------- */
 
 export const reducer = createReducer(INITIAL_STATE, {
@@ -162,4 +202,8 @@ export const reducer = createReducer(INITIAL_STATE, {
   [Types.REQUEST_ONE_STATION_CURRENT]: requestOneStationCurrent,
   [Types.REQUEST_ONE_STATION_CURRENT_SUCCESS]: requestOneStationCurrentSuccess,
   [Types.REQUEST_ONE_STATION_CURRENT_FAILURE]: requestOneStationCurrentFailure,
+
+  [Types.REQUEST_ONE_STATION_FORECAST]: requestOneStationForecast,
+  [Types.REQUEST_ONE_STATION_FORECAST_SUCCESS]: requestOneStationForecastSuccess,
+  [Types.REQUEST_ONE_STATION_FORECAST_FAILURE]: requestOneStationForecastFailure,
 })

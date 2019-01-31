@@ -50,7 +50,7 @@ const create = (baseURL = 'http://cdn.weatherstem.com') => {
       action.payload.domainHandle +
       '/' +
       action.payload.handle +
-      '/current.json'
+      '/latest.json'
     return axios({
       method: 'get',
       url: url,

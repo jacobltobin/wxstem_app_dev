@@ -29,7 +29,9 @@ class StationListDashboardItem extends Component {
     set_selected_station: PropTypes.func,
     remove_station_from_dashboard: PropTypes.func,
     request_one_station_current: PropTypes.func,
+    request_one_station_forecast: PropTypes.func,
     station_current_data: PropTypes.object,
+    station_forecast_data: PropTypes.object,
   }
 
   constructor(props) {
@@ -68,6 +70,11 @@ class StationListDashboardItem extends Component {
         domainHandle: this.props.station.domain.handle,
         id: this.props.id,
       })
+      // this.props.request_one_station_forecast({
+      //   lat: this.props.station.geo.lat,
+      //   lng: this.props.station.geo.lng,
+      //   id: this.props.id,
+      // })
       dataContainer = (
         <View style={styles.loading_icon_container}>
           <ActivityIndicator
@@ -82,7 +89,7 @@ class StationListDashboardItem extends Component {
         <View style={styles.list_item_data_container}>
           <View style={styles.list_item_temperature_container}>
             <Text style={styles.list_item_temperature}>
-              {this.props.station_current_data.observation.imperial.temp}
+              {/* {this.props.station_current_data.observation.imperial.temp} */}
             </Text>
             <Text style={styles.list_item_temperature_super}>˚F</Text>
           </View>
@@ -239,6 +246,10 @@ const mapStateToProps = (state, props) => {
       state,
       props.id,
     ),
+    station_forecast_data: StationSelectors.selectStationForecastData(
+      state,
+      props.id,
+    ),
   }
 }
 
@@ -249,6 +260,8 @@ const mapDispatchToProps = dispatch => {
       dispatch(ConfigActions.removeStationFromDashboard(id)),
     request_one_station_current: event =>
       dispatch(StationActions.requestOneStationCurrent(event)),
+    request_one_station_forecast: event =>
+      dispatch(StationActions.requestOneStationForecast(event)),
   }
 }
 

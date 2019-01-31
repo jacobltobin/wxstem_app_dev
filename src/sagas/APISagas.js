@@ -13,7 +13,7 @@ export function* requestAllStations(api, action) {
   }
 }
 
-export function* requestStationCurrent(api, action) {
+export function* requestOneStationCurrent(api, action) {
   const response = yield call(api.get_station_current, action)
   response.id = action.payload.id
 
@@ -21,6 +21,17 @@ export function* requestStationCurrent(api, action) {
     yield put(StationActions.requestOneStationCurrentSuccess(response))
   } else {
     yield put(StationActions.requestOneStationCurrentFailure())
+  }
+}
+
+export function* requestOneStationForecast(api, action) {
+  const response = yield call(api.get_station_current, action)
+  response.id = action.payload.id
+
+  if (response) {
+    yield put(StationActions.requestOneStationForecastSuccess(response))
+  } else {
+    yield put(StationActions.requestOneStationForecastFailure())
   }
 }
 

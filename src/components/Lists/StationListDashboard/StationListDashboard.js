@@ -27,7 +27,6 @@ class StationListDashboard extends Component {
     request_all_stations: PropTypes.func,
     dashboard_stations: PropTypes.array,
     navigation: PropTypes.object,
-    toggleScroll: PropTypes.func,
     stationsFetched: PropTypes.bool,
     isFetching: PropTypes.bool,
   }

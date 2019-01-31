@@ -1,5 +1,7 @@
-import { put, select } from 'redux-saga/effects'
+import { put, call, select } from 'redux-saga/effects'
 import { is } from 'ramda'
+import { StationSelectors } from '../redux/APIRedux/Stations'
+import StationActions from '../redux/APIRedux/Stations'
 
 // process STARTUP actions
 export function* startup(api, action) {
@@ -8,26 +10,16 @@ export function* startup(api, action) {
       message: 'API?',
       object: api,
     })
-    // straight-up string logging
-    // console.tron.log("Hello, I'm an example of how to log via Reactotron.")
-    // logging an object for better clarity
-    // console.tron.log({
-    //   message: 'pass objects for better logging',
-    //   someGeneratorFunction: selectAvatar,
-    // })
-    // fully customized!
-    // const subObject = { a: 1, b: [1, 2, 3], c: true }
-    // subObject.circularDependency = subObject // osnap!
-    // console.tron.display({
-    //   name: '🔥 IGNITE 🔥',
-    //   preview: 'You should totally expand this',
-    //   value: {
-    //     '💃': 'Welcome to the future!',
-    //     subObject,
-    //     someInlineFunction: () => true,
-    //     someGeneratorFunction: startup,
-    //     someNormalFunction: selectAvatar,
-    //   },
-    // })
+  }
+
+  const stations = yield select(StationSelectors.selectStationsFullList)
+  if (stations === null) {
+    const response = yield call(api.get_all_stations)
+    if (response) {
+      const stations = response.data
+      yield put(StationActions.requestAllStationsSuccess(stations))
+    } else {
+      yield put(StationActions.fetchAllStationsFailure())
+    }
   }
 }
