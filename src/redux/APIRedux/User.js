@@ -10,6 +10,9 @@ const { Types, Creators } = createActions({
   createUser: ['payload'],
   createUserSuccess: ['login_info'],
   createUserFailure: null,
+  logoffUser: ['payload'],
+  logoffUserSuccess: null,
+  logoffUserFailure: null,
   clearLogInError: null,
 })
 
@@ -39,7 +42,7 @@ export const UserSelectors = {
 
 /* ------------- Login User Reducers ------------- */
 
-// request all the stations in the network
+// request a log in
 export const loginUser = state => {
   const newState = {
     logged_in: false,
@@ -137,6 +140,52 @@ export const createUserFailure = state => {
   return state.merge(newState)
 }
 
+/* ------------- Create User Reducers ------------- */
+
+// request all the stations in the network
+export const logoffUser = state => {
+  const newState = {
+    logged_in: false,
+    fetching: false,
+    api_error: null,
+    login_info: {
+      data: {
+        error: null,
+      },
+    },
+  }
+  return state.merge(newState)
+}
+
+// request all the stations in the network
+export const logoffUserSuccess = state => {
+  const newState = {
+    logged_in: false,
+    fetching: false,
+    api_error: null,
+    login_info: {
+      data: {
+        error: null,
+      },
+    },
+  }
+  return state.merge(newState)
+}
+// request all the stations in the network
+export const logoffUserFailure = state => {
+  const newState = {
+    logged_in: false,
+    fetching: false,
+    api_error: null,
+    login_info: {
+      data: {
+        error: null,
+      },
+    },
+  }
+  return state.merge(newState)
+}
+
 /* ------------- Hookup Reducers To Types ------------- */
 
 export const reducer = createReducer(INITIAL_STATE, {
@@ -147,6 +196,10 @@ export const reducer = createReducer(INITIAL_STATE, {
   [Types.CREATE_USER]: createUser,
   [Types.CREATE_USER_SUCCESS]: createUserSuccess,
   [Types.CREATE_USER_FAILURE]: createUserFailure,
+
+  [Types.LOGOFF_USER]: logoffUser,
+  [Types.LOGOFF_USER_SUCCESS]: logoffUserSuccess,
+  [Types.LOGOFF_USER_FAILURE]: logoffUserFailure,
 
   [Types.CLEAR_LOG_IN_ERROR]: clearLogInError,
 })

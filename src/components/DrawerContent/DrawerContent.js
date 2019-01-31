@@ -7,6 +7,7 @@ import { NavigationActions } from 'react-navigation'
 import { DrawerItems, SafeAreaView } from 'react-navigation'
 import { ScrollView, Text, View, Image, TouchableOpacity } from 'react-native'
 import LoginModal from '../Modals/LoginModal'
+import UserActionTypes from '../../redux/APIRedux/User'
 
 import { Images } from '../../themes'
 import styles from './DrawerContentStyles'
@@ -15,6 +16,7 @@ class DrawerContent extends Component {
   static propTypes = {
     navigation: PropTypes.object,
     user: PropTypes.object,
+    logoff_user: PropTypes.func,
   }
 
   constructor(props) {
@@ -38,6 +40,13 @@ class DrawerContent extends Component {
     this.props.navigation.dispatch(navigateAction)
   }
 
+  handleLogoffPress = () => {
+    this.props.logoff_user({
+      session_id: this.props.user.login_info.data.session_id,
+      uid: this.props.user.login_info.data.uid,
+    })
+  }
+
   render() {
     const isLoggedIn = this.props.user.logged_in
     let loginControl
@@ -47,6 +56,7 @@ class DrawerContent extends Component {
       loginControl = (
         <TouchableOpacity
           onPress={() => {
+            this.handleLogoffPress()
             this.setLogInModalVisible(false)
           }}
         >
@@ -109,7 +119,9 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = dispatch => {
-  return {}
+  return {
+    logoff_user: event => dispatch(UserActionTypes.logoffUser(event)),
+  }
 }
 
 export default connect(

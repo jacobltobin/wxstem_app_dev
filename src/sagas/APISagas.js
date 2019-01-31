@@ -36,3 +36,13 @@ export function* createUser(api, action) {
     yield put(UserActions.createUserFailure())
   }
 }
+
+export function* logoffUser(api, action) {
+  const response = yield call(api.logoff_user, action)
+
+  if (response) {
+    yield put(UserActions.logoffUserSuccess())
+  } else {
+    yield put(UserActions.logoffUserFailure())
+  }
+}
