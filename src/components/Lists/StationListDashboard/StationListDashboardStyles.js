@@ -3,6 +3,12 @@ import { Fonts, Colors, Metrics } from '../../../themes/'
 import colors from '../../../themes/Colors'
 
 export default StyleSheet.create({
+  loading_text: {
+    ...Fonts.style.detail,
+    color: Colors.lightBlue,
+    alignSelf: 'center',
+    marginTop: 30,
+  },
   list_item_container: {
     height: 250,
   },

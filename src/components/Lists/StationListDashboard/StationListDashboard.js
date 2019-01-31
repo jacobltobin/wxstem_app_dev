@@ -43,19 +43,22 @@ class StationListDashboard extends Component {
   _keyExtractor = (item, index) => item.id
 
   render() {
-    // if station data is not fetching and stations are not fetched then:
-    if (!this.props.isFetching && this.props.stationsFetched == false) {
+    // to check if the redux is still rehydrating and indicate as much
+    if (!this.props.dashboard_stations.length) {
       return (
         <View style={styles.loading_icon_container}>
           <ActivityIndicator
             size="large"
-            style={{ paddingTop: 20 }}
+            style={{ paddingTop: 40 }}
             color={Colors.blue}
           />
+          <Text style={styles.loading_text}>
+            • loading your configurations •
+          </Text>
         </View>
       )
     }
-    // if there is station data then:
+    // otherwise go on ahead
     else {
       return (
         <FlatList

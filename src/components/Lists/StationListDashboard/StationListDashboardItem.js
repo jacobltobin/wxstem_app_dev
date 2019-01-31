@@ -70,11 +70,6 @@ class StationListDashboardItem extends Component {
         domainHandle: this.props.station.domain.handle,
         id: this.props.id,
       })
-      // this.props.request_one_station_forecast({
-      //   lat: this.props.station.geo.lat,
-      //   lng: this.props.station.geo.lng,
-      //   id: this.props.id,
-      // })
       dataContainer = (
         <View style={styles.loading_icon_container}>
           <ActivityIndicator
