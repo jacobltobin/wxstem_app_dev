@@ -49,8 +49,6 @@ export default function* root() {
 
     takeLatest(UserActionTypes.LOGIN_USER, loginUser, api),
 
-    takeLatest(UserActionTypes.LOGOUT_USER, logoutUser, api),
-
     takeLatest(UserActionTypes.CREATE_USER, createUser, api),
 
     takeLatest(UserActionTypes.LOGOFF_USER, logoffUser, api),

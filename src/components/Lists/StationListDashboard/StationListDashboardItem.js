@@ -84,7 +84,7 @@ class StationListDashboardItem extends Component {
             <Text style={styles.list_item_temperature}>
               {this.props.station_current_data.observation.imperial.temp}
             </Text>
-            <Text style={styles.list_item_temperature_super}>F</Text>
+            <Text style={styles.list_item_temperature_super}>˚F</Text>
           </View>
           <View style={styles.weather_icon_container}>
             <WeatherIcon name={'thunder'} />
