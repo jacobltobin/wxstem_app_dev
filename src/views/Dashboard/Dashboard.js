@@ -58,7 +58,7 @@ class Dashboard extends Component {
     let dashboard_station_list
     dashboard_station_list = (
       <View>
-        <WeatherIcon name="cloud-night" />
+        {/* <WeatherIcon name="cloud-night" />
         <WeatherIcon name="sunny" />
         <WeatherIcon name="frosty" />
         <WeatherIcon name="windysnow" />
@@ -79,7 +79,7 @@ class Dashboard extends Component {
         <WeatherIcon name="sunrise" />
         <WeatherIcon name="sun" />
         <WeatherIcon name="thunder" />
-        <WeatherIcon name="windy" />
+        <WeatherIcon name="windy" /> */}
 
         <StationListDashboard
           toggleScroll={this.toggleScroll}

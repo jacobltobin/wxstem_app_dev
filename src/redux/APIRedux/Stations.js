@@ -8,6 +8,10 @@ const { Types, Creators } = createActions({
   requestAllStations: null,
   requestAllStationsSuccess: ['stations'],
   requestAllStationsFailure: null,
+
+  requestOneStationCurrent: ['payload'],
+  requestOneStationCurrentSuccess: ['payload'],
+  requestOneStationCurrentFailure: null,
 })
 
 export const StationActionTypes = Types
@@ -22,6 +26,7 @@ export const INITIAL_STATE = Immutable({
   strippedSectionedList: null,
   fetching: false,
   fetched: false,
+  stationsCurrentData: null,
   error: null,
 })
 
@@ -46,6 +51,16 @@ export const StationSelectors = {
       return station.id === id
     })[0]
     return station
+  },
+  selectStationCurrentData: (state, id) => {
+    let data = null
+    if (
+      state.api.stations.stationsCurrentData &&
+      state.api.stations.stationsCurrentData[id]
+    ) {
+      data = state.api.stations.stationsCurrentData[id]
+    }
+    return data
   },
 }
 
@@ -112,10 +127,39 @@ export const stationRequestFailure = state => {
   return state.merge(newState)
 }
 
+// request one station current readings
+export const requestOneStationCurrent = state => {
+  return state
+}
+
+export const requestOneStationCurrentSuccess = (state, action) => {
+  const newState = {
+    stationsCurrentData: {
+      ...state.stationsCurrentData,
+      [action.payload.id]: action.payload.data,
+    },
+  }
+  return state.merge(newState)
+}
+
+export const requestOneStationCurrentFailure = (state, action) => {
+  console.tron.log('failure', action)
+  return state
+  // const newState = {
+  //   stationsCurrentData: {
+  //     action.payload.data
+  //   }
+  // }
+}
+
 /* ------------- Hookup Reducers To Types ------------- */
 
 export const reducer = createReducer(INITIAL_STATE, {
   [Types.REQUEST_ALL_STATIONS]: stationRequest,
   [Types.REQUEST_ALL_STATIONS_SUCCESS]: stationRequestSuccess,
   [Types.REQUEST_ALL_STATIONS_FAILURE]: stationRequestFailure,
+
+  [Types.REQUEST_ONE_STATION_CURRENT]: requestOneStationCurrent,
+  [Types.REQUEST_ONE_STATION_CURRENT_SUCCESS]: requestOneStationCurrentSuccess,
+  [Types.REQUEST_ONE_STATION_CURRENT_FAILURE]: requestOneStationCurrentFailure,
 })

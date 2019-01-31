@@ -3,10 +3,6 @@ import UserActions from '../redux/APIRedux/User'
 import StationActions from '../redux/APIRedux/Stations'
 
 export function* requestAllStations(api, action) {
-  // const { stations } = action
-  // make the call to the api
-
-  // const response = yield call(api.get_all_stations)
   const response = yield call(api.get_all_stations)
 
   if (response) {
@@ -14,6 +10,17 @@ export function* requestAllStations(api, action) {
     yield put(StationActions.requestAllStationsSuccess(stations))
   } else {
     yield put(StationActions.fetchAllStationsFailure())
+  }
+}
+
+export function* requestStationCurrent(api, action) {
+  const response = yield call(api.get_station_current, action)
+  response.id = action.payload.id
+
+  if (response) {
+    yield put(StationActions.requestOneStationCurrentSuccess(response))
+  } else {
+    yield put(StationActions.requestOneStationCurrentFailure())
   }
 }
 

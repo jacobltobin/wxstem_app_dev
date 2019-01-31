@@ -14,6 +14,7 @@ import { StationActionTypes } from '../redux/APIRedux/Stations'
 import { startup } from './StartupSagas'
 import {
   requestAllStations,
+  requestStationCurrent,
   loginUser,
   createUser,
   logoffUser,
@@ -36,6 +37,13 @@ export default function* root() {
     takeLatest(
       StationActionTypes.REQUEST_ALL_STATIONS,
       requestAllStations,
+      api,
+    ),
+
+    // some sagas receive extra parameters in addition to an action
+    takeLatest(
+      StationActionTypes.REQUEST_ONE_STATION_CURRENT,
+      requestStationCurrent,
       api,
     ),
 
