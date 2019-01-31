@@ -34,6 +34,16 @@ export function* loginUser(api, action) {
   }
 }
 
+export function* logoutUser(api, action) {
+  const response = yield call(api.logout_user, action)
+
+  if (response) {
+    yield put(UserActions.logoutUserSuccess(response))
+  } else {
+    yield put(UserActions.logoutUserFailure())
+  }
+}
+
 export function* createUser(api, action) {
   const response = yield call(api.create_user, action)
 

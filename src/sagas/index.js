@@ -12,6 +12,7 @@ import { StationActionTypes } from '../redux/APIRedux/Stations'
 /* ------------- Sagas ------------- */
 
 import { startup } from './StartupSagas'
+<<<<<<< HEAD
 import {
   requestAllStations,
   requestStationCurrent,
@@ -19,6 +20,12 @@ import {
   createUser,
   logoffUser,
 } from './APISagas'
+=======
+import { requestAllStations } from './APISagas'
+import { loginUser } from './APISagas'
+import { logoutUser } from './APISagas'
+import { createUser } from './APISagas'
+>>>>>>> f96a862d80619c5f3aeb440dec54dd85259d2504
 
 /* ------------- API ------------- */
 
@@ -48,6 +55,8 @@ export default function* root() {
     ),
 
     takeLatest(UserActionTypes.LOGIN_USER, loginUser, api),
+
+    takeLatest(UserActionTypes.LOGOUT_USER, logoutUser, api),
 
     takeLatest(UserActionTypes.CREATE_USER, createUser, api),
 

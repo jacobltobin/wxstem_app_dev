@@ -71,6 +71,7 @@ const create = (baseURL = 'http://cdn.weatherstem.com') => {
     })
   }
 
+<<<<<<< HEAD
   const logoff_user = action => {
     console.tron.log('api getting called', action)
     return axios({
@@ -79,6 +80,14 @@ const create = (baseURL = 'http://cdn.weatherstem.com') => {
       data: {
         method: 'logoff',
         session_id: action.payload.session_id,
+=======
+  const logout_user = action => {
+    return axios({
+      method: 'post',
+      url: 'https://m.weatherstem.com/api/util',
+      data: {
+        method: 'log_off',
+>>>>>>> f96a862d80619c5f3aeb440dec54dd85259d2504
         uid: action.payload.uid,
       },
     })

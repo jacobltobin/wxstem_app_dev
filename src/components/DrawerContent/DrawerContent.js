@@ -26,19 +26,22 @@ class DrawerContent extends Component {
     }
   }
 
-  setLogInModalVisible(visible) {
-    if (visible) {
-      this.props.navigation.toggleDrawer()
-    }
-    this.setState({ logInModalVisible: visible })
-  }
-
   navigateToScreen = route => () => {
     const navigateAction = NavigationActions.navigate({
       routeName: route,
     })
     this.props.navigation.dispatch(navigateAction)
   }
+  setLogInModalVisible(visible) {
+    if (visible) {
+      this.props.navigation.toggleDrawer()
+    }
+    this.setState({ logInModalVisible: visible })
+  }
+  handleLogOutPress = () => {
+    console.tron.log('logout')
+  }
+<<<<<<< HEAD
 
   handleLogoffPress = () => {
     this.props.logoff_user({
@@ -47,6 +50,8 @@ class DrawerContent extends Component {
     })
   }
 
+=======
+>>>>>>> f96a862d80619c5f3aeb440dec54dd85259d2504
   render() {
     const isLoggedIn = this.props.user.logged_in
     let loginControl
@@ -56,8 +61,12 @@ class DrawerContent extends Component {
       loginControl = (
         <TouchableOpacity
           onPress={() => {
+<<<<<<< HEAD
             this.handleLogoffPress()
             this.setLogInModalVisible(false)
+=======
+            this.handleLogOutPress()
+>>>>>>> f96a862d80619c5f3aeb440dec54dd85259d2504
           }}
         >
           <Text style={styles.drawerItem}>Log Out</Text>
