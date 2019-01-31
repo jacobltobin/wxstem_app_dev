@@ -412,7 +412,7 @@ class LogInForm extends Component {
       this.props.onSuccess()
     }
 
-    if (this.props.user.isFetching) {
+    if (this.props.user.fetching) {
       activityIndicator = (
         <ActivityIndicator
           size="large"
