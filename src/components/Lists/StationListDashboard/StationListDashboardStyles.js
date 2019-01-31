@@ -134,4 +134,9 @@ export default StyleSheet.create({
     borderBottomRightRadius: 20,
     overflow: 'hidden',
   },
+  weather_icon: {
+    ...Fonts.style.weatherIcon,
+    color: Colors.white,
+    fontSize: 60,
+  },
 })

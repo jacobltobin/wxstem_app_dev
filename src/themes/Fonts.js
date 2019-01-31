@@ -2,6 +2,7 @@ const type = {
   base: 'OpenSans-Regular',
   bold: 'OpenSans-Bold',
   emphasis: 'OpenSans-Italic',
+  weatherIcon: 'iconvault',
 }
 
 const size = {
@@ -19,6 +20,9 @@ const size = {
 }
 
 const style = {
+  weatherIcon: {
+    fontFamily: type.weatherIcon,
+  },
   all: {
     fontFamily: type.base,
   },

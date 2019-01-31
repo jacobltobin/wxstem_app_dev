@@ -4,6 +4,7 @@ import { createStackNavigator } from 'react-navigation'
 import { connect } from 'react-redux'
 import { UserSelectors } from '../../redux/APIRedux/User'
 
+import WeatherIcon from '../../components/WeatherIcon/WeatherIcon'
 import { StationListDashboard } from '../../components'
 import { View, ScrollView, TouchableOpacity, Text } from 'react-native'
 import { Header, Icon } from 'react-native-elements'
@@ -57,6 +58,29 @@ class Dashboard extends Component {
     let dashboard_station_list
     dashboard_station_list = (
       <View>
+        <WeatherIcon name="cloud-night" />
+        <WeatherIcon name="sunny" />
+        <WeatherIcon name="frosty" />
+        <WeatherIcon name="windysnow" />
+        <WeatherIcon name="showers" />
+        <WeatherIcon name="basecloud" />
+        <WeatherIcon name="cloud" />
+        <WeatherIcon name="rainy" />
+        <WeatherIcon name="mist" />
+        <WeatherIcon name="windysnowcloud" />
+        <WeatherIcon name="drizzle" />
+        <WeatherIcon name="snowy" />
+        <WeatherIcon name="sleet" />
+        <WeatherIcon name="moon" />
+        <WeatherIcon name="windyrain" />
+        <WeatherIcon name="hail" />
+        <WeatherIcon name="sunset" />
+        <WeatherIcon name="windyraincloud" />
+        <WeatherIcon name="sunrise" />
+        <WeatherIcon name="sun" />
+        <WeatherIcon name="thunder" />
+        <WeatherIcon name="windy" />
+
         <StationListDashboard
           toggleScroll={this.toggleScroll}
           navigation={this.props.navigation}

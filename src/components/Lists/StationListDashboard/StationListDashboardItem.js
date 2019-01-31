@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import { Text, View, TouchableOpacity, Image, Animated } from 'react-native'
 import { Divider, Icon } from 'react-native-elements'
 import ViewActions, { ViewSelectors } from '../../../redux/ViewRedux'
+import WeatherIcon from '../../WeatherIcon/WeatherIcon'
 
 import { Colors } from '../../../themes'
 import styles from './StationListDashboardStyles'
@@ -109,6 +110,9 @@ class StationListDashboardItem extends Component {
                   <View style={styles.list_item_temperature_container}>
                     <Text style={styles.list_item_temperature}>42˚</Text>
                     <Text style={styles.list_item_temperature_super}>F</Text>
+                  </View>
+                  <View style={styles.weather_icon_container}>
+                    <WeatherIcon name={'thunder'} />
                   </View>
                   <View style={styles.list_item_forecast_list_container}>
                     <View style={styles.list_item_forecast_item_container}>
