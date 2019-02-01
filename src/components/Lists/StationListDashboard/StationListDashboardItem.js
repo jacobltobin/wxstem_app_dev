@@ -29,6 +29,7 @@ class StationListDashboardItem extends Component {
     set_selected_station: PropTypes.func,
     remove_station_from_dashboard: PropTypes.func,
     request_one_station_current: PropTypes.func,
+    request_one_station_current_sun: PropTypes.func,
     request_one_station_forecast: PropTypes.func,
     station_current_data: PropTypes.object,
     station_forecast_data: PropTypes.object,
@@ -72,6 +73,11 @@ class StationListDashboardItem extends Component {
     this.props.request_one_station_current({
       handle: this.props.station.handle,
       domainHandle: this.props.station.domain.handle,
+      id: this.props.id,
+    })
+    this.props.request_one_station_current_sun({
+      lat: this.props.station.geo.lat,
+      lng: this.props.station.geo.lng,
       id: this.props.id,
     })
   }
@@ -270,8 +276,8 @@ const mapDispatchToProps = dispatch => {
       dispatch(ConfigActions.removeStationFromDashboard(id)),
     request_one_station_current: event =>
       dispatch(StationActions.requestOneStationCurrent(event)),
-    request_one_station_forecast: event =>
-      dispatch(StationActions.requestOneStationForecast(event)),
+    request_one_station_current_sun: event =>
+      dispatch(StationActions.requestOneStationCurrentSun(event)),
   }
 }
 

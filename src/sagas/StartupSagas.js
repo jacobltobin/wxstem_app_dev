@@ -40,6 +40,13 @@ export function* startup(api, action) {
           id: station.id,
         }),
       )
+      yield put(
+        StationActions.requestOneStationCurrentSun({
+          lat: station.geo.lat,
+          lng: station.geo.lng,
+          id: station.id,
+        }),
+      )
     }
   }
 }

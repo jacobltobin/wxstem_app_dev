@@ -2,12 +2,16 @@
 import axios from 'axios'
 
 // our "constructor"
-const create = (baseURL = 'https://api.weather.com/') => {
+const create = (baseURL = 'https://data.weatherstem.com/') => {
   const api_key = '4898745f-d378-40d1-92a0-e79a3f4e3221'
 
-  const get_station_forecast = action => {
-    console.tron.log(action)
+  const request_one_station_current = action => {
     let url = baseURL + 'v1/geocode/'
+    url +=
+      action.payload.lat +
+      '/' +
+      action.payload.lng +
+      '/observations/current.json'
     url += '?apiKey=' + api_key
     return axios({
       method: 'get',
@@ -30,7 +34,7 @@ const create = (baseURL = 'https://api.weather.com/') => {
   //
   return {
     // a list of the API functions from step 2
-    get_station_forecast,
+    request_one_station_current,
   }
 }
 

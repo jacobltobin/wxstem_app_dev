@@ -18,6 +18,10 @@ const { Types, Creators } = createActions({
   requestOneStationForecastFailure: null,
 
   removeOneStationCurrent: ['id'],
+
+  requestOneStationCurrentSun: ['payload'],
+  requestOneStationCurrentSunSuccess: ['payload'],
+  requestOneStationCurrentSunFailure: null,
 })
 
 export const StationActionTypes = Types
@@ -33,6 +37,7 @@ export const INITIAL_STATE = Immutable({
   fetching: false,
   fetched: false,
   stationsCurrentData: null,
+  stationsCurrentSunData: null,
   stationsForecastData: null,
   error: null,
 })
@@ -170,6 +175,30 @@ export const requestOneStationCurrentFailure = (state, action) => {
 }
 removeOneStationCurrent = (state, id) => {}
 
+// request one station current readings
+export const requestOneStationCurrentSun = state => {
+  return state
+}
+export const requestOneStationCurrentSunSuccess = (state, action) => {
+  const newState = {
+    stationsCurrentSunData: {
+      ...state.stationsCurrentSunData,
+      [action.payload.id]: action.payload.data,
+    },
+  }
+  return state.merge(newState)
+}
+export const requestOneStationCurrentSunFailure = (state, action) => {
+  console.tron.log('failure', action)
+  return state
+  // const newState = {
+  //   stationsCurrentData: {
+  //     action.payload.data
+  //   }
+  // }
+}
+removeOneStationCurrent = (state, id) => {}
+
 // request one station forecast
 export const requestOneStationForecast = state => {
   return state
@@ -209,4 +238,8 @@ export const reducer = createReducer(INITIAL_STATE, {
   [Types.REQUEST_ONE_STATION_FORECAST_FAILURE]: requestOneStationForecastFailure,
 
   [Types.REMOVE_ONE_STATION_CURRENT]: removeOneStationCurrent,
+
+  [Types.REQUEST_ONE_STATION_CURRENT_SUN]: requestOneStationCurrentSun,
+  [Types.REQUEST_ONE_STATION_CURRENT_SUN_SUCCESS]: requestOneStationCurrentSunSuccess,
+  [Types.REQUEST_ONE_STATION_CURRENT_SUN_FAILURE]: requestOneStationCurrentSunFailure,
 })

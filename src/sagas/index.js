@@ -16,7 +16,7 @@ import { startup } from './StartupSagas'
 import {
   requestAllStations,
   requestOneStationCurrent,
-  requestOneStationForecast,
+  requestOneStationCurrentSun,
   loginUser,
   createUser,
   logoffUser,
@@ -51,8 +51,8 @@ export default function* root() {
     ),
 
     takeLatest(
-      StationActionTypes.REQUEST_ONE_STATION_FORECAST,
-      requestOneStationForecast,
+      StationActionTypes.REQUEST_ONE_STATION_CURRENT_SUN,
+      requestOneStationCurrentSun,
       sun_api,
     ),
 

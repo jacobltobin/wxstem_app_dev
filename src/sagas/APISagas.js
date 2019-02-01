@@ -24,6 +24,17 @@ export function* requestOneStationCurrent(api, action) {
   }
 }
 
+export function* requestOneStationCurrentSun(api, action) {
+  const response = yield call(api.request_one_station_current, action)
+  response.id = action.payload.id
+
+  if (response) {
+    yield put(StationActions.requestOneStationCurrentSunSuccess(response))
+  } else {
+    yield put(StationActions.requestOneStationCurrentSunFailure())
+  }
+}
+
 export function* requestOneStationForecast(api, action) {
   const response = yield call(api.get_station_current, action)
   response.id = action.payload.id
