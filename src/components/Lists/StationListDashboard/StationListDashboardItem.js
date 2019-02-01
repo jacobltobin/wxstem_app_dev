@@ -43,6 +43,14 @@ class StationListDashboardItem extends Component {
     this.deltaX = new Animated.Value(0)
   }
 
+  componentDidMount() {
+    this.refreshDataInterval = setInterval(() => this.refreshData(), 60000)
+  }
+  componentWillUnmount() {
+    console.tron.log('will unmount')
+    clearInterval(this.refreshDataInterval)
+  }
+
   goToStation = id => {
     this.props.set_selected_station(id)
     this.props.navigation.navigate('Station', { transition: 'slideFromBottom' })
@@ -58,6 +66,13 @@ class StationListDashboardItem extends Component {
   handleLongPress = (handle, domainHandle) => {
     this.setState({
       editing_view: true,
+    })
+  }
+  refreshData = () => {
+    this.props.request_one_station_current({
+      handle: this.props.station.handle,
+      domainHandle: this.props.station.domain.handle,
+      id: this.props.id,
     })
   }
 
