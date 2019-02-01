@@ -196,24 +196,34 @@ class StationListDefault extends Component {
   }
 
   render() {
+    let freshDataLoadingIndicator
     // if no station data then:
     if (this.props.stationsFetched == false && !this.props.isFetching) {
       this.loadStations()
     }
-    // if station data is fetching then:
-    if (this.props.isFetching) {
+    // if station data is fetching and their are no stations then:
+    if (this.props.isFetching && !this.props.stations) {
       return (
         <View style={styles.loading_icon_container}>
           <ActivityIndicator size="large" color={Colors.blue} />
         </View>
       )
     }
+
     // if station data is not fetching and stations are not fetched then:
     else if (!this.props.isFetching && this.props.stationsFetched == false) {
       return <Text>Starting Load...</Text>
     }
     // finally now, if there is station data then:
     else {
+      // if there is station data but we're fetching new stations
+      if (this.props.stations && this.props.isFetching) {
+        freshDataLoadingIndicator = (
+          <View style={styles.loading_icon_container}>
+            <ActivityIndicator size="large" color={Colors.blue} />
+          </View>
+        )
+      }
       // if not filtering, display regular state list
       let defaultListDisplay
       if (!this.state.filtering) {
@@ -261,6 +271,7 @@ class StationListDefault extends Component {
           {/* STATE LIST */}
           <View style={styles.swiper_slide1}>
             {this.renderFilterBar()}
+            {freshDataLoadingIndicator}
             {defaultListDisplay}
           </View>
 

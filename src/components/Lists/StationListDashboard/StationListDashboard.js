@@ -27,8 +27,6 @@ class StationListDashboard extends Component {
     request_all_stations: PropTypes.func,
     dashboard_stations: PropTypes.array,
     navigation: PropTypes.object,
-    stationsFetched: PropTypes.bool,
-    isFetching: PropTypes.bool,
   }
 
   constructor(props) {

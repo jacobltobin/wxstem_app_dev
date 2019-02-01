@@ -86,10 +86,10 @@ export const stationRequest = state => {
   const newState = {
     fetching: true,
     fetched: false,
-    fullList: null,
-    strippedList: null,
-    sectionedList: null,
-    strippedSectionedList: null,
+    fullList: [...state.fullList],
+    strippedList: [...state.strippedList],
+    sectionedList: [...state.sectionedList],
+    strippedSectionedList: [...state.strippedSectionedList],
   }
   return state.merge(newState)
 }
