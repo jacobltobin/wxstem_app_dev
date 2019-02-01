@@ -151,7 +151,9 @@ export const requestOneStationCurrentSuccess = (state, action) => {
   const newState = {
     stationsCurrentData: {
       ...state.stationsCurrentData,
-      [action.payload.id]: action.payload.data,
+      [action.payload.id]: apiTransforms.reorganizeLatestReadings(
+        action.payload.data,
+      ),
     },
   }
   return state.merge(newState)

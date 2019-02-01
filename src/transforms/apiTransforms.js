@@ -48,3 +48,9 @@ export function createSectionedStations(stations) {
   })
   return alphabetizeSections(data)
 }
+
+export function reorganizeLatestReadings(data) {
+  console.tron.log(data)
+  const newData = {}
+  return newData
+}

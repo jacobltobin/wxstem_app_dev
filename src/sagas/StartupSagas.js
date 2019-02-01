@@ -1,16 +1,16 @@
-import { put, call, select } from 'redux-saga/effects'
+import { put, call, select, all } from 'redux-saga/effects'
 import { is } from 'ramda'
-import { StationSelectors } from '../redux/APIRedux/Stations'
-import StationActions from '../redux/APIRedux/Stations'
+import StationActions, { StationSelectors } from '../redux/APIRedux/Stations'
+import { ConfigSelectors } from '../redux/ConfigRedux'
 
 // process STARTUP actions
 export function* startup(api, action) {
-  if (__DEV__ && console.tron) {
-    console.tron.log({
-      message: 'API?',
-      object: api,
-    })
-  }
+  // if (__DEV__ && console.tron) {
+  //   console.tron.log({
+  //     message: 'API?',
+  //     object: api,
+  //   })
+  // }
 
   const stations = yield select(StationSelectors.selectStationsFullList)
   if (stations === null) {
@@ -20,6 +20,25 @@ export function* startup(api, action) {
       yield put(StationActions.requestAllStationsSuccess(stations))
     } else {
       yield put(StationActions.fetchAllStationsFailure())
+    }
+  }
+
+  const dashboard_stations = yield select(
+    ConfigSelectors.selectDashboardStations,
+  )
+  if (dashboard_stations.length == 0) {
+  } else {
+    for (dashboard_station of dashboard_stations) {
+      const station = yield select(
+        StationSelectors.selectStationById,
+        dashboard_station.id,
+      )
+      yield put(
+        StationActions.requestOneStationCurrent({
+          handle: station.handle,
+          domainHandle: station.domain.handle,
+        }),
+      )
     }
   }
 }

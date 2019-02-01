@@ -44,7 +44,6 @@ const create = (baseURL = 'http://cdn.weatherstem.com') => {
   }
 
   const get_station_current = action => {
-    console.tron.log(action)
     const url =
       'https://cdn.weatherstem.com/orangestem/data/dynamic/model/' +
       action.payload.domainHandle +
@@ -72,7 +71,6 @@ const create = (baseURL = 'http://cdn.weatherstem.com') => {
   }
 
   const logoff_user = action => {
-    console.tron.log('api getting called', action)
     return axios({
       method: 'post',
       url: 'https://m.weatherstem.com/api/util/mobile',
