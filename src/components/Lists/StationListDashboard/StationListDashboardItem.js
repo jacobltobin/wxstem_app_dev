@@ -99,7 +99,7 @@ class StationListDashboardItem extends Component {
         <View style={styles.list_item_data_container}>
           <View style={styles.list_item_temperature_container}>
             <Text style={styles.list_item_temperature}>
-              {/* {this.props.station_current_data.observation.imperial.temp} */}
+              {this.props.station_current_data['Thermometer'].value}
             </Text>
             <Text style={styles.list_item_temperature_super}>˚F</Text>
           </View>
