@@ -1,5 +1,6 @@
 import { createReducer, createActions } from 'reduxsauce'
 import Immutable from 'seamless-immutable'
+import { removeOneStationCurrent } from './APIRedux/Stations'
 
 /* ------------- Types and Action Creators ------------- */
 

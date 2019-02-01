@@ -16,6 +16,8 @@ const { Types, Creators } = createActions({
   requestOneStationForecast: ['payload'],
   requestOneStationForecastSuccess: ['payload'],
   requestOneStationForecastFailure: null,
+
+  removeOneStationCurrent: ['id'],
 })
 
 export const StationActionTypes = Types
@@ -146,7 +148,6 @@ export const stationRequestFailure = state => {
 export const requestOneStationCurrent = state => {
   return state
 }
-
 export const requestOneStationCurrentSuccess = (state, action) => {
   const newState = {
     stationsCurrentData: {
@@ -158,7 +159,6 @@ export const requestOneStationCurrentSuccess = (state, action) => {
   }
   return state.merge(newState)
 }
-
 export const requestOneStationCurrentFailure = (state, action) => {
   console.tron.log('failure', action)
   return state
@@ -168,12 +168,12 @@ export const requestOneStationCurrentFailure = (state, action) => {
   //   }
   // }
 }
+removeOneStationCurrent = (state, id) => {}
 
-// request one station current readings
+// request one station forecast
 export const requestOneStationForecast = state => {
   return state
 }
-
 export const requestOneStationForecastSuccess = (state, action) => {
   const newState = {
     stationsForecastData: {
@@ -183,7 +183,6 @@ export const requestOneStationForecastSuccess = (state, action) => {
   }
   return state.merge(newState)
 }
-
 export const requestOneStationForecastFailure = (state, action) => {
   console.tron.log('failure', action)
   return state
@@ -208,4 +207,6 @@ export const reducer = createReducer(INITIAL_STATE, {
   [Types.REQUEST_ONE_STATION_FORECAST]: requestOneStationForecast,
   [Types.REQUEST_ONE_STATION_FORECAST_SUCCESS]: requestOneStationForecastSuccess,
   [Types.REQUEST_ONE_STATION_FORECAST_FAILURE]: requestOneStationForecastFailure,
+
+  [Types.REMOVE_ONE_STATION_CURRENT]: removeOneStationCurrent,
 })

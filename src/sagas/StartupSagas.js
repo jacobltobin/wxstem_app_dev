@@ -37,6 +37,7 @@ export function* startup(api, action) {
         StationActions.requestOneStationCurrent({
           handle: station.handle,
           domainHandle: station.domain.handle,
+          id: station.id,
         }),
       )
     }
