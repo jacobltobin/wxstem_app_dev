@@ -165,7 +165,6 @@ export const requestOneStationCurrentSuccess = (state, action) => {
   return state.merge(newState)
 }
 export const requestOneStationCurrentFailure = (state, action) => {
-  console.tron.log('failure', action)
   return state
   // const newState = {
   //   stationsCurrentData: {
