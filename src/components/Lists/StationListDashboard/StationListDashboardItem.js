@@ -78,6 +78,7 @@ class StationListDashboardItem extends Component {
   render() {
     let dataContainer
 
+    // there is no current data entry for this station
     if (!this.props.station_current_data) {
       this.props.request_current(
         this.props.station.handle,
@@ -93,9 +94,35 @@ class StationListDashboardItem extends Component {
           />
         </View>
       )
-    } else if (
-      this.props.station_current_data.fetching &&
-      !this.props.station_current_data.fetched
+    }
+    // there is current data and it's not fetching new data
+    // and it has been over a minute since last fetching
+    else if (
+      this.props.station_current_data &&
+      !this.props.station_current_data.wxstem.fetching &&
+      this.props.station_current_data.wxstem.last_fetched - new Date().getTime >
+        60000
+    ) {
+      this.props.request_current(
+        this.props.station.handle,
+        this.props.station.domain.handle,
+        this.props.id,
+      )
+      dataContainer = (
+        <View style={styles.loading_icon_container}>
+          <ActivityIndicator
+            size="large"
+            style={{ paddingTop: 20 }}
+            color={Colors.white}
+          />
+        </View>
+      )
+    }
+    // we are currently fetching new current data and there is none
+    // previously fetched to display for now
+    else if (
+      this.props.station_current_data.wxstem.fetching &&
+      !this.props.station_current_data.wxstem.fetched
     ) {
       dataContainer = (
         <View style={styles.loading_icon_container}>
@@ -106,9 +133,11 @@ class StationListDashboardItem extends Component {
           />
         </View>
       )
-    } else if (
+    }
+    // there is current data fetched to display and there is no error
+    else if (
       !this.props.station_current_data.wxstem.error &&
-      this.props.station_current_data.fetched
+      this.props.station_current_data.wxstem.fetched
     ) {
       dataContainer = (
         <View style={styles.list_item_data_container}>

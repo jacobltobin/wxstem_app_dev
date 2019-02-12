@@ -4,12 +4,14 @@ import * as apiTransforms from '../../transforms/apiTransforms'
 export const getCurrentRequest = (state, action) => {
   const { id } = action
   let current_wxstem_data
-  let fetched
+  let fetched_wxstem_data
+  let last_fetched_wxstem_data
 
   if (state.byId) {
     if (state.byId[id]) {
       if (state.byId[id].current.wxstem.data) {
-        fetched = true
+        fetched_wxstem_data = true
+        last_fetched_wxstem_data = state.byId[id].current.wxstem.last_fetched
         current_wxstem_data = { ...state.byId[id].current.wxstem.data }
       }
     }
@@ -23,10 +25,11 @@ export const getCurrentRequest = (state, action) => {
       ...state.byId,
       [id]: {
         current: {
-          fetched: fetched,
-          fetching: true,
           wxstem: {
             error: null,
+            fetched: fetched_wxstem_data,
+            fetching: true,
+            last_fetched: last_fetched_wxstem_data,
             data: current_wxstem_data,
           },
         },
@@ -42,10 +45,11 @@ export const getCurrentSuccess = (state, action) => {
       ...state.byId,
       [id]: {
         current: {
-          fetched: true,
-          fetching: false,
           wxstem: {
             error: null,
+            fetched: true,
+            fetching: false,
+            last_fetched: new Date().getTime(),
             data: apiTransforms.reorganizeLatestReadings(response.data),
           },
         },
@@ -61,9 +65,9 @@ export const getCurrentFailure = (state, action) => {
       ...state.byId,
       [id]: {
         current: {
-          fetched: false,
-          fetching: false,
           wxstem: {
+            fetched: false,
+            fetching: false,
             error: response,
             data: null,
           },
