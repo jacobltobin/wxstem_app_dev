@@ -1,13 +1,13 @@
 import { call, put } from 'redux-saga/effects'
 import WeatherDataActions from '../redux/WeatherDataRedux'
 
-export function* requestCurrent(api, action) {
+export function* getCurrentRequest(api, action) {
   const { handle, domainHandle, id } = action
   try {
     const response = yield call(api.get_current, handle, domainHandle)
-    yield put(WeatherDataActions.requestCurrentSuccess(id, response))
+    yield put(WeatherDataActions.getCurrentSuccess(id, response))
   } catch (e) {
-    yield put(WeatherDataActions.requestCurrentFailure(id, e))
+    yield put(WeatherDataActions.getCurrentFailure(id, e))
   }
 }
 

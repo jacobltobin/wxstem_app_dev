@@ -10,6 +10,7 @@ export const reducers = combineReducers({
   weather_data: require('./WeatherDataRedux').reducer,
   user: require('./UserRedux').reducer,
   app_state: require('./AppStateRedux').reducer,
+  loading: require('./LoadingRedux').reducer,
 })
 
 export default () => {

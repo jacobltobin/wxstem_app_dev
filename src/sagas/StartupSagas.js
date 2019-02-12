@@ -27,7 +27,7 @@ export function* startup(wxstem_api, action) {
         dashboard_station.id,
       )
       yield put(
-        WeatherDataActions.requestCurrent(
+        WeatherDataActions.getCurrentRequest(
           station.handle,
           station.domain.handle,
           station.id,

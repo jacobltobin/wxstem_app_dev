@@ -16,7 +16,7 @@ import { WeatherDataActionTypes } from '../redux/WeatherDataRedux'
 import { startup } from './StartupSagas'
 import { loginUser, createUser, logoffUser } from './UserSagas'
 import { requestAll } from './StationsSagas'
-import { requestCurrent, requestForecast } from './WeatherDataSagas'
+import { getCurrentRequest, requestForecast } from './WeatherDataSagas'
 
 /* ------------- API ------------- */
 
@@ -37,8 +37,8 @@ export default function* root() {
 
     // some sagas receive extra parameters in addition to an action
     takeEvery(
-      WeatherDataActionTypes.REQUEST_CURRENT,
-      requestCurrent,
+      WeatherDataActionTypes.GET_CURRENT_REQUEST,
+      getCurrentRequest,
       wxstem_api,
     ),
 

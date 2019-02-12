@@ -20,6 +20,7 @@ import WeatherDataActions, {
 } from '../../../redux/WeatherDataRedux'
 import Interactable from 'react-native-interactable'
 import AppStateActions from '../../../redux/AppStateRedux'
+import { createLoadingSelector } from '../../../redux/LoadingRedux'
 
 class StationListDashboardItem extends Component {
   static propTypes = {
@@ -30,6 +31,7 @@ class StationListDashboardItem extends Component {
     remove_station_from_dashboard: PropTypes.func,
     request_current: PropTypes.func,
     station_current_data: PropTypes.object,
+    fetching_current: PropTypes.bool,
   }
 
   constructor(props) {
@@ -87,11 +89,27 @@ class StationListDashboardItem extends Component {
           <ActivityIndicator
             size="large"
             style={{ paddingTop: 20 }}
-            color={Colors.blue}
+            color={Colors.white}
           />
         </View>
       )
-    } else if (!this.props.station_current_data.wxstem.error) {
+    } else if (
+      this.props.station_current_data.fetching &&
+      !this.props.station_current_data.fetched
+    ) {
+      dataContainer = (
+        <View style={styles.loading_icon_container}>
+          <ActivityIndicator
+            size="large"
+            style={{ paddingTop: 20 }}
+            color={Colors.white}
+          />
+        </View>
+      )
+    } else if (
+      !this.props.station_current_data.wxstem.error &&
+      this.props.station_current_data.fetched
+    ) {
       dataContainer = (
         <View style={styles.list_item_data_container}>
           <View style={styles.list_item_temperature_container}>
@@ -246,10 +264,13 @@ class StationListDashboardItem extends Component {
   }
 }
 
+const loadingSelector = createLoadingSelector(['GET_CURRENT'])
+
 const mapStateToProps = (state, props) => {
   return {
     station: StationSelectors.selectStationById(state, props.id),
     station_current_data: WeatherDataSelectors.selectCurrent(state, props.id),
+    fetching_current: loadingSelector(state),
     // station_forecast_data: StationSelectors.selectStationForecastData(
     //   state,
     //   props.id,
@@ -264,7 +285,7 @@ const mapDispatchToProps = dispatch => {
     remove_station_from_dashboard: id =>
       dispatch(AppStateActions.removeDashboardStation(id)),
     request_current: (handle, domainHandle, id) =>
-      dispatch(WeatherDataActions.requestCurrent(handle, domainHandle, id)),
+      dispatch(WeatherDataActions.getCurrentRequest(handle, domainHandle, id)),
   }
 }
 

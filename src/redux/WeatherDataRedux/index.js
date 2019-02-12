@@ -21,9 +21,9 @@ import * as forecastReducers from './currentReducers'
 
 */
 const { Types, Creators } = createActions({
-  requestCurrent: ['handle', 'domainHandle', 'id'],
-  requestCurrentSuccess: ['id', 'response'],
-  requestCurrentFailure: ['id', 'response'],
+  getCurrentRequest: ['handle', 'domainHandle', 'id'],
+  getCurrentSuccess: ['id', 'response'],
+  getCurrentFailure: ['id', 'response'],
 
   removeCurrent: ['id'],
 
@@ -70,9 +70,9 @@ export const WeatherDataSelectors = {
   files to the actions created at the top
 */
 export const reducer = createReducer(INITIAL_STATE, {
-  [Types.REQUEST_CURRENT]: currentReducers.requestCurrent,
-  [Types.REQUEST_CURRENT_SUCCESS]: currentReducers.requestCurrentSuccess,
-  [Types.REQUEST_CURRENT_FAILURE]: currentReducers.requestCurrentFailure,
+  [Types.GET_CURRENT_REQUEST]: currentReducers.getCurrentRequest,
+  [Types.GET_CURRENT_SUCCESS]: currentReducers.getCurrentSuccess,
+  [Types.GET_CURRENT_FAILURE]: currentReducers.getCurrentFailure,
   [Types.REMOVE_CURRENT]: currentReducers.removeCurrent,
 
   [Types.REQUEST_FORECAST]: forecastReducers.requestForecast,

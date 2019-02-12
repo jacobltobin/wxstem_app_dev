@@ -1,4 +1,5 @@
 import { createReducer, createActions } from 'reduxsauce'
+import { Types as ReduxSauceTypes } from 'reduxsauce'
 import Immutable from 'seamless-immutable'
 import * as dashboardStationReducers from './dashboardStationReducers'
 import * as selectedStationReducers from './selectedStationReducers'
