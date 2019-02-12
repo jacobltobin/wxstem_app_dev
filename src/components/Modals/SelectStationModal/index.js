@@ -1,10 +1,8 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import StationActions, {
-  StationSelectors,
-} from '../../../redux/APIRedux/Stations'
+import StationActions, { StationSelectors } from '../../../redux/StationsRedux'
 import { connect } from 'react-redux'
-import ConfigActions from '../../../redux/ConfigRedux'
+import AppStateActions from '../../../redux/AppStateRedux'
 
 import { View, TouchableOpacity, Image, Text } from 'react-native'
 import Modal from 'react-native-modal'
@@ -19,10 +17,7 @@ class SelectStationModal extends Component {
     visible: PropTypes.bool,
     close: PropTypes.func,
     navigation: PropTypes.object,
-    stations: PropTypes.array,
-    sectionedStations: PropTypes.array,
-    isFetching: PropTypes.bool,
-    addStationToDashboard: PropTypes.func,
+    add_station_to_dashboard: PropTypes.func,
   }
 
   constructor(props) {
@@ -40,7 +35,7 @@ class SelectStationModal extends Component {
 
   onModalHide = () => {
     this.state.addedStation
-      ? this.props.addStationToDashboard(this.state.stationSelected.id)
+      ? this.props.add_station_to_dashboard(this.state.stationSelected.id)
       : null
   }
 
@@ -73,11 +68,8 @@ class SelectStationModal extends Component {
     if (this.state.display_station_list) {
       stationList = (
         <StationListDefault
-          isFetching={this.props.isFetching}
-          stations={this.props.stations}
-          sectionedStations={this.props.sectionedStations}
           navigation={this.props.navigation}
-          onItemSelect={id => {
+          on_item_select={id => {
             this.handleStationSelected(id)
           }}
         />
@@ -131,17 +123,13 @@ class SelectStationModal extends Component {
 }
 
 const mapStateToProps = state => {
-  return {
-    stations: StationSelectors.selectStationsStrippedList(state),
-    sectionedStations: StationSelectors.selectStationsSectionedList(state),
-    isFetching: StationSelectors.isFetchingStations(state),
-  }
+  return {}
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    addStationToDashboard: id =>
-      dispatch(ConfigActions.addStationToDashboard(id)),
+    add_station_to_dashboard: id =>
+      dispatch(AppStateActions.addDashboardStation(id)),
   }
 }
 

@@ -6,9 +6,10 @@ import ReduxPersist from '../config/ReduxPersist'
 
 /* ------------- Assemble The Reducers ------------- */
 export const reducers = combineReducers({
-  api: require('./APIRedux').reducer,
-  view: require('./ViewRedux').reducer,
-  config: require('./ConfigRedux').reducer,
+  stations: require('./StationsRedux').reducer,
+  weather_data: require('./WeatherDataRedux').reducer,
+  user: require('./UserRedux').reducer,
+  app_state: require('./AppStateRedux').reducer,
 })
 
 export default () => {

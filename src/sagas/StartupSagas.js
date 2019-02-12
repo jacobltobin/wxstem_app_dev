@@ -1,30 +1,23 @@
 import { put, call, select, all } from 'redux-saga/effects'
 import { is } from 'ramda'
-import StationActions, { StationSelectors } from '../redux/APIRedux/Stations'
-import { ConfigSelectors } from '../redux/ConfigRedux'
+import StationActions, { StationSelectors } from '../redux/StationsRedux/'
+import WeatherDataActions from '../redux/WeatherDataRedux/'
+import { AppStateSelectors } from '../redux/AppStateRedux'
 
-// process STARTUP actions
-export function* startup(api, action) {
-  // if (__DEV__ && console.tron) {
-  //   console.tron.log({
-  //     message: 'API?',
-  //     object: api,
-  //   })
-  // }
-
+export function* startup(wxstem_api, action) {
   const stations = yield select(StationSelectors.selectStationsFullList)
   if (stations === null) {
-    const response = yield call(api.get_all_stations)
+    const response = yield call(wxstem_api.get_all_stations)
     if (response) {
       const stations = response.data
-      yield put(StationActions.requestAllStationsSuccess(stations))
+      yield put(StationActions.requestAllSuccess(stations))
     } else {
-      yield put(StationActions.fetchAllStationsFailure())
+      yield put(StationActions.requestAllFailure())
     }
   }
 
   const dashboard_stations = yield select(
-    ConfigSelectors.selectDashboardStations,
+    AppStateSelectors.selectDashboardStations,
   )
   if (dashboard_stations.length == 0) {
   } else {
@@ -34,19 +27,19 @@ export function* startup(api, action) {
         dashboard_station.id,
       )
       yield put(
-        StationActions.requestOneStationCurrent({
-          handle: station.handle,
-          domainHandle: station.domain.handle,
-          id: station.id,
-        }),
+        WeatherDataActions.requestCurrent(
+          station.handle,
+          station.domain.handle,
+          station.id,
+        ),
       )
-      yield put(
-        StationActions.requestOneStationCurrentSun({
-          lat: station.geo.lat,
-          lng: station.geo.lng,
-          id: station.id,
-        }),
-      )
+      // yield put(
+      //   StationActions.requestOneStationCurrentSun({
+      //     lat: station.geo.lat,
+      //     lng: station.geo.lng,
+      //     id: station.id,
+      //   }),
+      // )
     }
   }
 }

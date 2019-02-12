@@ -1,10 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
-import StationActions, {
-  StationSelectors,
-} from '../../../redux/APIRedux/Stations'
-import { ConfigSelectors } from '../../../redux/ConfigRedux'
+import StationActions, { StationSelectors } from '../../../redux/StationsRedux/'
+import { AppStateSelectors } from '../../../redux/AppStateRedux'
 
 import {
   Text,
@@ -27,6 +25,8 @@ class StationListDashboard extends Component {
     request_all_stations: PropTypes.func,
     dashboard_stations: PropTypes.array,
     navigation: PropTypes.object,
+    stations_fetched: PropTypes.bool,
+    is_fetching_stations: PropTypes.bool,
   }
 
   constructor(props) {
@@ -42,7 +42,11 @@ class StationListDashboard extends Component {
 
   render() {
     // to check if the redux is still rehydrating and indicate as much
-    if (!this.props.dashboard_stations.length) {
+    if (
+      !this.props.stations_fetched &&
+      !this.props.is_fetching_stations &&
+      !this.props.dashboard_stations.length
+    ) {
       return (
         <View style={styles.loading_icon_container}>
           <ActivityIndicator
@@ -51,13 +55,12 @@ class StationListDashboard extends Component {
             color={Colors.blue}
           />
           <Text style={styles.loading_text}>
-            • loading your configurations •
+            • Loading Your Configurations •
           </Text>
         </View>
       )
     }
-    // otherwise go on ahead
-    else {
+    if (this.props.stations_fetched) {
       return (
         <FlatList
           data={this.props.dashboard_stations}
@@ -70,15 +73,26 @@ class StationListDashboard extends Component {
           keyExtractor={this._keyExtractor}
         />
       )
+    } else {
+      return (
+        <View style={styles.loading_icon_container}>
+          <ActivityIndicator
+            size="large"
+            style={{ paddingTop: 40 }}
+            color={Colors.blue}
+          />
+          <Text style={styles.loading_text}>• Loading WeatherSTEM Data •</Text>
+        </View>
+      )
     }
   }
 }
 
 const mapStateToProps = state => {
   return {
-    dashboard_stations: ConfigSelectors.selectDashboardStations(state),
-    isFetching: StationSelectors.isFetchingStations(state),
-    stationsFetched: StationSelectors.stationsFetched(state),
+    dashboard_stations: AppStateSelectors.selectDashboardStations(state),
+    is_fetching_stations: StationSelectors.isFetchingStations(state),
+    stations_fetched: StationSelectors.stationsFetched(state),
   }
 }
 

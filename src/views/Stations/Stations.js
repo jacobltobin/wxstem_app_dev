@@ -4,9 +4,9 @@ import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { HeaderCenter, StationListDefault } from '../../components'
 import { NavigationActions } from 'react-navigation'
-import StationActions, { StationSelectors } from '../../redux/APIRedux/Stations'
+import StationActions, { StationSelectors } from '../../redux/StationsRedux'
 import { Header } from 'react-native-elements'
-import ViewActions, { ViewSelectors } from '../../redux/ViewRedux'
+import AppStateActions from '../../redux/AppStateRedux'
 
 // Styles
 import { Colors } from '../../themes'
@@ -52,7 +52,7 @@ class Stations extends Component {
           }}
         />
         <StationListDefault
-          onItemSelect={id => {
+          on_item_select={id => {
             this.goToStation(id)
           }}
         />
@@ -68,7 +68,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     request_all_stations: () => dispatch(StationActions.requestAllStations()),
-    set_selected_station: id => dispatch(ViewActions.setSelectedStation(id)),
+    set_selected_station: id =>
+      dispatch(AppStateActions.setSelectedStation(id)),
   }
 }
 

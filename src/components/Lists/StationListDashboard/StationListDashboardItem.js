@@ -9,17 +9,17 @@ import {
   Animated,
   ActivityIndicator,
 } from 'react-native'
-import { Divider, Icon } from 'react-native-elements'
-import ViewActions, { ViewSelectors } from '../../../redux/ViewRedux'
+import { Icon } from 'react-native-elements'
 import WeatherIcon from '../../WeatherIcon/WeatherIcon'
 
 import { Colors } from '../../../themes'
 import styles from './StationListDashboardStyles'
-import StationActions, {
-  StationSelectors,
-} from '../../../redux/APIRedux/Stations'
+import { StationSelectors } from '../../../redux/StationsRedux'
+import WeatherDataActions, {
+  WeatherDataSelectors,
+} from '../../../redux/WeatherDataRedux'
 import Interactable from 'react-native-interactable'
-import ConfigActions, { ConfigSelectors } from '../../../redux/ConfigRedux'
+import AppStateActions from '../../../redux/AppStateRedux'
 
 class StationListDashboardItem extends Component {
   static propTypes = {
@@ -28,11 +28,8 @@ class StationListDashboardItem extends Component {
     id: PropTypes.number,
     set_selected_station: PropTypes.func,
     remove_station_from_dashboard: PropTypes.func,
-    request_one_station_current: PropTypes.func,
-    request_one_station_current_sun: PropTypes.func,
-    request_one_station_forecast: PropTypes.func,
+    request_current: PropTypes.func,
     station_current_data: PropTypes.object,
-    station_forecast_data: PropTypes.object,
   }
 
   constructor(props) {
@@ -48,7 +45,6 @@ class StationListDashboardItem extends Component {
     this.refreshDataInterval = setInterval(() => this.refreshData(), 60000)
   }
   componentWillUnmount() {
-    console.tron.log('will unmount')
     clearInterval(this.refreshDataInterval)
   }
 
@@ -70,27 +66,22 @@ class StationListDashboardItem extends Component {
     })
   }
   refreshData = () => {
-    this.props.request_one_station_current({
-      handle: this.props.station.handle,
-      domainHandle: this.props.station.domain.handle,
-      id: this.props.id,
-    })
-    this.props.request_one_station_current_sun({
-      lat: this.props.station.geo.lat,
-      lng: this.props.station.geo.lng,
-      id: this.props.id,
-    })
+    this.props.request_current(
+      this.props.station.handle,
+      this.props.station.domain.handle,
+      this.props.id,
+    )
   }
 
   render() {
     let dataContainer
 
     if (!this.props.station_current_data) {
-      this.props.request_one_station_current({
-        handle: this.props.station.handle,
-        domainHandle: this.props.station.domain.handle,
-        id: this.props.id,
-      })
+      this.props.request_current(
+        this.props.station.handle,
+        this.props.station.domain.handle,
+        this.props.id,
+      )
       dataContainer = (
         <View style={styles.loading_icon_container}>
           <ActivityIndicator
@@ -105,7 +96,7 @@ class StationListDashboardItem extends Component {
         <View style={styles.list_item_data_container}>
           <View style={styles.list_item_temperature_container}>
             <Text style={styles.list_item_temperature}>
-              {this.props.station_current_data['Thermometer'].value}
+              {this.props.station_current_data.wxstem['Thermometer'].value}
             </Text>
             <Text style={styles.list_item_temperature_super}>˚F</Text>
           </View>
@@ -258,26 +249,22 @@ class StationListDashboardItem extends Component {
 const mapStateToProps = (state, props) => {
   return {
     station: StationSelectors.selectStationById(state, props.id),
-    station_current_data: StationSelectors.selectStationCurrentData(
-      state,
-      props.id,
-    ),
-    station_forecast_data: StationSelectors.selectStationForecastData(
-      state,
-      props.id,
-    ),
+    station_current_data: WeatherDataSelectors.selectCurrent(state, props.id),
+    // station_forecast_data: StationSelectors.selectStationForecastData(
+    //   state,
+    //   props.id,
+    // ),
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    set_selected_station: id => dispatch(ViewActions.setSelectedStation(id)),
+    set_selected_station: id =>
+      dispatch(AppStateActions.setSelectedStation(id)),
     remove_station_from_dashboard: id =>
-      dispatch(ConfigActions.removeStationFromDashboard(id)),
-    request_one_station_current: event =>
-      dispatch(StationActions.requestOneStationCurrent(event)),
-    request_one_station_current_sun: event =>
-      dispatch(StationActions.requestOneStationCurrentSun(event)),
+      dispatch(AppStateActions.removeDashboardStation(id)),
+    request_current: (handle, domainHandle, id) =>
+      dispatch(WeatherDataActions.requestCurrent(handle, domainHandle, id)),
   }
 }
 

@@ -36,7 +36,6 @@ export default class WeatherIcon extends Component {
   render() {
     let result
     if (this.props.name.split('-').length > 1) {
-      console.tron.log(this.props.name.split('-'))
       result = (
         <View style={styles.overlapper}>
           <Text style={styles.overlapper_top}>

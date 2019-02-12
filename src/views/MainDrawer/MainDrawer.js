@@ -9,9 +9,6 @@ import { Fonts } from '../../themes'
 import styles from './MainDrawerStyles'
 
 // Screens
-import Register from '../Register/Register'
-import LogIn from '../LogIn/LogIn'
-import Stations from '../Stations/Stations'
 import MainTab from '../MainTab/MainTab'
 
 const returnDrawerWidth = () => {

@@ -1,9 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
-import StationActions, {
-  StationSelectors,
-} from '../../../redux/APIRedux/Stations'
+import StationActions, { StationSelectors } from '../../../redux/StationsRedux'
 import { createSectionedStations } from '../../../transforms/apiTransforms'
 
 import {
@@ -56,11 +54,11 @@ class StateListItem extends Component {
 
 class StationListDefault extends Component {
   static propTypes = {
-    isFetching: PropTypes.bool,
-    stationsFetched: PropTypes.bool,
-    sectionedStations: PropTypes.array,
-    strippedSectionedStations: PropTypes.array,
-    onItemSelect: PropTypes.func,
+    is_fetching: PropTypes.bool,
+    stations_fetched: PropTypes.bool,
+    sectioned_stations: PropTypes.array,
+    stripped_sectioned_stations: PropTypes.array,
+    on_item_select: PropTypes.func,
     request_all_stations: PropTypes.func,
     stations: PropTypes.array,
   }
@@ -110,7 +108,7 @@ class StationListDefault extends Component {
     })
     if (newData.length === 0) {
       this.setState({
-        filteredStations: this.props.sectionedStations,
+        filteredStations: this.props.sectioned_stations,
         filtering: false,
         noResults: true,
       })
@@ -169,7 +167,7 @@ class StationListDefault extends Component {
   }
 
   getStateEntry = state => {
-    let results = this.props.sectionedStations.filter(obj => {
+    let results = this.props.sectioned_stations.filter(obj => {
       return obj.title === state
     })
     return results
@@ -198,11 +196,11 @@ class StationListDefault extends Component {
   render() {
     let freshDataLoadingIndicator
     // if no station data then:
-    if (this.props.stationsFetched == false && !this.props.isFetching) {
+    if (this.props.stations_fetched == false && !this.props.is_fetching) {
       this.loadStations()
     }
     // if station data is fetching and their are no stations then:
-    if (this.props.isFetching && !this.props.stations) {
+    if (this.props.is_fetching && !this.props.stations) {
       return (
         <View style={styles.loading_icon_container}>
           <ActivityIndicator size="large" color={Colors.blue} />
@@ -211,13 +209,13 @@ class StationListDefault extends Component {
     }
 
     // if station data is not fetching and stations are not fetched then:
-    else if (!this.props.isFetching && this.props.stationsFetched == false) {
+    else if (!this.props.is_fetching && this.props.stations_fetched == false) {
       return <Text>Starting Load...</Text>
     }
     // finally now, if there is station data then:
     else {
       // if there is station data but we're fetching new stations
-      if (this.props.stations && this.props.isFetching) {
+      if (this.props.stations && this.props.is_fetching) {
         freshDataLoadingIndicator = (
           <View style={styles.loading_icon_container}>
             <ActivityIndicator size="large" color={Colors.blue} />
@@ -229,7 +227,7 @@ class StationListDefault extends Component {
       if (!this.state.filtering) {
         defaultListDisplay = (
           <FlatList
-            data={this.props.strippedSectionedStations}
+            data={this.props.stripped_sectioned_stations}
             renderItem={({ item }) => (
               <StateListItem onPress={this.toggleSection} title={item.title} />
             )}
@@ -243,7 +241,7 @@ class StationListDefault extends Component {
               <StationListDefaultItem
                 station={item}
                 hidden={this.state.noResults}
-                onItemSelect={id => this.props.onItemSelect(id)}
+                on_item_select={id => this.props.on_item_select(id)}
               />
             )}
             renderSectionHeader={({ section: { title } }) => (
@@ -282,7 +280,7 @@ class StationListDefault extends Component {
                 <StationListDefaultItem
                   station={item}
                   hidden={this.state.noResults}
-                  onItemSelect={id => this.props.onItemSelect(id)}
+                  on_item_select={id => this.props.on_item_select(id)}
                 />
               )}
               renderSectionHeader={({ section: { title } }) => (
@@ -318,19 +316,18 @@ class StationListDefault extends Component {
 const mapStateToProps = state => {
   return {
     stations: StationSelectors.selectStationsStrippedList(state),
-    strippedSectionedStations: StationSelectors.selectStationsStrippedSectionedList(
+    stripped_sectioned_stations: StationSelectors.selectStationsStrippedSectionedList(
       state,
     ),
-    sectionedStations: StationSelectors.selectStationsSectionedList(state),
-    stationsFetched: StationSelectors.stationsFetched(state),
-    isFetching: StationSelectors.isFetchingStations(state),
+    sectioned_stations: StationSelectors.selectStationsSectionedList(state),
+    stations_fetched: StationSelectors.stationsFetched(state),
+    is_fetching: StationSelectors.isFetchingStations(state),
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
     request_all_stations: () => dispatch(StationActions.requestAllStations()),
-    set_selected_station: id => dispatch(ViewActions.setSelectedStation(id)),
   }
 }
 

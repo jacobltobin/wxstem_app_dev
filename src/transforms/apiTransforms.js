@@ -50,7 +50,6 @@ export function createSectionedStations(stations) {
 }
 
 export function reorganizeLatestReadings(data) {
-  console.tron.log('reorganize', data)
   const newData = {}
   data.records.forEach(sensor => {
     newData[sensor.sensor_name] = {

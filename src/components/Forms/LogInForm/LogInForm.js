@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
-import UserActions, { UserSelectors } from '../../../redux/APIRedux/User'
+import UserActions, { UserSelectors } from '../../../redux/UserRedux'
 
 import { View, TouchableOpacity, Text, ActivityIndicator } from 'react-native'
 import { Input, Button } from 'react-native-elements'
@@ -193,10 +193,7 @@ class LogInForm extends Component {
 
   login_user = () => {
     if (!this.state.uid_error && !this.state.pwd_error) {
-      this.props.login_user({
-        uid: this.state.uid_input,
-        pwd: this.state.pwd_input,
-      })
+      this.props.login_user(this.state.uid_input, this.state.pwd_input)
     } else {
       // UI something ?
     }
@@ -210,12 +207,12 @@ class LogInForm extends Component {
       !this.state.pwd_error &&
       !this.state.pwd_verify_error
     ) {
-      this.props.create_user({
-        uid: this.state.uid_input,
-        first_name: this.state.first_name_input,
-        last_name: this.state.last_name_input,
-        pwd: this.state.pwd_input,
-      })
+      this.props.create_user(
+        this.state.uid_input,
+        this.state.pwd_input,
+        this.state.first_name_input,
+        this.state.last_name_input,
+      )
     }
   }
 
@@ -475,8 +472,9 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    login_user: event => dispatch(UserActions.loginUser(event)),
-    create_user: event => dispatch(UserActions.createUser(event)),
+    login_user: (uid, pwd) => dispatch(UserActions.loginUser(uid, pwd)),
+    create_user: (uid, pwd, first_name, last_name) =>
+      dispatch(UserActions.createUser(uid, pwd, first_name, last_name)),
     clear_log_in_error: event => dispatch(UserActions.clearLogInError(event)),
   }
 }

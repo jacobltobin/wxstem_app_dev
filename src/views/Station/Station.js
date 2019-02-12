@@ -3,8 +3,8 @@ import { View, Image, Text, ScrollView } from 'react-native'
 import PropTypes from 'prop-types'
 import { NavigationActions } from 'react-navigation'
 import { connect } from 'react-redux'
-import { ViewSelectors } from '../../redux/ViewRedux'
-import { StationSelectors } from '../../redux/APIRedux/Stations'
+import { AppStateSelectors } from '../../redux/AppStateRedux'
+import { StationSelectors } from '../../redux/StationsRedux'
 
 import { Header } from 'react-native-elements'
 import { HeaderCenter, HeaderLeft } from '../../components'
@@ -15,7 +15,7 @@ import Styles from './StationStyles'
 class Station extends Component {
   static propTypes = {
     navigation: PropTypes.object,
-    stationBaseData: PropTypes.object,
+    station_base_data: PropTypes.object,
   }
   render() {
     goBack = () => {
@@ -30,7 +30,7 @@ class Station extends Component {
           backgroundColor={Colors.blue.toString()}
           leftComponent={<HeaderLeft icon="arrow-back" action={goBack} />}
           centerComponent={
-            <HeaderCenter title={this.props.stationBaseData.name} />
+            <HeaderCenter title={this.props.station_base_data.name} />
           }
         />
         <ScrollView>
@@ -40,11 +40,11 @@ class Station extends Component {
               source={{
                 uri:
                   'https://' +
-                  this.props.stationBaseData.domain.handle +
+                  this.props.station_base_data.domain.handle +
                   '.weatherstem.com/skycamera/' +
-                  this.props.stationBaseData.domain.handle +
+                  this.props.station_base_data.domain.handle +
                   '/' +
-                  this.props.stationBaseData.handle +
+                  this.props.station_base_data.handle +
                   '/cumulus/snapshot.jpg',
               }}
             />
@@ -57,9 +57,9 @@ class Station extends Component {
 
 const mapStateToProps = state => {
   return {
-    stationBaseData: StationSelectors.selectStationById(
+    station_base_data: StationSelectors.selectStationById(
       state,
-      ViewSelectors.selectSelectedStation(state).id,
+      AppStateSelectors.selectSelectedStation(state).id,
     ),
   }
 }

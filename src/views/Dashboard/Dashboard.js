@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { createStackNavigator } from 'react-navigation'
 import { connect } from 'react-redux'
-import { UserSelectors } from '../../redux/APIRedux/User'
+import { UserSelectors } from '../../redux/UserRedux'
 
 import WeatherIcon from '../../components/WeatherIcon/WeatherIcon'
 import { StationListDashboard } from '../../components'

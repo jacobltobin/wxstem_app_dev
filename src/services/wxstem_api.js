@@ -43,12 +43,13 @@ const create = (baseURL = 'http://cdn.weatherstem.com') => {
     })
   }
 
-  const get_station_current = action => {
+  const get_current = (handle, domainHandle) => {
+    console.tron.log('calling for current', handle)
     const url =
       'https://cdn.weatherstem.com/orangestem/data/dynamic/model/' +
-      action.payload.domainHandle +
+      domainHandle +
       '/' +
-      action.payload.handle +
+      handle +
       '/latest.json'
     return axios({
       method: 'get',
@@ -57,27 +58,27 @@ const create = (baseURL = 'http://cdn.weatherstem.com') => {
     })
   }
 
-  const login_user = action => {
+  const login_user = (uid, pwd) => {
     return axios({
       method: 'post',
       url: 'https://m.weatherstem.com/api/util',
       data: {
         method: 'login',
-        uid: action.payload.uid,
-        password: action.payload.pwd,
+        uid: uid,
+        password: pwd,
         permanent_key: 'd2c0de4bd62957ed906075a28b02ea62',
       },
     })
   }
 
-  const logoff_user = action => {
+  const logoff_user = (uid, session_id) => {
     return axios({
       method: 'post',
       url: 'https://m.weatherstem.com/api/util/mobile',
       data: {
         method: 'logoff',
-        session_id: action.payload.session_id,
-        uid: action.payload.uid,
+        session_id: session_id,
+        uid: uid,
       },
     })
   }
@@ -111,7 +112,7 @@ const create = (baseURL = 'http://cdn.weatherstem.com') => {
   return {
     // a list of the API functions from step 2
     get_all_stations,
-    get_station_current,
+    get_current,
     login_user,
     create_user,
     logoff_user,

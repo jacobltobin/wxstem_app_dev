@@ -10,12 +10,12 @@ import styles from './StationListDefaultStyles'
 export default class StationListDefaultItem extends Component {
   static propTypes = {
     station: PropTypes.object.isRequired,
-    onItemSelect: PropTypes.func,
+    on_item_select: PropTypes.func,
     hidden: PropTypes.bool,
   }
 
   onPress = () => {
-    this.props.onItemSelect(this.props.station.id)
+    this.props.on_item_select(this.props.station.id)
   }
 
   render() {

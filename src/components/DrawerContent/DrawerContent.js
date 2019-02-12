@@ -1,13 +1,12 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { UserSelectors } from '../../redux/APIRedux/User'
 import { NavigationActions } from 'react-navigation'
 
 import { DrawerItems, SafeAreaView } from 'react-navigation'
 import { ScrollView, Text, View, Image, TouchableOpacity } from 'react-native'
 import LoginModal from '../Modals/LoginModal'
-import UserActionTypes from '../../redux/APIRedux/User'
+import UserActionTypes, { UserSelectors } from '../../redux/UserRedux'
 
 import { Images } from '../../themes'
 import styles from './DrawerContentStyles'
@@ -38,15 +37,12 @@ class DrawerContent extends Component {
     }
     this.setState({ logInModalVisible: visible })
   }
-  handleLogOutPress = () => {
-    console.tron.log('logout')
-  }
 
   handleLogoffPress = () => {
-    this.props.logoff_user({
-      session_id: this.props.user.login_info.data.session_id,
-      uid: this.props.user.login_info.data.uid,
-    })
+    this.props.logoff_user(
+      this.props.user.login_info.data.uid,
+      this.props.user.login_info.data.session_id,
+    )
   }
 
   render() {
@@ -122,7 +118,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    logoff_user: event => dispatch(UserActionTypes.logoffUser(event)),
+    logoff_user: (uid, session_id) =>
+      dispatch(UserActionTypes.logoffUser(uid, session_id)),
   }
 }
 
