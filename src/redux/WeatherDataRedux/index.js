@@ -23,7 +23,7 @@ import * as forecastReducers from './currentReducers'
 const { Types, Creators } = createActions({
   requestCurrent: ['handle', 'domainHandle', 'id'],
   requestCurrentSuccess: ['id', 'response'],
-  requestCurrentFailure: null,
+  requestCurrentFailure: ['id', 'response'],
 
   removeCurrent: ['id'],
 

@@ -44,7 +44,6 @@ const create = (baseURL = 'http://cdn.weatherstem.com') => {
   }
 
   const get_current = (handle, domainHandle) => {
-    console.tron.log('calling for current', handle)
     const url =
       'https://cdn.weatherstem.com/orangestem/data/dynamic/model/' +
       domainHandle +

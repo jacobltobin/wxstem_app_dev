@@ -91,12 +91,12 @@ class StationListDashboardItem extends Component {
           />
         </View>
       )
-    } else {
+    } else if (!this.props.station_current_data.wxstem.error) {
       dataContainer = (
         <View style={styles.list_item_data_container}>
           <View style={styles.list_item_temperature_container}>
             <Text style={styles.list_item_temperature}>
-              {this.props.station_current_data.wxstem['Thermometer'].value}
+              {this.props.station_current_data.wxstem.data['Thermometer'].value}
             </Text>
             <Text style={styles.list_item_temperature_super}>˚F</Text>
           </View>

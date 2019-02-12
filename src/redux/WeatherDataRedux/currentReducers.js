@@ -11,7 +11,10 @@ export const requestCurrentSuccess = (state, action) => {
       ...state.byId,
       [id]: {
         current: {
-          wxstem: apiTransforms.reorganizeLatestReadings(response.data),
+          wxstem: {
+            error: null,
+            data: apiTransforms.reorganizeLatestReadings(response.data),
+          },
         },
       },
     },
@@ -19,11 +22,20 @@ export const requestCurrentSuccess = (state, action) => {
   return state.merge(newState)
 }
 export const requestCurrentFailure = (state, action) => {
-  return state
-  // const newState = {
-  //   stationsCurrentData: {
-  //     action.payload.data
-  //   }
-  // }
+  const { id, response } = action
+  const newState = {
+    byId: {
+      ...state.byId,
+      [id]: {
+        current: {
+          wxstem: {
+            error: response,
+            data: null,
+          },
+        },
+      },
+    },
+  }
+  return state.merge(newState)
 }
 removeCurrent = (state, id) => {}
