@@ -26,6 +26,9 @@ const images = {
   usageExamples: require('../images/icons/icon-usage-examples.png'),
   snapshot: require('../images/snapshot.jpg'),
   user: require('../images/user.png'),
+  marker_red: require('../images/marker_red.png'),
+  marker_yellow: require('../images/marker_yellow.png'),
+  marker_green: require('../images/marker_green.png'),
 }
 
 export default images

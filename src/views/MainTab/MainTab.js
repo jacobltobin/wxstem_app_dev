@@ -4,7 +4,7 @@ import { createBottomTabNavigator } from 'react-navigation'
 import PropTypes from 'prop-types'
 
 import DashboardStack from '../DashboardStack/DashboardStack'
-import Stations from '../Stations/Stations'
+import ZapMap from '../ZapMap/ZapMap'
 import StationsStack from '../StationsStack/StationsStack'
 
 import Icon from 'react-native-vector-icons/FontAwesome'
@@ -15,6 +15,14 @@ import { Colors } from '../../themes'
 
 export default createBottomTabNavigator(
   {
+    ZapMap: {
+      screen: ZapMap,
+      navigationOptions: ({ navigation }) => ({
+        tabBarIcon: ({ tintColor }) => (
+          <Icon name="life-ring" size={30} color={tintColor} />
+        ),
+      }),
+    },
     Dashboard: {
       screen: DashboardStack,
       navigationOptions: ({ navigation }) => ({
@@ -36,14 +44,6 @@ export default createBottomTabNavigator(
       navigationOptions: ({ navigation }) => ({
         tabBarIcon: ({ tintColor }) => (
           <Icon name="book" size={30} color={tintColor} />
-        ),
-      }),
-    },
-    Tropical: {
-      screen: StationsStack,
-      navigationOptions: ({ navigation }) => ({
-        tabBarIcon: ({ tintColor }) => (
-          <Icon name="life-ring" size={30} color={tintColor} />
         ),
       }),
     },

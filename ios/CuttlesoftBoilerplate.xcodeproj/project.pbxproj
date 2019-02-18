@@ -5,6 +5,7 @@
 	};
 	objectVersion = 46;
 	objects = {
+
 /* Begin PBXBuildFile section */
 		00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302AC1ABCB8CE00DB3ED1 /* libRCTActionSheet.a */; };
 		00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302BA1ABCB90400DB3ED1 /* libRCTGeolocation.a */; };
@@ -40,6 +41,7 @@
 		2DF0FFEE2056DD460020B375 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DAD3EA31DF850E9000B6D8A /* libReact.a */; };
 		48127B91719348E1BE62C26F /* FontAwesome5_Brands.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E647A8366D0F4FADB7A1377F /* FontAwesome5_Brands.ttf */; };
 		4D57189512ED4442B2AED846 /* FontAwesome5_Solid.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9CBCDB508E054D078C42F534 /* FontAwesome5_Solid.ttf */; };
+		5009125514B9448B810D39CD /* iconvault_forecastfont.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2C695F17A3C84EB6B973AA2E /* iconvault_forecastfont.ttf */; };
 		53E1D816EE284500940B542B /* OpenSans-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 368B3CB366F247F196D9881C /* OpenSans-Italic.ttf */; };
 		58D19F926D7F406FA73BD874 /* libReactNativeConfig.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BB4A11E11A274C289E9A824D /* libReactNativeConfig.a */; };
 		5CBA82CD05144B5493C4E9DE /* MaterialCommunityIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FAF7B5A80D914F4D982D3EF4 /* MaterialCommunityIcons.ttf */; };
@@ -60,11 +62,11 @@
 		DC445A97D2FA4FEFAB2AC136 /* OpenSans-SemiBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 457ECD9D5DE34B9F9D14A050 /* OpenSans-SemiBoldItalic.ttf */; };
 		DED6D33A4B1644A7BCC54D29 /* OpenSans-ExtraBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 18A55C7C8F7E431D9C96ECD8 /* OpenSans-ExtraBoldItalic.ttf */; };
 		DF8619F44CDB44E0B9EBE9C6 /* OpenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8A93BE5044C345789C6E4939 /* OpenSans-Regular.ttf */; };
+		E01BC086A7116CF306BDA113 /* libPods-CuttlesoftBoilerplate.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 85D65AEEED1F54AE6743E725 /* libPods-CuttlesoftBoilerplate.a */; };
 		E61CE1764BD447898D41B74F /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 966BAAE6F7554119A48F6DEB /* SimpleLineIcons.ttf */; };
 		E674C0D1907848CE96163969 /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 53E44D3CCA844D4192B07AFD /* FontAwesome.ttf */; };
 		FC8C1DB5915840FD8C0ECCD8 /* EvilIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8796901EE44A4435B945422E /* EvilIcons.ttf */; };
 		FDE82B2859A74F8A94E4F825 /* OpenSans-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3769F9693DF34F33B6E7B272 /* OpenSans-LightItalic.ttf */; };
-		5009125514B9448B810D39CD /* iconvault_forecastfont.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2C695F17A3C84EB6B973AA2E /* iconvault_forecastfont.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -394,12 +396,14 @@
 		146833FF1AC3E56700842450 /* React.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = React.xcodeproj; path = "../node_modules/react-native/React/React.xcodeproj"; sourceTree = "<group>"; };
 		18A55C7C8F7E431D9C96ECD8 /* OpenSans-ExtraBoldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "OpenSans-ExtraBoldItalic.ttf"; path = "../src/fonts/OpenSans/OpenSans-ExtraBoldItalic.ttf"; sourceTree = "<group>"; };
 		26B9E01B49E248AEB3BE10B0 /* OpenSans-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "OpenSans-Bold.ttf"; path = "../src/fonts/OpenSans/OpenSans-Bold.ttf"; sourceTree = "<group>"; };
+		2C695F17A3C84EB6B973AA2E /* iconvault_forecastfont.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = iconvault_forecastfont.ttf; path = ../src/fonts/iconvault_forecastfont/iconvault_forecastfont.ttf; sourceTree = "<group>"; };
 		2D02E47B1E0B4A5D006451C7 /* CuttlesoftBoilerplate-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "CuttlesoftBoilerplate-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E4901E0B4A5D006451C7 /* CuttlesoftBoilerplate-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "CuttlesoftBoilerplate-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D16E6891FA4F8E400B85C8A /* libReact.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libReact.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		34DE9A20743642008B62E5E0 /* libRNDeviceInfo.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNDeviceInfo.a; sourceTree = "<group>"; };
 		368B3CB366F247F196D9881C /* OpenSans-Italic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "OpenSans-Italic.ttf"; path = "../src/fonts/OpenSans/OpenSans-Italic.ttf"; sourceTree = "<group>"; };
 		3769F9693DF34F33B6E7B272 /* OpenSans-LightItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "OpenSans-LightItalic.ttf"; path = "../src/fonts/OpenSans/OpenSans-LightItalic.ttf"; sourceTree = "<group>"; };
+		3A9B1F080FD2A8152393A359 /* Pods-CuttlesoftBoilerplate.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CuttlesoftBoilerplate.release.xcconfig"; path = "Target Support Files/Pods-CuttlesoftBoilerplate/Pods-CuttlesoftBoilerplate.release.xcconfig"; sourceTree = "<group>"; };
 		457ECD9D5DE34B9F9D14A050 /* OpenSans-SemiBoldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "OpenSans-SemiBoldItalic.ttf"; path = "../src/fonts/OpenSans/OpenSans-SemiBoldItalic.ttf"; sourceTree = "<group>"; };
 		48F6D408FB9746968B85539B /* libInteractable.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libInteractable.a; sourceTree = "<group>"; };
 		4F12ADFDC5B74DA49D7B9AEF /* RNVectorIcons.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNVectorIcons.xcodeproj; path = "../node_modules/react-native-vector-icons/RNVectorIcons.xcodeproj"; sourceTree = "<group>"; };
@@ -411,9 +415,11 @@
 		668368B4BEB84B848BA1DFE2 /* OpenSans-ExtraBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "OpenSans-ExtraBold.ttf"; path = "../src/fonts/OpenSans/OpenSans-ExtraBold.ttf"; sourceTree = "<group>"; };
 		68EFB88F30464507A9552EEA /* Interactable.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = Interactable.xcodeproj; path = "../node_modules/react-native-interactable/ios/Interactable.xcodeproj"; sourceTree = "<group>"; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
+		7C82F2DB9F1E91DD5EAA9EEB /* Pods-CuttlesoftBoilerplate.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CuttlesoftBoilerplate.debug.xcconfig"; path = "Target Support Files/Pods-CuttlesoftBoilerplate/Pods-CuttlesoftBoilerplate.debug.xcconfig"; sourceTree = "<group>"; };
 		7DDE44B9CE044A72B5B3E329 /* OpenSans-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "OpenSans-Light.ttf"; path = "../src/fonts/OpenSans/OpenSans-Light.ttf"; sourceTree = "<group>"; };
 		8302E7C1E1594C4F84C87674 /* Ionicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Ionicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
+		85D65AEEED1F54AE6743E725 /* libPods-CuttlesoftBoilerplate.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CuttlesoftBoilerplate.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8796901EE44A4435B945422E /* EvilIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = EvilIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf"; sourceTree = "<group>"; };
 		8A93BE5044C345789C6E4939 /* OpenSans-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "OpenSans-Regular.ttf"; path = "../src/fonts/OpenSans/OpenSans-Regular.ttf"; sourceTree = "<group>"; };
 		966BAAE6F7554119A48F6DEB /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = SimpleLineIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; };
@@ -430,7 +436,6 @@
 		E415703B751A498FA967D645 /* MaterialIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
 		E647A8366D0F4FADB7A1377F /* FontAwesome5_Brands.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Brands.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Brands.ttf"; sourceTree = "<group>"; };
 		FAF7B5A80D914F4D982D3EF4 /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialCommunityIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf"; sourceTree = "<group>"; };
-		2C695F17A3C84EB6B973AA2E /* iconvault_forecastfont.ttf */ = {isa = PBXFileReference; name = "iconvault_forecastfont.ttf"; path = "../src/fonts/iconvault_forecastfont/iconvault_forecastfont.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -462,6 +467,7 @@
 				D00AF9F5E5DC4E43903E5FEA /* libRNVectorIcons.a in Frameworks */,
 				58D19F926D7F406FA73BD874 /* libReactNativeConfig.a in Frameworks */,
 				A43A36A701554125B02B9E33 /* libInteractable.a in Frameworks */,
+				E01BC086A7116CF306BDA113 /* libPods-CuttlesoftBoilerplate.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -654,6 +660,7 @@
 			isa = PBXGroup;
 			children = (
 				2D16E6891FA4F8E400B85C8A /* libReact.a */,
+				85D65AEEED1F54AE6743E725 /* libPods-CuttlesoftBoilerplate.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -750,6 +757,7 @@
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				4EC88E9FDCDB4394AC2E0D44 /* Resources */,
 				193D4072212DC493006C9D6D /* Recovered References */,
+				89C45968848CB09A8A222598 /* Pods */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -765,6 +773,16 @@
 				2D02E4901E0B4A5D006451C7 /* CuttlesoftBoilerplate-tvOSTests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		89C45968848CB09A8A222598 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				7C82F2DB9F1E91DD5EAA9EEB /* Pods-CuttlesoftBoilerplate.debug.xcconfig */,
+				3A9B1F080FD2A8152393A359 /* Pods-CuttlesoftBoilerplate.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
 			sourceTree = "<group>";
 		};
 		ADBDB9201DFEBF0600ED6528 /* Products */ = {
@@ -801,10 +819,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "CuttlesoftBoilerplate" */;
 			buildPhases = (
+				D80E460AF2AA29AE912A0F6A /* [CP] Check Pods Manifest.lock */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
+				08A4BBD043A04ED09B671AC8 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1332,6 +1352,28 @@
 			shellPath = /bin/sh;
 			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh";
 		};
+		08A4BBD043A04ED09B671AC8 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-CuttlesoftBoilerplate/Pods-CuttlesoftBoilerplate-resources.sh",
+				"${PODS_ROOT}/GoogleMaps/Maps/Frameworks/GoogleMaps.framework/Resources/GoogleMaps.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleMaps.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-CuttlesoftBoilerplate/Pods-CuttlesoftBoilerplate-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		2D02E4CB1E0B4B27006451C7 /* Bundle React Native Code And Images */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1345,6 +1387,28 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh";
+		};
+		D80E460AF2AA29AE912A0F6A /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-CuttlesoftBoilerplate-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1480,6 +1544,7 @@
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7C82F2DB9F1E91DD5EAA9EEB /* Pods-CuttlesoftBoilerplate.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CURRENT_PROJECT_VERSION = 1;
@@ -1506,6 +1571,7 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3A9B1F080FD2A8152393A359 /* Pods-CuttlesoftBoilerplate.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CURRENT_PROJECT_VERSION = 1;
