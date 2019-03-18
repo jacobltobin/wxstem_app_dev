@@ -4,3 +4,4 @@ export {
 export {
   default as StationListDashboard,
 } from './StationListDashboard/StationListDashboard'
+export { default as SensorList } from './SensorList'

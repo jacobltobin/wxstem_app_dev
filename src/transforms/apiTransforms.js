@@ -58,3 +58,13 @@ export function reorganizeLatestReadings(data) {
   })
   return newData
 }
+
+export function sensorArrayFromObject(object) {
+  const newData = []
+  for (sensor in object) {
+    newData.push({
+      ...object[sensor],
+    })
+  }
+  return newData
+}

@@ -1,6 +1,9 @@
 import { StyleSheet } from 'react-native'
-import { Metrics, ApplicationStyles } from '../../themes/'
+import { Metrics, ApplicationStyles, Fonts } from '../../themes/'
 
 export default StyleSheet.create({
   ...ApplicationStyles.screen,
+  sensor_label: {
+    ...Fonts.style.detailBold,
+  },
 })

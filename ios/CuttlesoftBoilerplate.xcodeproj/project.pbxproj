@@ -396,7 +396,7 @@
 		146833FF1AC3E56700842450 /* React.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = React.xcodeproj; path = "../node_modules/react-native/React/React.xcodeproj"; sourceTree = "<group>"; };
 		18A55C7C8F7E431D9C96ECD8 /* OpenSans-ExtraBoldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "OpenSans-ExtraBoldItalic.ttf"; path = "../src/fonts/OpenSans/OpenSans-ExtraBoldItalic.ttf"; sourceTree = "<group>"; };
 		26B9E01B49E248AEB3BE10B0 /* OpenSans-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "OpenSans-Bold.ttf"; path = "../src/fonts/OpenSans/OpenSans-Bold.ttf"; sourceTree = "<group>"; };
-		2C695F17A3C84EB6B973AA2E /* iconvault_forecastfont.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = iconvault_forecastfont.ttf; path = ../src/fonts/iconvault_forecastfont/iconvault_forecastfont.ttf; sourceTree = "<group>"; };
+		2C695F17A3C84EB6B973AA2E /* iconvault_forecastfont.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = iconvault_forecastfont.ttf; path = ../src/fonts/iconvault_forecastfont/iconvault_forecastfont.ttf; sourceTree = "<group>"; };
 		2D02E47B1E0B4A5D006451C7 /* CuttlesoftBoilerplate-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "CuttlesoftBoilerplate-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E4901E0B4A5D006451C7 /* CuttlesoftBoilerplate-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "CuttlesoftBoilerplate-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D16E6891FA4F8E400B85C8A /* libReact.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libReact.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -781,7 +781,6 @@
 				7C82F2DB9F1E91DD5EAA9EEB /* Pods-CuttlesoftBoilerplate.debug.xcconfig */,
 				3A9B1F080FD2A8152393A359 /* Pods-CuttlesoftBoilerplate.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};

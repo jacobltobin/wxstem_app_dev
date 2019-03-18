@@ -63,7 +63,7 @@ class StationListDashboardItem extends Component {
     this.setState({
       interval_set: true,
     })
-    this.refreshDataInterval = setInterval(() => this.refreshData(), 6000)
+    this.refreshDataInterval = setInterval(() => this.refreshData(), 60000)
   }
   goToStation = id => {
     this.props.set_selected_station(id)
@@ -95,7 +95,7 @@ class StationListDashboardItem extends Component {
 
     // there is no current data entry for this station
     if (!this.props.station_current_data) {
-      this.dataContainer = (
+      dataContainer = (
         <View style={styles.loading_icon_container}>
           <ActivityIndicator
             size="large"
@@ -106,18 +106,14 @@ class StationListDashboardItem extends Component {
       )
     }
     // there is current data and it's not fetching new data
-    // and it has been over a minute since last fetching
+    // but it has been over a minute since last fetching
     else if (
       this.props.station_current_data &&
       !this.props.station_current_data.wxstem.fetching &&
       this.props.station_current_data.wxstem.last_fetched - new Date().getTime >
         60000
     ) {
-      this.props.request_current(
-        this.props.station.handle,
-        this.props.station.domain.handle,
-        this.props.id,
-      )
+      this.refreshData()
       dataContainer = (
         <View style={styles.loading_icon_container}>
           <ActivityIndicator
