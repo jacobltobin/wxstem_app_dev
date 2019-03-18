@@ -5,6 +5,7 @@ import PropTypes from 'prop-types'
 import { createStackNavigator } from 'react-navigation'
 import { connect } from 'react-redux'
 import { UserSelectors } from '../../redux/UserRedux'
+import { NavigationEvents } from 'react-navigation'
 
 import WeatherIcon from '../../components/WeatherIcon/WeatherIcon'
 import { StationListDashboard } from '../../components'
@@ -46,49 +47,58 @@ export default class ZapMap extends Component {
       // &xyz=' + xyz + '&apiKey=' + self.apiKey
       // url_template: self.baseEndPoint + 'tile/' + layer + '?ts=' + ts + '&fts=' + fts + '&xyz=' + xyz + '&apiKey=' + self.apiKey;
     }
+    this.wss = null
 
-    this.weather_overlay = new WeatherOverlay()
-    this.wss = new WebSocket('wss://websockets.weatherstem.com')
-    this.wss.onmessage = e => {
-      const now = new Date()
-      const data = {
-        ...JSON.parse(e.data),
-        date: now,
-        status: 'marker_red',
-      }
-      const fodder = [...this.state.bolts, data]
-      let display_bolts = []
-      fodder.forEach(bolt => {
-        const time_since = now.getTime() - bolt.date.getTime()
-        if (time_since < 60000) {
-          if (bolt.status === 'marker_red' && time_since > 10000) {
-            bolt.status = 'marker_yellow'
-          }
-          if (bolt.status === 'marker_yellow' && time_since > 30000) {
-            bolt.status = 'marker_green'
-          }
-          display_bolts.push(bolt)
-        }
-      })
-      let region = {
-        latitude: data.lat,
-        longitude: data.lng,
-        latitudeDelta: 25,
-        longitudeDelta: 25,
-      }
-      this.setState({
-        bolts: display_bolts,
-      })
+    // this.weather_overlay = new WeatherOverlay()
+  }
 
-      if (this.state.following) {
-        this.mapView.animateToRegion(region, 1000)
-      }
-
-      // var bolt = $.parseJSON(e.data);
-      // bolt properties
-      // latitude, longitude, peakCurrent, icHeight, numSensors, time
-      // handler(bolt);
+  receive_data = e => {
+    console.tron.log('bolt')
+    const now = new Date()
+    const data = {
+      ...JSON.parse(e.data),
+      date: now,
+      status: 'marker_red',
     }
+    const fodder = [...this.state.bolts, data]
+    let display_bolts = []
+    fodder.forEach(bolt => {
+      const time_since = now.getTime() - bolt.date.getTime()
+      if (time_since < 60000) {
+        if (bolt.status === 'marker_red' && time_since > 10000) {
+          bolt.status = 'marker_yellow'
+        }
+        if (bolt.status === 'marker_yellow' && time_since > 30000) {
+          bolt.status = 'marker_green'
+        }
+        display_bolts.push(bolt)
+      }
+    })
+    let region = {
+      latitude: data.lat,
+      longitude: data.lng,
+      latitudeDelta: 25,
+      longitudeDelta: 25,
+    }
+    this.setState({
+      bolts: display_bolts,
+    })
+
+    if (this.state.following) {
+      this.mapView.animateToRegion(region, 1000)
+    }
+
+    // var bolt = $.parseJSON(e.data);
+    // bolt properties
+    // latitude, longitude, peakCurrent, icHeight, numSensors, time
+    // handler(bolt);
+  }
+  connect_socket = () => {
+    this.wss = new WebSocket('wss://websockets.weatherstem.com?target=zapmap')
+    this.wss.onmessage = e => this.receive_data(e)
+  }
+  disconnect_socket = () => {
+    this.wss.close()
   }
 
   list_bolts = () => {
@@ -118,12 +128,14 @@ export default class ZapMap extends Component {
           leftComponent={<HeaderLeft icon="menu" action={() => {}} />}
           centerComponent={<HeaderCenter title="ZapMap" />}
         />
-        {/* <WebView
-          source={{
-            uri: 'https://leon.weatherstem.com/modules/zapmap/zapmap.html',
+        <NavigationEvents
+          onWillBlur={() => {
+            this.disconnect_socket()
           }}
-          style={{ marginTop: 20, height: 300 }}
-        /> */}
+          onWillFocus={() => {
+            this.connect_socket()
+          }}
+        />
         <MapView
           ref={ref => (this.mapView = ref)}
           provider={PROVIDER_GOOGLE}

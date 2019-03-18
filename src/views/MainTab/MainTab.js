@@ -15,19 +15,19 @@ import { Colors } from '../../themes'
 
 export default createBottomTabNavigator(
   {
-    ZapMap: {
-      screen: ZapMap,
-      navigationOptions: ({ navigation }) => ({
-        tabBarIcon: ({ tintColor }) => (
-          <Icon name="life-ring" size={30} color={tintColor} />
-        ),
-      }),
-    },
     Dashboard: {
       screen: DashboardStack,
       navigationOptions: ({ navigation }) => ({
         tabBarIcon: ({ tintColor }) => (
           <Icon name="home" size={30} color={tintColor} />
+        ),
+      }),
+    },
+    ZapMap: {
+      screen: ZapMap,
+      navigationOptions: ({ navigation }) => ({
+        tabBarIcon: ({ tintColor }) => (
+          <Icon name="life-ring" size={30} color={tintColor} />
         ),
       }),
     },

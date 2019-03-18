@@ -38,14 +38,14 @@ const create = (baseURL = 'http://cdn.weatherstem.com') => {
     return axios({
       method: 'get',
       url:
-        'https://cdn.weatherstem.com/orangestem/data/dynamic/model/stations.json',
+        'https://cdn.weatherstem.com/dashboard/data/dynamic/model/stations.json',
       responseType: 'json',
     })
   }
 
   const get_current = (handle, domainHandle) => {
     const url =
-      'https://cdn.weatherstem.com/orangestem/data/dynamic/model/' +
+      'https://cdn.weatherstem.com/dashboard/data/dynamic/model/' +
       domainHandle +
       '/' +
       handle +
