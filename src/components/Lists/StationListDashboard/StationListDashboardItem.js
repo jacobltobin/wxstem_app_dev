@@ -9,6 +9,7 @@ import {
   Animated,
   ActivityIndicator,
 } from 'react-native'
+import { NavigationEvents } from 'react-navigation'
 import { Icon } from 'react-native-elements'
 import WeatherIcon from '../../WeatherIcon/WeatherIcon'
 
@@ -38,18 +39,32 @@ class StationListDashboardItem extends Component {
     super(props)
     this.state = {
       editing_view: false,
+      interval_set: false,
+      has_blurred: false,
     }
     this.heightValue = new Animated.Value(1)
     this.deltaX = new Animated.Value(0)
   }
 
   componentDidMount() {
-    this.refreshDataInterval = setInterval(() => this.refreshData(), 60000)
+    this.refreshData()
+    this.setRefreshInterval()
   }
   componentWillUnmount() {
+    this.clearRefreshInterval()
+  }
+  clearRefreshInterval() {
+    this.setState({
+      interval_set: false,
+    })
     clearInterval(this.refreshDataInterval)
   }
-
+  setRefreshInterval() {
+    this.setState({
+      interval_set: true,
+    })
+    this.refreshDataInterval = setInterval(() => this.refreshData(), 6000)
+  }
   goToStation = id => {
     this.props.set_selected_station(id)
     this.props.navigation.navigate('Station', { transition: 'slideFromBottom' })
@@ -80,12 +95,7 @@ class StationListDashboardItem extends Component {
 
     // there is no current data entry for this station
     if (!this.props.station_current_data) {
-      this.props.request_current(
-        this.props.station.handle,
-        this.props.station.domain.handle,
-        this.props.id,
-      )
-      dataContainer = (
+      this.dataContainer = (
         <View style={styles.loading_icon_container}>
           <ActivityIndicator
             size="large"
@@ -211,6 +221,19 @@ class StationListDashboardItem extends Component {
           },
         ]}
       >
+        <NavigationEvents
+          onWillBlur={() => {
+            this.clearRefreshInterval()
+            this.setState({
+              has_blurred: true,
+            })
+          }}
+          onWillFocus={() => {
+            if (this.state.has_blurred) {
+              this.setRefreshInterval()
+            }
+          }}
+        />
         <Interactable.View
           style={styles.rowFrontContainer}
           horizontalOnly

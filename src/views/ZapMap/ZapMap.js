@@ -1,30 +1,13 @@
 import React, { Component } from 'react'
-import { WebView } from 'react-native'
 
-import PropTypes from 'prop-types'
-import { createStackNavigator } from 'react-navigation'
-import { connect } from 'react-redux'
-import { UserSelectors } from '../../redux/UserRedux'
 import { NavigationEvents } from 'react-navigation'
 
-import WeatherIcon from '../../components/WeatherIcon/WeatherIcon'
-import { StationListDashboard } from '../../components'
-import { View, ScrollView, TouchableOpacity, Text } from 'react-native'
+import { View, TouchableOpacity, Text } from 'react-native'
 import { Header, Icon } from 'react-native-elements'
-import {
-  SelectStationModal,
-  Subheader,
-  HeaderCenter,
-  HeaderLeft,
-} from '../../components'
+import { HeaderCenter, HeaderLeft } from '../../components'
 import Styles from '../Dashboard/DashboardStyles'
 import Colors from '../../themes/Colors'
-import MapView, {
-  PROVIDER_GOOGLE,
-  PROVIDER_DEFAULT,
-  Marker,
-  UrlTile,
-} from 'react-native-maps'
+import MapView, { PROVIDER_GOOGLE, Marker, UrlTile } from 'react-native-maps'
 import { Images } from '../../themes'
 import WeatherOverlay from '../../lib/WeatherOverlay'
 
