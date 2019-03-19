@@ -72,6 +72,7 @@ class SelectStationModal extends Component {
           on_item_select={id => {
             this.handleStationSelected(id)
           }}
+          isModal
         />
       )
     } else {

@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import StationActions, { StationSelectors } from '../../../redux/StationsRedux'
 import { createSectionedStations } from '../../../transforms/apiTransforms'
+import { AppStateSelectors } from '../../../redux/AppStateRedux'
 
 import {
   Text,
@@ -61,6 +62,8 @@ class StationListDefault extends Component {
     on_item_select: PropTypes.func,
     request_all_stations: PropTypes.func,
     stations: PropTypes.array,
+    dashboard_stations: PropTypes.array,
+    is_modal: PropTypes.bool,
   }
 
   constructor(props) {
@@ -193,6 +196,14 @@ class StationListDefault extends Component {
     this._swiper.scrollBy(1)
   }
 
+  checkIfStationSelected = id => {
+    let check = this.props.dashboard_stations.filter(
+      station => station.id == id,
+    )
+    console.tron.log(check)
+    return check.length > 0 ? true : false
+  }
+
   render() {
     let freshDataLoadingIndicator
     // if no station data then:
@@ -229,7 +240,13 @@ class StationListDefault extends Component {
           <FlatList
             data={this.props.stripped_sectioned_stations}
             renderItem={({ item }) => (
-              <StateListItem onPress={this.toggleSection} title={item.title} />
+              <StateListItem
+                active={
+                  !this.checkIfStationSelected(item.id) && !this.props.is_modal
+                }
+                onPress={this.toggleSection}
+                title={item.title}
+              />
             )}
           />
         )
@@ -242,6 +259,9 @@ class StationListDefault extends Component {
                 station={item}
                 hidden={this.state.noResults}
                 on_item_select={id => this.props.on_item_select(id)}
+                active={
+                  !this.checkIfStationSelected(item.id) && !this.props.is_modal
+                }
               />
             )}
             renderSectionHeader={({ section: { title } }) => (
@@ -281,6 +301,10 @@ class StationListDefault extends Component {
                   station={item}
                   hidden={this.state.noResults}
                   on_item_select={id => this.props.on_item_select(id)}
+                  active={
+                    !this.checkIfStationSelected(item.id) &&
+                    !this.props.is_modal
+                  }
                 />
               )}
               renderSectionHeader={({ section: { title } }) => (
@@ -322,6 +346,7 @@ const mapStateToProps = state => {
     sectioned_stations: StationSelectors.selectStationsSectionedList(state),
     stations_fetched: StationSelectors.stationsFetched(state),
     is_fetching: StationSelectors.isFetchingStations(state),
+    dashboard_stations: AppStateSelectors.selectDashboardStations(state),
   }
 }
 

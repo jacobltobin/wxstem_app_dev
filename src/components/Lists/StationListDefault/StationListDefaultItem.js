@@ -12,6 +12,7 @@ export default class StationListDefaultItem extends Component {
     station: PropTypes.object.isRequired,
     on_item_select: PropTypes.func,
     hidden: PropTypes.bool,
+    active: PropTypes.bool,
   }
 
   onPress = () => {
@@ -28,8 +29,13 @@ export default class StationListDefaultItem extends Component {
         }
       >
         <TouchableOpacity
-          onPress={() => this.onPress()}
-          style={styles.station_list_item}
+          onPress={this.props.active ? () => this.onPress() : null}
+          style={
+            this.props.active
+              ? styles.station_list_item
+              : styles.station_list_item_inactive
+          }
+          activeOpacity={this.props.active ? 0.2 : 1}
         >
           <View>
             <Text style={styles.station_list_item_text}>

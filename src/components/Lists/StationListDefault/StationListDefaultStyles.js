@@ -117,4 +117,16 @@ export default StyleSheet.create({
     marginRight: 10,
     paddingTop: 7,
   },
+  station_list_item_inactive: {
+    width: Metrics.screenWidth,
+    paddingLeft: 15,
+    paddingTop: 15,
+    paddingBottom: 15,
+    paddingRight: 10,
+    color: Colors.gray,
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    backgroundColor: Colors.lightGray,
+  },
 })
