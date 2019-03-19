@@ -29,6 +29,35 @@ const base = {
   windy: '',
 }
 
+// my $icon_map = {
+//   chanceflurries => [ 41, 46 ],
+//   chancerain     => [ 39, 45 ],
+//   chancesleet    => [],
+//   chancesnow     => [],
+//   chancetstorms => [ 37, 38, 47 ],
+//   clear         => [ 31, 33, 34 ],
+//   cloudy        => [26],
+//   flurries => [ 13, 14, 15, 25 ],
+//   fog      => [20],
+//   hazy         => [ 21, 22 ],
+//   mostlycloudy => [ 27, 28 ],
+//   mostlysunny  => [],
+//   partlycloudy => [ 29, 30 ],
+//   partlysunny  => [],
+//   rain         => [ 12, 40 ],
+//   snow  => [ 16, 42, 43 ],
+//   sleet => [ 5,  6,  7, 8, 10, 17, 18, 35 ],
+//   sunny             => [ 32, 36 ],
+//   tstorms           => [ 3,  4 ],
+//   drizzle           => [9],
+//   drizzly           => [],
+//   showers           => [11],
+//   windycloudy       => [19],
+//   windypartlycloudy => [ 23, 24 ],
+//   windyrain         => [],
+//   windystorm        => [ 1,  2 ]
+// };
+
 export default class WeatherIcon extends Component {
   static propTypes = {
     name: PropTypes.string,

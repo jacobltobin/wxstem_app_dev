@@ -5,13 +5,9 @@ import axios from 'axios'
 const create = (baseURL = 'https://data.weatherstem.com/') => {
   const api_key = '4898745f-d378-40d1-92a0-e79a3f4e3221'
 
-  const request_one_station_current = action => {
+  const get_current = (lat, lng) => {
     let url = baseURL + 'v1/geocode/'
-    url +=
-      action.payload.lat +
-      '/' +
-      action.payload.lng +
-      '/observations/current.json'
+    url += lat + '/' + lng + '/observations/current.json'
     url += '?apiKey=' + api_key
     return axios({
       method: 'get',
@@ -34,7 +30,7 @@ const create = (baseURL = 'https://data.weatherstem.com/') => {
   //
   return {
     // a list of the API functions from step 2
-    request_one_station_current,
+    get_current,
   }
 }
 

@@ -11,6 +11,17 @@ export function* getCurrentRequest(api, action) {
   }
 }
 
+export function* getCurrentSunRequest(api, action) {
+  const { lat, lng, id } = action
+  console.tron.log(action)
+  try {
+    const response = yield call(api.get_current, lat, lng, id)
+    yield put(WeatherDataActions.getCurrentSunSuccess(id, response))
+  } catch (e) {
+    yield put(WeatherDataActions.getCurrentSunFailure(id, e))
+  }
+}
+
 export function* requestForecast(api, action) {
   const response = yield call(api.get_forecast, action)
   if (response) {

@@ -87,6 +87,8 @@ class StationListDashboardItem extends Component {
       this.props.station.handle,
       this.props.station.domain.handle,
       this.props.id,
+      this.props.station.geo.lat,
+      this.props.station.geo.lng,
     )
   }
 
@@ -332,8 +334,10 @@ const mapDispatchToProps = dispatch => {
       dispatch(AppStateActions.setSelectedStation(id)),
     remove_station_from_dashboard: id =>
       dispatch(AppStateActions.removeDashboardStation(id)),
-    request_current: (handle, domainHandle, id) =>
-      dispatch(WeatherDataActions.getCurrentRequest(handle, domainHandle, id)),
+    request_current: (handle, domainHandle, id, lat, lng) => {
+      dispatch(WeatherDataActions.getCurrentRequest(handle, domainHandle, id))
+      dispatch(WeatherDataActions.getCurrentSunRequest(lat, lng, id))
+    },
   }
 }
 

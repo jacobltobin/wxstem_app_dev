@@ -27,6 +27,12 @@ const { Types, Creators } = createActions({
 
   removeCurrent: ['id'],
 
+  getCurrentSunRequest: ['lat', 'lng', 'id'],
+  getCurrentSunSuccess: ['id', 'response'],
+  getCurrentSunFailure: ['id', 'response'],
+
+  removeCurrentSun: ['id'],
+
   requestForecast: ['id'],
   requestForecastSuccess: ['data'],
   requestForecastFailure: null,
@@ -74,6 +80,11 @@ export const reducer = createReducer(INITIAL_STATE, {
   [Types.GET_CURRENT_SUCCESS]: currentReducers.getCurrentSuccess,
   [Types.GET_CURRENT_FAILURE]: currentReducers.getCurrentFailure,
   [Types.REMOVE_CURRENT]: currentReducers.removeCurrent,
+
+  [Types.GET_CURRENT_SUN_REQUEST]: currentReducers.getCurrentSunRequest,
+  [Types.GET_CURRENT_SUN_SUCCESS]: currentReducers.getCurrentSunSuccess,
+  [Types.GET_CURRENT_SUN_FAILURE]: currentReducers.getCurrentSunFailure,
+  [Types.REMOVE_CURRENT_SUN]: currentReducers.removeCurrentSun,
 
   [Types.REQUEST_FORECAST]: forecastReducers.requestForecast,
   [Types.REQUEST_FORECAST_SUCCESS]: forecastReducers.requestForecastSuccess,
