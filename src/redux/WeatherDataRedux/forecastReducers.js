@@ -2,7 +2,6 @@ import * as apiTransforms from '../../transforms/apiTransforms'
 
 // request one station current readings
 export const getHourlyForecastRequest = (state, action) => {
-  console.tron.log('what the fulck')
   const { id } = action
   let forecast_data
   let fetched_data
@@ -60,7 +59,7 @@ export const getHourlyForecastSuccess = (state, action) => {
           fetched: true,
           fetching: false,
           last_fetched: new Date().getTime(),
-          data: response,
+          data: response.data.forecasts,
         },
       },
     },
