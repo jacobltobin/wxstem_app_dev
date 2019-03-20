@@ -9,6 +9,10 @@ export default StyleSheet.create({
     alignSelf: 'center',
     marginTop: 30,
   },
+  loading_icon_container: {
+    marginTop: 0,
+    padding: 0,
+  },
   list_item_container: {
     height: 250,
   },
@@ -36,7 +40,7 @@ export default StyleSheet.create({
     zIndex: 1,
     flex: 1,
     flexDirection: 'column',
-    justifyContent: 'space-between',
+    justifyContent: 'flex-start',
   },
   list_item_name_container: {
     backgroundColor: Colors.white80,
@@ -79,6 +83,7 @@ export default StyleSheet.create({
   list_item_temperature_container: {
     paddingLeft: 20,
     flexDirection: 'row',
+    alignItems: 'center',
   },
   list_item_forecast_list_container: {
     justifyContent: 'space-between',
@@ -140,9 +145,14 @@ export default StyleSheet.create({
     borderBottomRightRadius: 20,
     overflow: 'hidden',
   },
+  weather_icon_container: {
+    marginLeft: 6,
+    paddingTop: 7,
+  },
   weather_icon: {
-    ...Fonts.style.weatherIcon,
-    color: Colors.white,
-    fontSize: 60,
+    fontSize: 50,
+    textShadowColor: Colors.black50,
+    textShadowOffset: { width: -1, height: 1 },
+    textShadowRadius: 10,
   },
 })

@@ -101,8 +101,8 @@ class StationListDashboardItem extends Component {
         <View style={styles.loading_icon_container}>
           <ActivityIndicator
             size="large"
-            style={{ paddingTop: 20 }}
-            color={Colors.white}
+            style={{ paddingTop: 0 }}
+            color={Colors.red}
           />
         </View>
       )
@@ -117,13 +117,43 @@ class StationListDashboardItem extends Component {
     ) {
       this.refreshData()
       dataContainer = (
-        <View style={styles.loading_icon_container}>
-          <ActivityIndicator
-            size="large"
-            style={{ paddingTop: 20 }}
-            color={Colors.white}
-          />
+        <View style={styles.list_item_data_container}>
+          <View style={styles.list_item_temperature_container}>
+            <Text style={styles.list_item_temperature}>--.-</Text>
+            <Text style={styles.list_item_temperature_super}>˚F</Text>
+            <View style={styles.weather_icon_container}>--</View>
+          </View>
+          <View style={styles.list_item_forecast_list_container}>
+            <View style={styles.list_item_forecast_item_container}>
+              <Text style={styles.list_item_forecast_item_time}>--</Text>
+              <Text style={styles.list_item_forecast_item_value}>--</Text>
+            </View>
+            <View style={styles.list_item_forecast_item_container}>
+              <Text style={styles.list_item_forecast_item_time}>--</Text>
+              <Text style={styles.list_item_forecast_item_value}>--</Text>
+            </View>
+            <View style={styles.list_item_forecast_item_container}>
+              <Text style={styles.list_item_forecast_item_time}>--</Text>
+              <Text style={styles.list_item_forecast_item_value}>--</Text>
+            </View>
+            <View style={styles.list_item_forecast_item_container}>
+              <Text style={styles.list_item_forecast_item_time}>--</Text>
+              <Text style={styles.list_item_forecast_item_value}>--</Text>
+            </View>
+            <View style={styles.list_item_forecast_item_container}>
+              <Text style={styles.list_item_forecast_item_time}>--</Text>
+              <Text style={styles.list_item_forecast_item_value}>--</Text>
+            </View>
+          </View>
         </View>
+
+        // <View style={styles.loading_icon_container}>
+        //   <ActivityIndicator
+        //     size="large"
+        //     style={{ paddingTop: 0 }}
+        //     color={Colors.red}
+        //   />
+        // </View>
       )
     }
     // we are currently fetching new current data and there is none
@@ -133,19 +163,51 @@ class StationListDashboardItem extends Component {
       !this.props.station_current_data.wxstem.fetched
     ) {
       dataContainer = (
-        <View style={styles.loading_icon_container}>
-          <ActivityIndicator
-            size="large"
-            style={{ paddingTop: 20 }}
-            color={Colors.white}
-          />
+        <View style={styles.list_item_data_container}>
+          <View style={styles.list_item_temperature_container}>
+            <Text style={styles.list_item_temperature}>--.-</Text>
+            <Text style={styles.list_item_temperature_super}>˚F</Text>
+            <View style={styles.weather_icon_container}>
+              <Text>`</Text>
+            </View>
+          </View>
+          <View style={styles.list_item_forecast_list_container}>
+            <View style={styles.list_item_forecast_item_container}>
+              <Text style={styles.list_item_forecast_item_time}>- -</Text>
+              <Text style={styles.list_item_forecast_item_value}>- -</Text>
+            </View>
+            <View style={styles.list_item_forecast_item_container}>
+              <Text style={styles.list_item_forecast_item_time}>- -</Text>
+              <Text style={styles.list_item_forecast_item_value}>- -</Text>
+            </View>
+            <View style={styles.list_item_forecast_item_container}>
+              <Text style={styles.list_item_forecast_item_time}>- -</Text>
+              <Text style={styles.list_item_forecast_item_value}>- -</Text>
+            </View>
+            <View style={styles.list_item_forecast_item_container}>
+              <Text style={styles.list_item_forecast_item_time}>- -</Text>
+              <Text style={styles.list_item_forecast_item_value}>- -</Text>
+            </View>
+            <View style={styles.list_item_forecast_item_container}>
+              <Text style={styles.list_item_forecast_item_time}>- -</Text>
+              <Text style={styles.list_item_forecast_item_value}>- -</Text>
+            </View>
+          </View>
         </View>
+        // <View style={styles.loading_icon_container}>
+        //   <ActivityIndicator
+        //     size="large"
+        //     style={{ paddingTop: 20 }}
+        //     color={Colors.white}
+        //   />
+        // </View>
       )
     }
     // there is current data fetched to display and there is no error
     else if (
       !this.props.station_current_data.wxstem.error &&
-      this.props.station_current_data.wxstem.fetched
+      this.props.station_current_data.wxstem.fetched &&
+      this.props.station_current_data.sun.fetched
     ) {
       dataContainer = (
         <View style={styles.list_item_data_container}>
@@ -154,9 +216,14 @@ class StationListDashboardItem extends Component {
               {this.props.station_current_data.wxstem.data['Thermometer'].value}
             </Text>
             <Text style={styles.list_item_temperature_super}>˚F</Text>
-          </View>
-          <View style={styles.weather_icon_container}>
-            <WeatherIcon name={'thunder'} />
+            <View style={styles.weather_icon_container}>
+              <WeatherIcon
+                style={styles.weather_icon}
+                icon_code={
+                  this.props.station_current_data.sun.data.observation.icon_code
+                }
+              />
+            </View>
           </View>
           <View style={styles.list_item_forecast_list_container}>
             <View style={styles.list_item_forecast_item_container}>
