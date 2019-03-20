@@ -4,7 +4,7 @@ import { createBottomTabNavigator } from 'react-navigation'
 import PropTypes from 'prop-types'
 
 import DashboardStack from '../DashboardStack/DashboardStack'
-import ZapMap from '../ZapMap/ZapMap'
+import MapView from '../MapView/MapView'
 import StationsStack from '../StationsStack/StationsStack'
 
 import Icon from 'react-native-vector-icons/FontAwesome'
@@ -23,8 +23,8 @@ export default createBottomTabNavigator(
         ),
       }),
     },
-    ZapMap: {
-      screen: ZapMap,
+    MapView: {
+      screen: MapView,
       navigationOptions: ({ navigation }) => ({
         tabBarIcon: ({ tintColor }) => (
           <Icon name="map" size={30} color={tintColor} />

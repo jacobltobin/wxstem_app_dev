@@ -17,6 +17,7 @@ const images = {
   logo: require('../images/logo.png'),
   logoClear: require('../images/top_logo.png'),
   logoIcon: require('../images/logo-icon.png'),
+  logoIconSmall: require('../images/logo-icon-sm.png'),
   logoIconWhite: require('../images/logo-icon-white.png'),
   logoIconTypeColor: require('../images/logo-icon-type-color.png'),
   logoIconTypeColorHorizontal: require('../images/logo-icon-type-color-horizontal.png'),

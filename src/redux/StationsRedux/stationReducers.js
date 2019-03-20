@@ -24,6 +24,7 @@ export const requestAllSuccess = (state, action) => {
       handle: station.handle,
       domainHandle: station.domain.handle,
       id: station.id,
+      geo: station.geo,
     }
   })
   const strippedAlphabetizedList = apiTransforms.alphabetizeStations(
