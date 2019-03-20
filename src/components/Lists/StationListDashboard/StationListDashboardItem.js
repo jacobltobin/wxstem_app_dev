@@ -52,11 +52,11 @@ class StationListDashboardItem extends Component {
     this.refreshData()
     this.setRefreshInterval()
 
-    this.props.request_hourly_forecast(
-      this.props.station.geo.lat,
-      this.props.station.geo.lng,
-      this.props.id,
-    )
+    // this.props.request_hourly_forecast(
+    //   this.props.station.geo.lat,
+    //   this.props.station.geo.lng,
+    //   this.props.id,
+    // )
   }
   componentWillUnmount() {
     this.clearRefreshInterval()
@@ -102,19 +102,13 @@ class StationListDashboardItem extends Component {
 
   render() {
     let dataContainer
+    let loadingIndicatorVisible = true
 
     // there is no current data entry for this station
     if (!this.props.station_current_data) {
-      dataContainer = (
-        <View style={styles.loading_icon_container}>
-          <ActivityIndicator
-            size="large"
-            style={{ paddingTop: 0 }}
-            color={Colors.red}
-          />
-        </View>
-      )
+      loadingIndicatorVisible = true
     }
+
     // there is current data and it's not fetching new data
     // but it has been over a minute since last fetching
     else if (
@@ -123,6 +117,7 @@ class StationListDashboardItem extends Component {
       this.props.station_current_data.wxstem.last_fetched - new Date().getTime >
         60000
     ) {
+      loadingIndicatorVisible = true
       this.refreshData()
       dataContainer = (
         <View style={styles.list_item_data_container}>
@@ -170,6 +165,7 @@ class StationListDashboardItem extends Component {
       this.props.station_current_data.wxstem.fetching &&
       !this.props.station_current_data.wxstem.fetched
     ) {
+      loadingIndicatorVisible = true
       dataContainer = (
         <View style={styles.list_item_data_container}>
           <View style={styles.list_item_temperature_container}>
@@ -213,10 +209,12 @@ class StationListDashboardItem extends Component {
     }
     // there is current data fetched to display and there is no error
     else if (
+      this.props.station_current_data.wxstem.data['Thermometer'] &&
       !this.props.station_current_data.wxstem.error &&
       this.props.station_current_data.wxstem.fetched &&
       this.props.station_current_data.sun.fetched
     ) {
+      loadingIndicatorVisible = false
       dataContainer = (
         <View style={styles.list_item_data_container}>
           <View style={styles.list_item_temperature_container}>
@@ -274,6 +272,20 @@ class StationListDashboardItem extends Component {
       )
     }
 
+    if (loadingIndicatorVisible === true) {
+      loadingIndicator = (
+        <View style={styles.loading_icon_container}>
+          <ActivityIndicator
+            size="large"
+            style={{ paddingTop: 0 }}
+            color={Colors.red}
+          />
+        </View>
+      )
+    } else {
+      loadingIndicator = ''
+    }
+
     return (
       <Animated.View
         style={[
@@ -328,6 +340,7 @@ class StationListDashboardItem extends Component {
                   <View style={styles.list_item_name_container}>
                     <Text style={styles.list_item_station_name_text}>
                       {this.props.station.name}
+                      {loadingIndicator}
                     </Text>
                   </View>
                   {dataContainer}

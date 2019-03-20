@@ -200,7 +200,6 @@ class StationListDefault extends Component {
     let check = this.props.dashboard_stations.filter(
       station => station.id == id,
     )
-    console.tron.log(check)
     return check.length > 0 ? true : false
   }
 

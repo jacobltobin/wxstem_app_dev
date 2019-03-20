@@ -53,7 +53,11 @@ export const WeatherDataSelectors = {
     let data = null
     if (state.weather_data.current.byId) {
       if (state.weather_data.current.byId[id]) {
-        data = state.weather_data.current.byId[id]
+        if (state.weather_data.current.byId[id].wxstem) {
+          if (state.weather_data.current.byId[id].sun) {
+            data = state.weather_data.current.byId[id]
+          }
+        }
       }
     }
     return data

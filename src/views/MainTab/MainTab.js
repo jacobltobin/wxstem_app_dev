@@ -27,7 +27,7 @@ export default createBottomTabNavigator(
       screen: ZapMap,
       navigationOptions: ({ navigation }) => ({
         tabBarIcon: ({ tintColor }) => (
-          <Icon name="life-ring" size={30} color={tintColor} />
+          <Icon name="map" size={30} color={tintColor} />
         ),
       }),
     },
