@@ -10,13 +10,13 @@ export const getCurrentRequest = (state, action) => {
 
   if (state.byId) {
     if (state.byId[id]) {
-      if (state.byId[id].current.sun) {
-        sun = { ...state.byId[id].current.sun }
+      if (state.byId[id].sun) {
+        sun = { ...state.byId[id].sun }
       }
-      if (state.byId[id].current.wxstem.data) {
+      if (state.byId[id].wxstem) {
         fetched_wxstem_data = true
-        last_fetched_wxstem_data = state.byId[id].current.wxstem.last_fetched
-        current_wxstem_data = { ...state.byId[id].current.wxstem.data }
+        last_fetched_wxstem_data = state.byId[id].wxstem.last_fetched
+        current_wxstem_data = { ...state.byId[id].wxstem.data }
       }
     }
   } else {
@@ -28,16 +28,14 @@ export const getCurrentRequest = (state, action) => {
     byId: {
       ...state.byId,
       [id]: {
-        current: {
-          wxstem: {
-            error: null,
-            fetched: fetched_wxstem_data,
-            fetching: true,
-            last_fetched: last_fetched_wxstem_data,
-            data: current_wxstem_data,
-          },
-          sun: sun,
+        wxstem: {
+          error: null,
+          fetched: fetched_wxstem_data,
+          fetching: true,
+          last_fetched: last_fetched_wxstem_data,
+          data: current_wxstem_data,
         },
+        sun: sun,
       },
     },
   }
@@ -48,9 +46,9 @@ export const getCurrentSuccess = (state, action) => {
   let sun = null
   if (state.byId) {
     if (state.byId[id]) {
-      if (state.byId[id].current) {
-        if (state.byId[id].current.sun) {
-          sun = { ...state.byId[id].current.sun }
+      if (state.byId[id]) {
+        if (state.byId[id].sun) {
+          sun = { ...state.byId[id].sun }
         }
       }
     }
@@ -60,16 +58,14 @@ export const getCurrentSuccess = (state, action) => {
     byId: {
       ...state.byId,
       [id]: {
-        current: {
-          wxstem: {
-            error: null,
-            fetched: true,
-            fetching: false,
-            last_fetched: new Date().getTime(),
-            data: apiTransforms.reorganizeLatestReadings(response.data),
-          },
-          sun: sun,
+        wxstem: {
+          error: null,
+          fetched: true,
+          fetching: false,
+          last_fetched: new Date().getTime(),
+          data: apiTransforms.reorganizeLatestReadings(response.data),
         },
+        sun: sun,
       },
     },
   }
@@ -80,9 +76,9 @@ export const getCurrentFailure = (state, action) => {
   let sun
   if (state.byId) {
     if (state.byId[id]) {
-      if (state.byId[id].current) {
-        if (state.byId[id].current.sun) {
-          sun = { ...state.byId[id].current.sun }
+      if (state.byId[id]) {
+        if (state.byId[id].sun) {
+          sun = { ...state.byId[id].sun }
         }
       }
     }
@@ -91,15 +87,13 @@ export const getCurrentFailure = (state, action) => {
     byId: {
       ...state.byId,
       [id]: {
-        current: {
-          wxstem: {
-            fetched: false,
-            fetching: false,
-            error: response,
-            data: null,
-          },
-          sun: sun,
+        wxstem: {
+          fetched: false,
+          fetching: false,
+          error: response,
+          data: null,
         },
+        sun: sun,
       },
     },
   }
@@ -116,14 +110,14 @@ export const getCurrentSunRequest = (state, action) => {
 
   if (state.byId) {
     if (state.byId[id]) {
-      if (state.byId[id].current) {
-        if (state.byId[id].current.wxstem) {
-          wxstem = { ...state.byId[id].current.wxstem }
+      if (state.byId[id]) {
+        if (state.byId[id].wxstem) {
+          wxstem = { ...state.byId[id].wxstem }
         }
-        if (state.byId[id].current.sun) {
+        if (state.byId[id].sun) {
           fetched_sun_data = true
-          last_fetched_sun_data = state.byId[id].current.sun.last_fetched
-          current_sun_data = { ...state.byId[id].current.sun.data }
+          last_fetched_sun_data = state.byId[id].sun.last_fetched
+          current_sun_data = { ...state.byId[id].sun.data }
         }
       }
     }
@@ -136,16 +130,14 @@ export const getCurrentSunRequest = (state, action) => {
     byId: {
       ...state.byId,
       [id]: {
-        current: {
-          sun: {
-            error: null,
-            fetched: fetched_sun_data,
-            fetching: true,
-            last_fetched: last_fetched_sun_data,
-            data: current_sun_data,
-          },
-          wxstem: wxstem,
+        sun: {
+          error: null,
+          fetched: fetched_sun_data,
+          fetching: true,
+          last_fetched: last_fetched_sun_data,
+          data: current_sun_data,
         },
+        wxstem: wxstem,
       },
     },
   }
@@ -157,9 +149,9 @@ export const getCurrentSunSuccess = (state, action) => {
 
   if (state.byId) {
     if (state.byId[id]) {
-      if (state.byId[id].current) {
-        if (state.byId[id].current.wxstem) {
-          wxstem = { ...state.byId[id].current.wxstem }
+      if (state.byId[id]) {
+        if (state.byId[id].wxstem) {
+          wxstem = { ...state.byId[id].wxstem }
         }
       }
     }
@@ -168,16 +160,14 @@ export const getCurrentSunSuccess = (state, action) => {
     byId: {
       ...state.byId,
       [id]: {
-        current: {
-          sun: {
-            error: null,
-            fetched: true,
-            fetching: false,
-            last_fetched: new Date().getTime(),
-            data: response.data,
-          },
-          wxstem: wxstem,
+        sun: {
+          error: null,
+          fetched: true,
+          fetching: false,
+          last_fetched: new Date().getTime(),
+          data: response.data,
         },
+        wxstem: wxstem,
       },
     },
   }
@@ -188,9 +178,9 @@ export const getCurrentSunFailure = (state, action) => {
   let wxstem = null
   if (state.byId) {
     if (state.byId[id]) {
-      if (state.byId[id].current) {
-        if (state.byId[id].current.wxstem) {
-          wxstem = { ...state.byId[id].current.wxstem }
+      if (state.byId[id]) {
+        if (state.byId[id].wxstem) {
+          wxstem = { ...state.byId[id].wxstem }
         }
       }
     }
@@ -199,15 +189,13 @@ export const getCurrentSunFailure = (state, action) => {
     byId: {
       ...state.byId,
       [id]: {
-        current: {
-          sun: {
-            fetched: false,
-            fetching: false,
-            error: response,
-            data: null,
-          },
-          wxstem: wxstem,
+        sun: {
+          fetched: false,
+          fetching: false,
+          error: response,
+          data: null,
         },
+        wxstem: wxstem,
       },
     },
   }

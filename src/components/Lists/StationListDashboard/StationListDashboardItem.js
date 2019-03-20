@@ -33,6 +33,8 @@ class StationListDashboardItem extends Component {
     request_current: PropTypes.func,
     station_current_data: PropTypes.object,
     fetching_current: PropTypes.bool,
+    request_hourly_forecast: PropTypes.func,
+    hourly_forecast: PropTypes.object,
   }
 
   constructor(props) {
@@ -49,6 +51,12 @@ class StationListDashboardItem extends Component {
   componentDidMount() {
     this.refreshData()
     this.setRefreshInterval()
+
+    this.props.request_hourly_forecast(
+      this.props.station.geo.lat,
+      this.props.station.geo.lng,
+      this.props.id,
+    )
   }
   componentWillUnmount() {
     this.clearRefreshInterval()
@@ -388,6 +396,7 @@ const mapStateToProps = (state, props) => {
     station: StationSelectors.selectStationById(state, props.id),
     station_current_data: WeatherDataSelectors.selectCurrent(state, props.id),
     fetching_current: loadingSelector(state),
+    hourly_forecast: WeatherDataSelectors.selectHourlyForecast(state, props.id),
     // station_forecast_data: StationSelectors.selectStationForecastData(
     //   state,
     //   props.id,
@@ -404,6 +413,9 @@ const mapDispatchToProps = dispatch => {
     request_current: (handle, domainHandle, id, lat, lng) => {
       dispatch(WeatherDataActions.getCurrentRequest(handle, domainHandle, id))
       dispatch(WeatherDataActions.getCurrentSunRequest(lat, lng, id))
+    },
+    request_hourly_forecast: (lat, lng, id) => {
+      dispatch(WeatherDataActions.getHourlyForecastRequest(lat, lng, id))
     },
   }
 }

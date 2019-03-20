@@ -1,7 +1,8 @@
+import { combineReducers } from 'redux'
 import { createReducer, createActions } from 'reduxsauce'
 import Immutable from 'seamless-immutable'
 import * as currentReducers from './currentReducers'
-import * as forecastReducers from './currentReducers'
+import * as forecastReducers from './forecastReducers'
 
 /* ------------- Types and Action Creators ------------- */
 /*
@@ -33,9 +34,9 @@ const { Types, Creators } = createActions({
 
   removeCurrentSun: ['id'],
 
-  requestForecast: ['id'],
-  requestForecastSuccess: ['data'],
-  requestForecastFailure: null,
+  getHourlyForecastRequest: ['lat', 'lng', 'id'],
+  getHourlyForecastSuccess: ['id', 'response'],
+  getHourlyForecastFailure: ['id', 'response'],
 })
 
 export const WeatherDataActionTypes = Types
@@ -50,9 +51,20 @@ export const INITIAL_STATE = Immutable({
 export const WeatherDataSelectors = {
   selectCurrent: (state, id) => {
     let data = null
-    if (state.weather_data.byId) {
-      if (state.weather_data.byId[id]) {
-        data = state.weather_data.byId[id].current
+    if (state.weather_data.current.byId) {
+      if (state.weather_data.current.byId[id]) {
+        data = state.weather_data.current.byId[id]
+      }
+    }
+    return data
+  },
+  selectHourlyForecast: (state, id) => {
+    let data = null
+    if (state.weather_data.forecast.byId) {
+      if (state.weather_data.forecast.byId[id]) {
+        if (state.weather_data.forecast.byId[id]) {
+          data = state.weather_data.forecast.byId[id].hourly
+        }
       }
     }
     return data
@@ -75,7 +87,7 @@ export const WeatherDataSelectors = {
   that maps our reducer functions in the imported reducer 
   files to the actions created at the top
 */
-export const reducer = createReducer(INITIAL_STATE, {
+const current_reducer = createReducer(INITIAL_STATE, {
   [Types.GET_CURRENT_REQUEST]: currentReducers.getCurrentRequest,
   [Types.GET_CURRENT_SUCCESS]: currentReducers.getCurrentSuccess,
   [Types.GET_CURRENT_FAILURE]: currentReducers.getCurrentFailure,
@@ -85,8 +97,18 @@ export const reducer = createReducer(INITIAL_STATE, {
   [Types.GET_CURRENT_SUN_SUCCESS]: currentReducers.getCurrentSunSuccess,
   [Types.GET_CURRENT_SUN_FAILURE]: currentReducers.getCurrentSunFailure,
   [Types.REMOVE_CURRENT_SUN]: currentReducers.removeCurrentSun,
+})
 
-  [Types.REQUEST_FORECAST]: forecastReducers.requestForecast,
-  [Types.REQUEST_FORECAST_SUCCESS]: forecastReducers.requestForecastSuccess,
-  [Types.REQUEST_FORECAST_FAILURE]: forecastReducers.requestForecastFailure,
+const forecast_reducer = createReducer(INITIAL_STATE, {
+  [Types.GET_HOURLY_FORECAST_REQUEST]:
+    forecastReducers.getHourlyForecastRequest,
+  [Types.GET_HOURLY_FORECAST_SUCCESS]:
+    forecastReducers.getHourlyForecastSuccess,
+  [Types.GET_HOURLY_FORECAST_FAILURE]:
+    forecastReducers.getHourlyForecastFailure,
+})
+
+export const reducer = combineReducers({
+  forecast: forecast_reducer,
+  current: current_reducer,
 })

@@ -18,7 +18,7 @@ import { loginUser, createUser, logoffUser } from './UserSagas'
 import { requestAll } from './StationsSagas'
 import {
   getCurrentRequest,
-  requestForecast,
+  getHourlyForecastRequest,
   getCurrentSunRequest,
 } from './WeatherDataSagas'
 
@@ -33,23 +33,25 @@ const sun_api = DebugConfig.useFixtures ? FixtureAPI : SUN_API.create()
 
 export default function* root() {
   yield all([
-    // startup the app!
     takeLatest(StartupTypes.STARTUP, startup, wxstem_api),
 
-    // some sagas receive extra parameters in addition to an action
     takeLatest(StationActionTypes.REQUEST_ALL, requestAll, wxstem_api),
 
-    // some sagas receive extra parameters in addition to an action
     takeEvery(
       WeatherDataActionTypes.GET_CURRENT_REQUEST,
       getCurrentRequest,
       wxstem_api,
     ),
 
-    // some sagas receive extra parameters in addition to an action
     takeEvery(
       WeatherDataActionTypes.GET_CURRENT_SUN_REQUEST,
       getCurrentSunRequest,
+      sun_api,
+    ),
+
+    takeEvery(
+      WeatherDataActionTypes.GET_HOURLY_FORECAST_REQUEST,
+      getHourlyForecastRequest,
       sun_api,
     ),
 

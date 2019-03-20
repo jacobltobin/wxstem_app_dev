@@ -16,6 +16,17 @@ const create = (baseURL = 'https://data.weatherstem.com/') => {
     })
   }
 
+  const get_hourly_forecast = (lat, lng) => {
+    let url = baseURL + 'v1/geocode/'
+    url += lat + '/' + lng + '/forecast/hourly/12hour.json'
+    url += '?language=en-US&units=e&apiKey=' + api_key
+    return axios({
+      method: 'get',
+      url: url,
+      responseType: 'json',
+    })
+  }
+
   // ------
   // STEP 3
   // ------
@@ -31,6 +42,7 @@ const create = (baseURL = 'https://data.weatherstem.com/') => {
   return {
     // a list of the API functions from step 2
     get_current,
+    get_hourly_forecast,
   }
 }
 
