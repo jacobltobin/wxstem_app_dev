@@ -7,11 +7,9 @@ import Colors from './Colors'
 
 const ApplicationStyles = {
   screen: {
-    headerInnerContainer: {
-      ...Fonts.style.header,
-    },
+    headerInnerContainer: {},
     headerOuterContainer: {
-      borderBottomWidth: 0
+      borderBottomWidth: 0,
       // paddingBottom: 50,
     },
     mainContainer: {
