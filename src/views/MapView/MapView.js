@@ -140,7 +140,9 @@ class Map extends Component {
         />
         <NavigationEvents
           onWillBlur={() => {
-            this.disconnect_socket()
+            if (this.wss) {
+              this.disconnect_socket()
+            }
           }}
           onWillFocus={() => {
             // this.connect_socket()
