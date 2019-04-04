@@ -73,6 +73,7 @@ export const getCurrentSuccess = (state, action) => {
 }
 export const getCurrentFailure = (state, action) => {
   const { id, response } = action
+  console.tron.log('log', response)
   let sun
   if (state.byId) {
     if (state.byId[id]) {
@@ -90,8 +91,8 @@ export const getCurrentFailure = (state, action) => {
         wxstem: {
           fetched: false,
           fetching: false,
-          error: response,
-          data: null,
+          error: true,
+          data: response.response,
         },
         sun: sun,
       },
