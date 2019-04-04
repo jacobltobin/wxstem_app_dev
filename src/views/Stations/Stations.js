@@ -67,7 +67,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    request_all_stations: () => dispatch(StationActions.requestAllStations()),
+    request_all_stations: () => dispatch(StationActions.requestAll()),
     set_selected_station: id =>
       dispatch(AppStateActions.setSelectedStation(id)),
   }

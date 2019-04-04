@@ -16,17 +16,21 @@ export const requestAll = state => {
 // successful station lookup
 export const requestAllSuccess = (state, action) => {
   const { stations } = action
-  const strippedList = stations.map(station => {
-    return {
-      name: station.name,
-      domain: station.domain.name,
-      state: station.geo.state,
-      handle: station.handle,
-      domainHandle: station.domain.handle,
-      id: station.id,
-      geo: station.geo,
-    }
-  })
+  const strippedList = stations
+    .filter(station => {
+      return station.domain.handle === 'en' ? false : true
+    })
+    .map(station => {
+      return {
+        name: station.name,
+        domain: station.domain.name,
+        state: station.geo.state,
+        handle: station.handle,
+        domainHandle: station.domain.handle,
+        id: station.id,
+        geo: station.geo,
+      }
+    })
   const strippedAlphabetizedList = apiTransforms.alphabetizeStations(
     strippedList,
   )
