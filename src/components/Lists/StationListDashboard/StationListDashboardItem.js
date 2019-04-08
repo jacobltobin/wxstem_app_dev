@@ -27,7 +27,7 @@ class StationListDashboardItem extends Component {
   static propTypes = {
     station: PropTypes.object,
     navigation: PropTypes.object,
-    id: PropTypes.number,
+    id: PropTypes.string,
     set_selected_station: PropTypes.func,
     remove_station_from_dashboard: PropTypes.func,
     request_current: PropTypes.func,
@@ -149,14 +149,6 @@ class StationListDashboardItem extends Component {
             </View>
           </View>
         </View>
-
-        // <View style={styles.loading_icon_container}>
-        //   <ActivityIndicator
-        //     size="large"
-        //     style={{ paddingTop: 0 }}
-        //     color={Colors.red}
-        //   />
-        // </View>
       )
     }
     // we are currently fetching new current data and there is none

@@ -164,7 +164,7 @@ const base = {
 
 export default class WeatherIcon extends Component {
   static propTypes = {
-    icon_code: PropTypes.string,
+    icon_code: PropTypes.number,
     style: PropTypes.object,
   }
   get_icons = icon_code => {
