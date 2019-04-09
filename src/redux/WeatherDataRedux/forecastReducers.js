@@ -11,7 +11,11 @@ export const getHourlyForecastRequest = (state, action) => {
     if (state.byId[id]) {
       if (state.byId[id]) {
         if (state.byId[id].hourly) {
-          fetched_data = true
+          if (state.byId[id].hourly.data) {
+            if (state.byId[id].hourly.data.hasOwnProperty()) {
+              fetched_data = true
+            }
+          }
           last_fetched_data = state.byId[id].hourly.last_fetched
           forecast_data = { ...state.byId[id].hourly }
         }

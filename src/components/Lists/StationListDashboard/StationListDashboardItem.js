@@ -8,10 +8,13 @@ import {
   Image,
   Animated,
   ActivityIndicator,
+  FlatList,
 } from 'react-native'
 import { NavigationEvents } from 'react-navigation'
 import { Icon } from 'react-native-elements'
 import WeatherIcon from '../../WeatherIcon/WeatherIcon'
+
+import Moment from 'moment'
 
 import { Colors } from '../../../themes'
 import styles from './StationListDashboardStyles'
@@ -44,6 +47,11 @@ class StationListDashboardItem extends Component {
       interval_set: false,
       has_blurred: false,
     }
+    this.loadStatus = {
+      isCurrentWxstem: false,
+      isCurrentSun: false,
+      isForecast: false,
+    }
     this.heightValue = new Animated.Value(1)
     this.deltaX = new Animated.Value(0)
   }
@@ -51,12 +59,7 @@ class StationListDashboardItem extends Component {
   componentDidMount() {
     this.refreshData()
     this.setRefreshInterval()
-
-    // this.props.request_hourly_forecast(
-    //   this.props.station.geo.lat,
-    //   this.props.station.geo.lng,
-    //   this.props.id,
-    // )
+    this.refreshForecastData()
   }
   componentWillUnmount() {
     this.clearRefreshInterval()
@@ -99,10 +102,111 @@ class StationListDashboardItem extends Component {
       this.props.station.geo.lng,
     )
   }
+  refreshForecastData = () => {
+    if (this.props.hourly_forecast) {
+      if (this.props.hourly_forecast.last_fetched) {
+        if (
+          this.props.hourly_forecast.last_fetched - new Date().getTime() >
+          60000
+        ) {
+          this.props.request_hourly_forecast(
+            this.props.station.geo.lat,
+            this.props.station.geo.lng,
+            this.props.id,
+          )
+        }
+      }
+    } else {
+      this.props.request_hourly_forecast(
+        this.props.station.geo.lat,
+        this.props.station.geo.lng,
+        this.props.id,
+      )
+    }
+  }
+  setLoadStatus = () => {
+    // is current data loaded?
+    if (this.props.station_current_data) {
+      if (
+        this.props.station_current_data.wxstem.fetched &&
+        !this.props.station_current_data.wxstem.error
+      ) {
+        this.loadStatus.isCurrentWxstem = true
+      }
+      if (
+        this.props.station_current_data.sun.fetched &&
+        !this.props.station_current_data.sun.error
+      ) {
+        this.loadStatus.isCurrentSun = true
+      }
+    }
+    // is forecast data loaded?
+    if (this.props.hourly_forecast) {
+      if (
+        this.props.hourly_forecast.fetched &&
+        !this.props.hourly_forecast.error
+      ) {
+        this.loadStatus.isForecast = true
+      }
+    }
+  }
+  returnAMPM = dateStr => {
+    let converted
+    console.tron.log(typeof dateStr, dateStr, new Date(dateStr))
+    let hours = new Date(dateStr).getHours()
+    if (hours > 12) {
+      converted = (hours - 12).toString() + 'PM'
+    } else {
+      converted = hours.toString() + 'AM'
+    }
+    return converted
+  }
+  generateForecastMarkup = () => {
+    let dataSource
+    let now = new Date().getTime()
+    if (this.loadStatus.isForecast) {
+      dataSource = this.props.hourly_forecast.data
+    } else {
+      dataSource = Array(12)
+        .fill(null)
+        .map((u, i) => {
+          return {
+            fcst_valid_local: new Date(now + (i + 1) * 3600 * 1000).toString(),
+            temp: '--',
+          }
+        })
+    }
+    return (
+      <View style={styles.list_item_forecast_list_container}>
+        <FlatList
+          horizontal
+          data={dataSource}
+          showsHorizontalScrollIndicator={false}
+          renderItem={({ item }) => (
+            <View style={styles.list_item_forecast_item_container}>
+              <Text style={styles.list_item_forecast_item_time}>
+                <Text>{Moment(item.fcst_valid_local).format('hA')}</Text>
+              </Text>
+              {item.icon_code && (
+                <WeatherIcon
+                  style={styles.weather_icon_forecast}
+                  icon_code={item.icon_code}
+                />
+              )}
+              <Text style={styles.list_item_forecast_item_value}>
+                {item.temp}
+              </Text>
+            </View>
+          )}
+        />
+      </View>
+    )
+  }
 
   render() {
-    let dataContainer
-    let loadingIndicatorVisible = true
+    let dataCurrentContainer, dataForecastContainer
+
+    this.setLoadStatus()
 
     // there is no current data entry for this station
     if (!this.props.station_current_data) {
@@ -119,37 +223,6 @@ class StationListDashboardItem extends Component {
     ) {
       loadingIndicatorVisible = true
       this.refreshData()
-      dataContainer = (
-        <View style={styles.list_item_data_container}>
-          <View style={styles.list_item_temperature_container}>
-            <Text style={styles.list_item_temperature}>--.-</Text>
-            <Text style={styles.list_item_temperature_super}>˚F</Text>
-            <View style={styles.weather_icon_container}>--</View>
-          </View>
-          <View style={styles.list_item_forecast_list_container}>
-            <View style={styles.list_item_forecast_item_container}>
-              <Text style={styles.list_item_forecast_item_time}>--</Text>
-              <Text style={styles.list_item_forecast_item_value}>--</Text>
-            </View>
-            <View style={styles.list_item_forecast_item_container}>
-              <Text style={styles.list_item_forecast_item_time}>--</Text>
-              <Text style={styles.list_item_forecast_item_value}>--</Text>
-            </View>
-            <View style={styles.list_item_forecast_item_container}>
-              <Text style={styles.list_item_forecast_item_time}>--</Text>
-              <Text style={styles.list_item_forecast_item_value}>--</Text>
-            </View>
-            <View style={styles.list_item_forecast_item_container}>
-              <Text style={styles.list_item_forecast_item_time}>--</Text>
-              <Text style={styles.list_item_forecast_item_value}>--</Text>
-            </View>
-            <View style={styles.list_item_forecast_item_container}>
-              <Text style={styles.list_item_forecast_item_time}>--</Text>
-              <Text style={styles.list_item_forecast_item_value}>--</Text>
-            </View>
-          </View>
-        </View>
-      )
     }
     // we are currently fetching new current data and there is none
     // previously fetched to display for now
@@ -158,46 +231,6 @@ class StationListDashboardItem extends Component {
       !this.props.station_current_data.wxstem.fetched
     ) {
       loadingIndicatorVisible = true
-      dataContainer = (
-        <View style={styles.list_item_data_container}>
-          <View style={styles.list_item_temperature_container}>
-            <Text style={styles.list_item_temperature}>--.-</Text>
-            <Text style={styles.list_item_temperature_super}>˚F</Text>
-            <View style={styles.weather_icon_container}>
-              <Text>`</Text>
-            </View>
-          </View>
-          <View style={styles.list_item_forecast_list_container}>
-            <View style={styles.list_item_forecast_item_container}>
-              <Text style={styles.list_item_forecast_item_time}>- -</Text>
-              <Text style={styles.list_item_forecast_item_value}>- -</Text>
-            </View>
-            <View style={styles.list_item_forecast_item_container}>
-              <Text style={styles.list_item_forecast_item_time}>- -</Text>
-              <Text style={styles.list_item_forecast_item_value}>- -</Text>
-            </View>
-            <View style={styles.list_item_forecast_item_container}>
-              <Text style={styles.list_item_forecast_item_time}>- -</Text>
-              <Text style={styles.list_item_forecast_item_value}>- -</Text>
-            </View>
-            <View style={styles.list_item_forecast_item_container}>
-              <Text style={styles.list_item_forecast_item_time}>- -</Text>
-              <Text style={styles.list_item_forecast_item_value}>- -</Text>
-            </View>
-            <View style={styles.list_item_forecast_item_container}>
-              <Text style={styles.list_item_forecast_item_time}>- -</Text>
-              <Text style={styles.list_item_forecast_item_value}>- -</Text>
-            </View>
-          </View>
-        </View>
-        // <View style={styles.loading_icon_container}>
-        //   <ActivityIndicator
-        //     size="large"
-        //     style={{ paddingTop: 20 }}
-        //     color={Colors.white}
-        //   />
-        // </View>
-      )
     }
     // there is current data fetched to display and there is no error
     else if (
@@ -207,46 +240,6 @@ class StationListDashboardItem extends Component {
       this.props.station_current_data.sun.fetched
     ) {
       loadingIndicatorVisible = false
-      dataContainer = (
-        <View style={styles.list_item_data_container}>
-          <View style={styles.list_item_temperature_container}>
-            <Text style={styles.list_item_temperature}>
-              {this.props.station_current_data.wxstem.data['Thermometer'].value}
-            </Text>
-            <Text style={styles.list_item_temperature_super}>˚F</Text>
-            <View style={styles.weather_icon_container}>
-              <WeatherIcon
-                style={styles.weather_icon}
-                icon_code={
-                  this.props.station_current_data.sun.data.observation.icon_code
-                }
-              />
-            </View>
-          </View>
-          <View style={styles.list_item_forecast_list_container}>
-            <View style={styles.list_item_forecast_item_container}>
-              <Text style={styles.list_item_forecast_item_time}>3PM</Text>
-              <Text style={styles.list_item_forecast_item_value}>50˚F</Text>
-            </View>
-            <View style={styles.list_item_forecast_item_container}>
-              <Text style={styles.list_item_forecast_item_time}>4PM</Text>
-              <Text style={styles.list_item_forecast_item_value}>48˚F</Text>
-            </View>
-            <View style={styles.list_item_forecast_item_container}>
-              <Text style={styles.list_item_forecast_item_time}>5PM</Text>
-              <Text style={styles.list_item_forecast_item_value}>47˚F</Text>
-            </View>
-            <View style={styles.list_item_forecast_item_container}>
-              <Text style={styles.list_item_forecast_item_time}>6PM</Text>
-              <Text style={styles.list_item_forecast_item_value}>45˚F</Text>
-            </View>
-            <View style={styles.list_item_forecast_item_container}>
-              <Text style={styles.list_item_forecast_item_time}>7PM</Text>
-              <Text style={styles.list_item_forecast_item_value}>44˚F</Text>
-            </View>
-          </View>
-        </View>
-      )
     }
     let editing_controls
     if (this.state.editing_view) {
@@ -335,7 +328,31 @@ class StationListDashboardItem extends Component {
                       {loadingIndicator}
                     </Text>
                   </View>
-                  {dataContainer}
+                  <View style={styles.list_item_data_container}>
+                    <View style={styles.list_item_temperature_container}>
+                      <Text style={styles.list_item_temperature}>
+                        {this.loadStatus.isCurrentWxstem &&
+                          this.props.station_current_data.wxstem.data[
+                            'Thermometer'
+                          ].value}
+                        {!this.loadStatus.isCurrentWxstem && '--'}
+                      </Text>
+                      <Text style={styles.list_item_temperature_super}>˚F</Text>
+                      <View style={styles.weather_icon_container}>
+                        {this.loadStatus.isCurrentSun && (
+                          <WeatherIcon
+                            style={styles.weather_icon}
+                            icon_code={
+                              this.props.station_current_data.sun.data
+                                .observation.icon_code
+                            }
+                          />
+                        )}
+                        {!this.loadStatus.isCurrentSun && '--'}
+                      </View>
+                    </View>
+                    {this.generateForecastMarkup()}
+                  </View>
                 </View>
                 {editing_controls}
                 <View style={styles.list_item_image_container}>

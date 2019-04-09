@@ -14,7 +14,11 @@ export const getCurrentRequest = (state, action) => {
         sun = { ...state.byId[id].sun }
       }
       if (state.byId[id].wxstem) {
-        fetched_wxstem_data = true
+        if (state.byId[id].wxstem.data) {
+          if (state.byId[id].wxstem.data.hasOwnProperty()) {
+            fetched_wxstem_data = true
+          }
+        }
         last_fetched_wxstem_data = state.byId[id].wxstem.last_fetched
         current_wxstem_data = { ...state.byId[id].wxstem.data }
       }

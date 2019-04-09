@@ -8,7 +8,7 @@ import styles from './WeatherIconStyles.js'
 const base = {
   night: {
     icon: '',
-    map: [27, 29],
+    map: [27, 29, 45, 46],
     style: {
       color: Colors.moonGray,
     },
@@ -43,7 +43,32 @@ const base = {
   },
   basecloud: {
     icon: '',
-    map: [4, 5, 6, 7, 8, 9, 10, 11, 12, 16, 17, 18, 24, 25, 35, 38, 40, 42, 47],
+    map: [
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      16,
+      17,
+      18,
+      24,
+      25,
+      35,
+      38,
+      40,
+      42,
+      43,
+      44,
+      45,
+      46,
+      47,
+    ],
     style: {
       color: Colors.white,
     },
@@ -57,7 +82,7 @@ const base = {
   },
   rainy: {
     icon: '',
-    map: [11, 12, 40],
+    map: [11, 12, 40, 45],
     style: {
       color: Colors.blue,
     },
@@ -85,7 +110,7 @@ const base = {
   },
   snowy: {
     icon: '',
-    map: [16, 42],
+    map: [16, 42, 43, 44, 46],
     style: {
       color: Colors.white,
     },
@@ -148,14 +173,14 @@ const base = {
   },
   thunder: {
     icon: '',
-    map: [4, 38, 47],
+    map: [3, 4, 38, 47],
     style: {
       color: Colors.orange,
     },
   },
   windy: {
     icon: '',
-    map: [24],
+    map: [24, 0, 1, 2],
     style: {
       color: Colors.gray,
     },
@@ -191,6 +216,7 @@ export default class WeatherIcon extends Component {
         )
       })
     } else {
+      console.tron.log(icons)
       return (
         <Text style={[styles.default, icons[0].style, this.props.style]}>
           {icons[0].icon}
@@ -216,6 +242,7 @@ export default class WeatherIcon extends Component {
         </View>
       )
     } else {
+      console.tron.log('render', icons)
       // result = <Text style={styles.default}>{base[this.props.name].icon}</Text>
       result = <View>{this.markup(icons)}</View>
     }

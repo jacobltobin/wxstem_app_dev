@@ -98,6 +98,8 @@ export default StyleSheet.create({
     borderBottomLeftRadius: 10,
     borderTopRightRadius: 10,
     borderBottomRightRadius: 10,
+    marginRight: 10,
+    alignItems: 'center',
 
     backgroundColor: Colors.white80,
     shadowOffset: { width: 0, height: 5 },
@@ -105,12 +107,12 @@ export default StyleSheet.create({
     shadowOpacity: 1.0,
   },
   list_item_forecast_item_time: {
-    ...Fonts.style.detail,
+    ...Fonts.style.detailBold,
+    fontSize: 12,
     color: Colors.black,
     textShadowColor: Colors.black50,
     textShadowOffset: { width: -1, height: 1 },
     textShadowRadius: 10,
-    fontSize: 15,
   },
   list_item_forecast_item_value: {
     ...Fonts.style.detail,
@@ -118,7 +120,7 @@ export default StyleSheet.create({
     textShadowColor: Colors.black50,
     textShadowOffset: { width: -1, height: 1 },
     textShadowRadius: 10,
-    fontSize: 15,
+    fontSize: 12,
   },
   rowFrontContainer: {
     backgroundColor: Colors.white,
@@ -151,6 +153,12 @@ export default StyleSheet.create({
   },
   weather_icon: {
     fontSize: 50,
+    textShadowColor: Colors.black50,
+    textShadowOffset: { width: -1, height: 1 },
+    textShadowRadius: 10,
+  },
+  weather_icon_forecast: {
+    fontSize: 30,
     textShadowColor: Colors.black50,
     textShadowOffset: { width: -1, height: 1 },
     textShadowRadius: 10,
