@@ -72,6 +72,28 @@ class Station extends Component {
   }
   render() {
     let sensorList
+    let movie_uris = []
+
+    if (this.props.station_base_data) {
+      let bd = this.props.station_base_data
+      if (bd.cameras.length) {
+        bd.cameras.forEach(camera => {
+          let uri =
+            'https://' +
+            bd.domain.handle +
+            '.weatherstem.com/skycamera/' +
+            bd.domain.handle +
+            '/' +
+            bd.handle +
+            '/' +
+            camera.handle +
+            '/snapshot.mp4'
+          movie_uris.push(uri)
+        })
+        console.tron.log(movie_uris[0])
+      }
+    }
+
     // there is no current data entry for this station
     if (!this.props.current_data) {
       sensorList = (
@@ -108,6 +130,7 @@ class Station extends Component {
       const backAction = NavigationActions.back()
       this.props.navigation.dispatch(backAction)
     }
+
     return (
       <View>
         <Header
@@ -145,8 +168,7 @@ class Station extends Component {
               <View style={Styles.slide2}>
                 <Video
                   source={{
-                    uri:
-                      'https://leon.weatherstem.com/skycamera/leon/ballardpartners/flcapitol/2019/04/09/00/00/1196901.mp4',
+                    uri: movie_uris[0],
                   }} // Can be a URL or a local file.
                   style={{ height: 250, width: '100%' }}
                   muted
