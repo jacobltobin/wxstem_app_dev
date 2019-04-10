@@ -45,6 +45,11 @@ export default StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'flex-start',
   },
+  list_item_data_container: {
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+  },
   list_item_name_container: {
     backgroundColor: Colors.white80,
     shadowOffset: { width: 0, height: 5 },
@@ -58,13 +63,6 @@ export default StyleSheet.create({
   list_item_station_name_text: {
     color: Colors.black50,
     ...Fonts.style.detailBold,
-  },
-  list_item_editing_container: {
-    zIndex: 2,
-    backgroundColor: Colors.black20,
-    position: 'absolute',
-    height: '100%',
-    width: '100%',
   },
   list_item_temperature: {
     ...Fonts.style.all,
@@ -85,8 +83,9 @@ export default StyleSheet.create({
     marginRight: 5,
     alignSelf: 'flex-start',
   },
-  list_item_temperature_container: {
+  list_item_data_top_container: {
     paddingLeft: 20,
+    paddingTop: 10,
     flexDirection: 'row',
     alignItems: 'center',
   },
@@ -106,22 +105,22 @@ export default StyleSheet.create({
     marginRight: 10,
     alignItems: 'center',
 
-    backgroundColor: Colors.white80,
+    backgroundColor: Colors.black50,
     shadowOffset: { width: 0, height: 5 },
     shadowColor: colors.black10,
     shadowOpacity: 1.0,
   },
   list_item_forecast_item_time: {
-    ...Fonts.style.detailBold,
+    ...Fonts.style.detail,
     fontSize: 12,
-    color: Colors.black,
+    color: Colors.white,
     textShadowColor: Colors.black50,
     textShadowOffset: { width: -1, height: 1 },
     textShadowRadius: 10,
   },
   list_item_forecast_item_value: {
     ...Fonts.style.detail,
-    color: Colors.black,
+    color: Colors.white,
     textShadowColor: Colors.black50,
     textShadowOffset: { width: -1, height: 1 },
     textShadowRadius: 10,

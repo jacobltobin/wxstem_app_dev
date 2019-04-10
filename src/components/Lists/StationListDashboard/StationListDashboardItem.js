@@ -35,7 +35,6 @@ class StationListDashboardItem extends Component {
     remove_station_from_dashboard: PropTypes.func,
     request_current: PropTypes.func,
     station_current_data: PropTypes.object,
-    fetching_current: PropTypes.bool,
     request_hourly_forecast: PropTypes.func,
     hourly_forecast: PropTypes.object,
   }
@@ -179,6 +178,10 @@ class StationListDashboardItem extends Component {
     return (
       <View style={styles.list_item_forecast_list_container}>
         <FlatList
+          style={{
+            flex: 1,
+            flexDirection: 'row',
+          }}
           horizontal
           scrollEnabled={false}
           data={dataSource}
@@ -335,7 +338,7 @@ class StationListDashboardItem extends Component {
                     {loadingIndicator}
                   </View>
                   <View style={styles.list_item_data_container}>
-                    <View style={styles.list_item_temperature_container}>
+                    <View style={styles.list_item_data_top_container}>
                       <Text style={styles.list_item_temperature}>
                         {this.loadStatus.isCurrentWxstem &&
                           this.props.station_current_data.wxstem.data[
@@ -357,7 +360,9 @@ class StationListDashboardItem extends Component {
                         {!this.loadStatus.isCurrentSun && '--'}
                       </View>
                     </View>
-                    {this.generateForecastMarkup()}
+                    <View style={styles.list_item_data_bottom_container}>
+                      {this.generateForecastMarkup()}
+                    </View>
                   </View>
                 </View>
                 {editing_controls}
