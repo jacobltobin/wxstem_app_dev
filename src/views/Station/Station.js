@@ -120,7 +120,12 @@ class Station extends Component {
         />
         <ScrollView style={{ paddingBottom: 100 }}>
           <View>
-            <Swiper style={Styles.wrapper} showsButtons>
+            <Swiper
+              style={Styles.wrapper}
+              showsButtons
+              nextButton={<View />}
+              prevButton={<View />}
+            >
               <View style={Styles.slide1}>
                 <Image
                   style={{ height: 250, width: '100%', resizeMode: 'stretch' }}
@@ -135,13 +140,36 @@ class Station extends Component {
                       '/cumulus/snapshot.jpg',
                   }}
                 />
-                <Text style={Styles.text}>Hello Swiper</Text>
               </View>
               <View style={Styles.slide2}>
-                <Text style={Styles.text}>Beautiful</Text>
+                <Image
+                  style={{ height: 250, width: '100%', resizeMode: 'stretch' }}
+                  source={{
+                    uri:
+                      'https://' +
+                      this.props.station_base_data.domain.handle +
+                      '.weatherstem.com/skycamera/' +
+                      this.props.station_base_data.domain.handle +
+                      '/' +
+                      this.props.station_base_data.handle +
+                      '/cumulus/snapshot.jpg',
+                  }}
+                />
               </View>
               <View style={Styles.slide3}>
-                <Text style={Styles.text}>And simple</Text>
+                <Image
+                  style={{ height: 250, width: '100%', resizeMode: 'stretch' }}
+                  source={{
+                    uri:
+                      'https://' +
+                      this.props.station_base_data.domain.handle +
+                      '.weatherstem.com/skycamera/' +
+                      this.props.station_base_data.domain.handle +
+                      '/' +
+                      this.props.station_base_data.handle +
+                      '/cumulus/snapshot.jpg',
+                  }}
+                />
               </View>
             </Swiper>
           </View>

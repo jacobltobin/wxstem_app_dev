@@ -7,7 +7,9 @@ export default StyleSheet.create({
     ...Fonts.style.detailBold,
   },
 
-  wrapper: {},
+  wrapper: {
+    height: 250,
+  },
   slide1: {},
   slide2: {},
   slide3: {},
