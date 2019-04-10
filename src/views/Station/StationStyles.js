@@ -6,4 +6,10 @@ export default StyleSheet.create({
   sensor_label: {
     ...Fonts.style.detailBold,
   },
+
+  wrapper: {},
+  slide1: {},
+  slide2: {},
+  slide3: {},
+  text: {},
 })
