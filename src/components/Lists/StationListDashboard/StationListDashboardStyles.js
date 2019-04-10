@@ -13,6 +13,9 @@ export default StyleSheet.create({
     marginTop: 0,
     padding: 0,
   },
+  item_loading_icon_container: {
+    width: 25,
+  },
   list_item_container: {
     height: 250,
   },
@@ -49,6 +52,8 @@ export default StyleSheet.create({
     shadowOpacity: 1.0,
     padding: 5,
     width: '100%',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
   list_item_station_name_text: {
     color: Colors.black50,

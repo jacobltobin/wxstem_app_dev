@@ -165,9 +165,9 @@ class StationListDashboardItem extends Component {
     let dataSource
     let now = new Date().getTime()
     if (this.loadStatus.isForecast) {
-      dataSource = this.props.hourly_forecast.data
+      dataSource = this.props.hourly_forecast.data.slice(0, 6)
     } else {
-      dataSource = Array(12)
+      dataSource = Array(6)
         .fill(null)
         .map((u, i) => {
           return {
@@ -180,6 +180,7 @@ class StationListDashboardItem extends Component {
       <View style={styles.list_item_forecast_list_container}>
         <FlatList
           horizontal
+          scrollEnabled={false}
           data={dataSource}
           showsHorizontalScrollIndicator={false}
           renderItem={({ item }) => (
@@ -259,11 +260,16 @@ class StationListDashboardItem extends Component {
 
     if (loadingIndicatorVisible === true) {
       loadingIndicator = (
-        <View style={styles.loading_icon_container}>
+        <View
+          style={[
+            styles.loading_icon_container,
+            styles.item_loading_icon_container,
+          ]}
+        >
           <ActivityIndicator
-            size="large"
-            style={{ paddingTop: 0 }}
-            color={Colors.red}
+            size="small"
+            style={{ paddingTop: 0, position: 'absolute' }}
+            color={Colors.darkGray}
           />
         </View>
       )
@@ -325,8 +331,8 @@ class StationListDashboardItem extends Component {
                   <View style={styles.list_item_name_container}>
                     <Text style={styles.list_item_station_name_text}>
                       {this.props.station.name}
-                      {loadingIndicator}
                     </Text>
+                    {loadingIndicator}
                   </View>
                   <View style={styles.list_item_data_container}>
                     <View style={styles.list_item_temperature_container}>
