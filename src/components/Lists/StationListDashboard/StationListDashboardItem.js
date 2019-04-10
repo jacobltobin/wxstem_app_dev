@@ -151,7 +151,6 @@ class StationListDashboardItem extends Component {
   }
   returnAMPM = dateStr => {
     let converted
-    console.tron.log(typeof dateStr, dateStr, new Date(dateStr))
     let hours = new Date(dateStr).getHours()
     if (hours > 12) {
       converted = (hours - 12).toString() + 'PM'

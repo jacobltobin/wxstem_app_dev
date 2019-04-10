@@ -216,7 +216,6 @@ export default class WeatherIcon extends Component {
         )
       })
     } else {
-      console.tron.log(icons)
       return (
         <Text style={[styles.default, icons[0].style, this.props.style]}>
           {icons[0].icon}
@@ -242,7 +241,6 @@ export default class WeatherIcon extends Component {
         </View>
       )
     } else {
-      console.tron.log('render', icons)
       // result = <Text style={styles.default}>{base[this.props.name].icon}</Text>
       result = <View>{this.markup(icons)}</View>
     }

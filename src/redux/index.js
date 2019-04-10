@@ -21,7 +21,7 @@ export default () => {
     finalReducers = persistReducer(persistConfig, reducers)
   }
 
-  let { store, sagasManager, sagaMiddleware } = configureStore(
+  let { store, persistor, sagasManager, sagaMiddleware } = configureStore(
     finalReducers,
     rootSaga,
   )
@@ -39,5 +39,5 @@ export default () => {
     })
   }
 
-  return store
+  return { store, persistor }
 }
