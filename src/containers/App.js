@@ -5,6 +5,8 @@ import { Provider } from 'react-redux'
 import RootContainer from './RootContainer/RootContainer'
 import createStore from '../redux'
 
+import SplashScreen from '../components/SplashScreen'
+
 import { PersistGate } from 'redux-persist/integration/react'
 
 // create our store
@@ -23,7 +25,7 @@ class App extends Component {
   render() {
     return (
       <Provider store={store}>
-        <PersistGate loading={null} persistor={persistor}>
+        <PersistGate loading={<SplashScreen />} persistor={persistor}>
           <RootContainer />
         </PersistGate>
       </Provider>

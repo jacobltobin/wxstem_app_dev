@@ -287,8 +287,8 @@ class StationListDefault extends Component {
         >
           {/* STATE LIST */}
           <View style={styles.swiper_slide1}>
-            {this.renderFilterBar()}
             {freshDataLoadingIndicator}
+            {this.renderFilterBar()}
             {defaultListDisplay}
           </View>
 

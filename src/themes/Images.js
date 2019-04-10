@@ -20,6 +20,7 @@ const images = {
   logoIconSmall: require('../images/logo-icon-sm.png'),
   logoIconWhite: require('../images/logo-icon-white.png'),
   logoIconTypeColor: require('../images/logo-icon-type-color.png'),
+  logoIconTypeWhite: require('../images/logo-icon-type-white.png'),
   logoIconTypeColorHorizontal: require('../images/logo-icon-type-color-horizontal.png'),
   ready: require('../images/your-app.png'),
   theme: require('../images/icons/icon-theme.png'),

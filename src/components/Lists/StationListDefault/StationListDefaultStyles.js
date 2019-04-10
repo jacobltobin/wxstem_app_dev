@@ -3,7 +3,7 @@ import { Fonts, Colors, Metrics } from '../../../themes/'
 
 export default StyleSheet.create({
   loading_icon_container: {
-    marginTop: 75,
+    marginTop: 10,
     alignSelf: 'center',
   },
 
