@@ -4,18 +4,8 @@ import PropTypes from 'prop-types'
 import StationActions, { StationSelectors } from '../../../redux/StationsRedux/'
 import { AppStateSelectors } from '../../../redux/AppStateRedux'
 
-import {
-  Text,
-  View,
-  ActivityIndicator,
-  TouchableOpacity,
-  Animated,
-  Easing,
-  FlatList,
-} from 'react-native'
-import { Icon } from 'react-native-elements'
+import { Text, View, ActivityIndicator, FlatList } from 'react-native'
 import StationListDashboardItem from './StationListDashboardItem'
-import Interactable from 'react-native-interactable'
 
 import styles from './StationListDashboardStyles'
 import { Colors } from '../../../themes'
@@ -47,6 +37,7 @@ class StationListDashboard extends Component {
       !this.props.is_fetching_stations &&
       !this.props.dashboard_stations.length
     ) {
+      this.loadStations()
       return (
         <View style={styles.loading_icon_container}>
           <ActivityIndicator
@@ -98,7 +89,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    request_all_stations: () => dispatch(StationActions.requestAllStations()),
+    request_all_stations: () => dispatch(StationActions.requestAll()),
   }
 }
 

@@ -2,13 +2,39 @@ import * as apiTransforms from '../../transforms/apiTransforms'
 
 // request all the stations in the network
 export const requestAll = state => {
+  let fullList = null
+  let strippedList = null
+  let sectionedList = null
+  let strippedSectionedList = null
+
+  if (state.fullList) {
+    if (state.fullList.length) {
+      fullList = [...state.fullList]
+    }
+  }
+  if (state.strippedList) {
+    if (state.strippedList.length) {
+      strippedList = [...state.strippedList]
+    }
+  }
+  if (state.sectionedList) {
+    if (state.sectionedList.length) {
+      sectionedList = [...state.sectionedList]
+    }
+  }
+  if (state.strippedSectionedList) {
+    if (state.strippedSectionedList.length) {
+      strippedSectionedList = [...state.strippedSectionedList]
+    }
+  }
+
   const newState = {
     fetching: true,
     fetched: false,
-    fullList: [...state.fullList],
-    strippedList: [...state.strippedList],
-    sectionedList: [...state.sectionedList],
-    strippedSectionedList: [...state.strippedSectionedList],
+    fullList: fullList,
+    strippedList: strippedList,
+    sectionedList: sectionedList,
+    strippedSectionedList: strippedSectionedList,
   }
   return state.merge(newState)
 }
