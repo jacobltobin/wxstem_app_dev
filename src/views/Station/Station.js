@@ -148,9 +148,13 @@ class Station extends Component {
                     uri:
                       'https://leon.weatherstem.com/skycamera/leon/ballardpartners/flcapitol/2019/04/09/00/00/1196901.mp4',
                   }} // Can be a URL or a local file.
-                  ref={ref => {
-                    this.player = ref
-                  }} // Store reference
+                  style={{ height: 250, width: '100%' }}
+                  muted
+                  repeat
+                  resizeMode={'cover'}
+                  volume={1.0}
+                  rate={1.0}
+                  ignoreSilentSwitch={'obey'}
                   // onBuffer={this.onBuffer} // Callback when remote video is buffering
                   // onError={this.videoError} // Callback when video cannot be loaded
                 />
@@ -162,11 +166,11 @@ class Station extends Component {
                     uri:
                       'https://' +
                       this.props.station_base_data.domain.handle +
-                      '.weatherstem.com/skycamera/' +
+                      '.weatherstem.com/user_generated/modules/station/' +
                       this.props.station_base_data.domain.handle +
                       '/' +
                       this.props.station_base_data.handle +
-                      '/cumulus/snapshot.jpg',
+                      '/portrait.jpg',
                   }}
                 />
               </View>
