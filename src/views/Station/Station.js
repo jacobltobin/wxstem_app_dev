@@ -21,6 +21,7 @@ import { sensorArrayFromObject } from '../../transforms/apiTransforms'
 import { Header } from 'react-native-elements'
 import { HeaderCenter, HeaderLeft } from '../../components'
 import Swiper from 'react-native-swiper'
+import Video from 'react-native-video'
 
 import { Colors } from '../../themes'
 import Styles from './StationStyles'
@@ -142,18 +143,16 @@ class Station extends Component {
                 />
               </View>
               <View style={Styles.slide2}>
-                <Image
-                  style={{ height: 250, width: '100%', resizeMode: 'stretch' }}
+                <Video
                   source={{
                     uri:
-                      'https://' +
-                      this.props.station_base_data.domain.handle +
-                      '.weatherstem.com/skycamera/' +
-                      this.props.station_base_data.domain.handle +
-                      '/' +
-                      this.props.station_base_data.handle +
-                      '/cumulus/snapshot.jpg',
-                  }}
+                      'https://leon.weatherstem.com/skycamera/leon/ballardpartners/flcapitol/2019/04/09/00/00/1196901.mp4',
+                  }} // Can be a URL or a local file.
+                  ref={ref => {
+                    this.player = ref
+                  }} // Store reference
+                  // onBuffer={this.onBuffer} // Callback when remote video is buffering
+                  // onError={this.videoError} // Callback when video cannot be loaded
                 />
               </View>
               <View style={Styles.slide3}>

@@ -35,6 +35,8 @@ PODS:
     - React
   - react-native-maps (0.23.0):
     - React
+  - react-native-video (3.2.1):
+    - React
   - React/Core (0.55.1):
     - yoga (= 0.55.1.React)
   - React/CxxBridge (0.55.1):
@@ -90,6 +92,7 @@ DEPENDENCIES:
   - GoogleMaps
   - react-native-google-maps (from `../node_modules/react-native-maps`)
   - react-native-maps (from `../node_modules/react-native-maps`)
+  - react-native-video (from `../node_modules/react-native-video`)
   - React/Core (from `../node_modules/react-native`)
   - React/CxxBridge (from `../node_modules/react-native`)
   - React/DevSupport (from `../node_modules/react-native`)
@@ -124,6 +127,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-maps"
   react-native-maps:
     :path: "../node_modules/react-native-maps"
+  react-native-video:
+    :path: "../node_modules/react-native-video"
   yoga:
     :path: "../node_modules/react-native/ReactCommon/yoga/yoga.podspec"
 
@@ -137,8 +142,9 @@ SPEC CHECKSUMS:
   React: c3910d84f4d169b892efee217a7228ad3b29c9cd
   react-native-google-maps: 544d2208b09a7e2ec2c6112c8a97c4e7f921f74d
   react-native-maps: 9469741f77f270c605cafec603ce47327dc5b5f8
+  react-native-video: f53aaec69bdf607dc5250d0887b8c1f3be9e4b24
   yoga: 292dca4214f3559b8cb52f1eb7db82b33b61510c
 
-PODFILE CHECKSUM: 15e1a962e9307c21d32839b910849508a8459c11
+PODFILE CHECKSUM: db12e0fcfa1f0ab9465fd3e471a6f9c0f60de06b
 
 COCOAPODS: 1.6.0

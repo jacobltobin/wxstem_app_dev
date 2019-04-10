@@ -3,6 +3,7 @@ package com.cuttlesoftboilerplate;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.brentvatne.react.ReactVideoPackage;
 import com.airbnb.android.react.maps.MapsPackage;
 import com.wix.interactable.Interactable;
 import com.lugg.ReactNativeConfig.ReactNativeConfigPackage;
@@ -27,6 +28,7 @@ public class MainApplication extends Application implements ReactApplication {
     @Override
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(new MainReactPackage(),
+            new ReactVideoPackage(),
             new MapsPackage(),
             new Interactable(),
             new ReactNativeConfigPackage(), new VectorIconsPackage(), new RNDeviceInfo());
