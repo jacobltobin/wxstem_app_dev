@@ -115,7 +115,7 @@ class Dashboard extends Component {
         </View>
       )
     } else {
-      user_indicator = ''
+      user_indicator = <Text />
     }
 
     return (
