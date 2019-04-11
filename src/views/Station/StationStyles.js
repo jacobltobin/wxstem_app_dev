@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native'
-import { Metrics, ApplicationStyles, Fonts } from '../../themes/'
+import { ApplicationStyles, Fonts, Colors } from '../../themes/'
 
 export default StyleSheet.create({
   ...ApplicationStyles.screen,
@@ -14,4 +14,15 @@ export default StyleSheet.create({
   slide2: {},
   slide3: {},
   text: {},
+
+  slide_title: {
+    backgroundColor: Colors.lightBlue,
+    padding: 3,
+  },
+  slide_title_text: {
+    ...Fonts.style.detail,
+    color: Colors.midGray,
+    textAlign: 'center',
+    fontSize: 12,
+  },
 })

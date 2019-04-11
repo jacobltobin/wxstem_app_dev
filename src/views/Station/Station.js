@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, PureComponent } from 'react'
 import { AllHtmlEntities } from 'html-entities'
 import {
   View,
@@ -25,6 +25,116 @@ import Video from 'react-native-video'
 
 import { Colors } from '../../themes'
 import Styles from './StationStyles'
+
+class StationImageSwiper extends PureComponent {
+  static propTypes = {
+    base_data: PropTypes.object,
+  }
+  constructor(props) {
+    super(props)
+  }
+  generate_slides = slides => {
+    return slides.map(slide => {
+      return (
+        <View style={Styles.slide}>
+          <View style={Styles.slide_title}>
+            <Text style={Styles.slide_title_text}>
+              {slide.name} {slide.type}
+            </Text>
+          </View>
+          {(slide.type == 'Snapshot' || slide.type == 'Station Portrait') && (
+            <Image
+              style={{ height: 250, width: '100%', resizeMode: 'stretch' }}
+              source={{
+                uri: slide.uri,
+              }}
+            />
+          )}
+          {slide.type == 'Sky Movie' && (
+            <Video
+              source={{
+                uri: slide.uri,
+              }} // Can be a URL or a local file.
+              style={{ height: 250, width: '100%' }}
+              muted
+              repeat
+              resizeMode={'cover'}
+              volume={1.0}
+              controls
+              paused
+              rate={1.0}
+              ignoreSilentSwitch={'obey'}
+              // onBuffer={this.onBuffer} // Callback when remote video is buffering
+              // onError={this.videoError} // Callback when video cannot be loaded
+            />
+          )}
+        </View>
+      )
+    })
+  }
+  render() {
+    console.tron.log('rendering pure')
+    let slides = []
+    if (this.props.base_data) {
+      let bd = this.props.base_data
+      if (bd.cameras.length) {
+        bd.cameras.forEach(camera => {
+          slides.push(
+            {
+              type: 'Snapshot',
+              uri:
+                'https://' +
+                bd.domain.handle +
+                '.weatherstem.com/skycamera/' +
+                bd.domain.handle +
+                '/' +
+                bd.handle +
+                '/' +
+                camera.handle +
+                '/snapshot.jpg',
+              name: camera.name,
+            },
+            {
+              type: 'Sky Movie',
+              uri:
+                'https://' +
+                bd.domain.handle +
+                '.weatherstem.com/skycamera/' +
+                bd.domain.handle +
+                '/' +
+                bd.handle +
+                '/' +
+                camera.handle +
+                '/snapshot.mp4',
+              name: camera.name,
+            },
+          )
+        })
+        slides.push({
+          type: 'Station Portrait',
+          uri:
+            'https://' +
+            bd.domain.handle +
+            '.weatherstem.com/user_generated/modules/station/' +
+            bd.domain.handle +
+            '/' +
+            bd.handle +
+            '/portrait.jpg',
+        })
+      }
+    }
+    return (
+      <Swiper
+        style={Styles.wrapper}
+        showsButtons
+        nextButton={<View />}
+        prevButton={<View />}
+      >
+        {this.generate_slides(slides)}
+      </Swiper>
+    )
+  }
+}
 
 class Station extends Component {
   static propTypes = {
@@ -70,29 +180,9 @@ class Station extends Component {
       />
     )
   }
+
   render() {
     let sensorList
-    let movie_uris = []
-
-    if (this.props.station_base_data) {
-      let bd = this.props.station_base_data
-      if (bd.cameras.length) {
-        bd.cameras.forEach(camera => {
-          let uri =
-            'https://' +
-            bd.domain.handle +
-            '.weatherstem.com/skycamera/' +
-            bd.domain.handle +
-            '/' +
-            bd.handle +
-            '/' +
-            camera.handle +
-            '/snapshot.mp4'
-          movie_uris.push(uri)
-        })
-        console.tron.log(movie_uris[0])
-      }
-    }
 
     // there is no current data entry for this station
     if (!this.props.current_data) {
@@ -144,59 +234,7 @@ class Station extends Component {
         />
         <ScrollView style={{ paddingBottom: 100 }}>
           <View>
-            <Swiper
-              style={Styles.wrapper}
-              showsButtons
-              nextButton={<View />}
-              prevButton={<View />}
-            >
-              <View style={Styles.slide1}>
-                <Image
-                  style={{ height: 250, width: '100%', resizeMode: 'stretch' }}
-                  source={{
-                    uri:
-                      'https://' +
-                      this.props.station_base_data.domain.handle +
-                      '.weatherstem.com/skycamera/' +
-                      this.props.station_base_data.domain.handle +
-                      '/' +
-                      this.props.station_base_data.handle +
-                      '/cumulus/snapshot.jpg',
-                  }}
-                />
-              </View>
-              <View style={Styles.slide2}>
-                <Video
-                  source={{
-                    uri: movie_uris[0],
-                  }} // Can be a URL or a local file.
-                  style={{ height: 250, width: '100%' }}
-                  muted
-                  repeat
-                  resizeMode={'cover'}
-                  volume={1.0}
-                  rate={1.0}
-                  ignoreSilentSwitch={'obey'}
-                  // onBuffer={this.onBuffer} // Callback when remote video is buffering
-                  // onError={this.videoError} // Callback when video cannot be loaded
-                />
-              </View>
-              <View style={Styles.slide3}>
-                <Image
-                  style={{ height: 250, width: '100%', resizeMode: 'stretch' }}
-                  source={{
-                    uri:
-                      'https://' +
-                      this.props.station_base_data.domain.handle +
-                      '.weatherstem.com/user_generated/modules/station/' +
-                      this.props.station_base_data.domain.handle +
-                      '/' +
-                      this.props.station_base_data.handle +
-                      '/portrait.jpg',
-                  }}
-                />
-              </View>
-            </Swiper>
+            <StationImageSwiper base_data={this.props.station_base_data} />
           </View>
           {sensorList}
         </ScrollView>

@@ -15,14 +15,6 @@ import { Colors } from '../../themes'
 
 export default createBottomTabNavigator(
   {
-    Stations: {
-      screen: StationsStack,
-      navigationOptions: ({ navigation }) => ({
-        tabBarIcon: ({ tintColor }) => (
-          <Icon name="crosshairs" size={30} color={tintColor} />
-        ),
-      }),
-    },
     Dashboard: {
       screen: DashboardStack,
       navigationOptions: ({ navigation }) => ({
@@ -36,6 +28,14 @@ export default createBottomTabNavigator(
       navigationOptions: ({ navigation }) => ({
         tabBarIcon: ({ tintColor }) => (
           <Icon name="map" size={30} color={tintColor} />
+        ),
+      }),
+    },
+    Stations: {
+      screen: StationsStack,
+      navigationOptions: ({ navigation }) => ({
+        tabBarIcon: ({ tintColor }) => (
+          <Icon name="crosshairs" size={30} color={tintColor} />
         ),
       }),
     },
