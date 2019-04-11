@@ -42,7 +42,6 @@ class StationListDashboardItem extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      editing_view: false,
       interval_set: false,
       has_blurred: false,
     }
@@ -85,11 +84,6 @@ class StationListDashboardItem extends Component {
       duration: 200,
     }).start(() => {
       this.props.remove_station_from_dashboard(id)
-    })
-  }
-  handleLongPress = (handle, domainHandle) => {
-    this.setState({
-      editing_view: true,
     })
   }
   refreshData = () => {
@@ -190,12 +184,12 @@ class StationListDashboardItem extends Component {
               <Text style={styles.list_item_forecast_item_time}>
                 <Text>{Moment(item.fcst_valid_local).format('hA')}</Text>
               </Text>
-              {item.icon_code && (
+              {/* {item.icon_code && (
                 <WeatherIcon
                   style={styles.weather_icon_forecast}
                   icon_code={item.icon_code}
                 />
-              )}
+              )} */}
               <Text style={styles.list_item_forecast_item_value}>
                 {item.temp}
               </Text>
@@ -244,21 +238,6 @@ class StationListDashboardItem extends Component {
     ) {
       loadingIndicatorVisible = false
     }
-    let editing_controls
-    if (this.state.editing_view) {
-      editing_controls = (
-        <View style={styles.list_item_editing_container}>
-          <TouchableOpacity>
-            <Icon
-              name={'move'}
-              type={'font-awesome'}
-              size={40}
-              color={Colors.red}
-            />
-          </TouchableOpacity>
-        </View>
-      )
-    }
 
     if (loadingIndicatorVisible === true) {
       loadingIndicator = (
@@ -276,7 +255,7 @@ class StationListDashboardItem extends Component {
         </View>
       )
     } else {
-      loadingIndicator = ''
+      loadingIndicator = <Text />
     }
 
     return (
@@ -320,9 +299,6 @@ class StationListDashboardItem extends Component {
         >
           <View style={styles.list_item_round_container}>
             <TouchableOpacity
-              // onLongPress={() => {
-              //   this.handleLongPress()
-              // }}
               onPress={() => {
                 this.goToStation(this.props.station.id)
               }}
@@ -336,6 +312,7 @@ class StationListDashboardItem extends Component {
                     </Text>
                     {loadingIndicator}
                   </View>
+
                   <View style={styles.list_item_data_container}>
                     <View style={styles.list_item_data_top_container}>
                       <Text style={styles.list_item_temperature}>
@@ -356,15 +333,15 @@ class StationListDashboardItem extends Component {
                             }
                           />
                         )}
-                        {!this.loadStatus.isCurrentSun && '--'}
+                        {!this.loadStatus.isCurrentSun && <Text>--</Text>}
                       </View>
                     </View>
+
                     <View style={styles.list_item_data_bottom_container}>
                       {this.generateForecastMarkup()}
                     </View>
                   </View>
                 </View>
-                {editing_controls}
                 <View style={styles.list_item_image_container}>
                   <Image
                     style={styles.list_item_image}
