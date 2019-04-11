@@ -57,6 +57,19 @@ const create = (baseURL = 'http://cdn.weatherstem.com') => {
     })
   }
 
+  const get_movies = (id, from, to) => {
+    return axios({
+      method: 'post',
+      url: 'https://m.weatherstem.com/api/util',
+      data: {
+        method: 'get_movies',
+        id: id,
+        from: from,
+        to: to,
+      },
+    })
+  }
+
   const login_user = (uid, pwd) => {
     return axios({
       method: 'post',
@@ -112,6 +125,7 @@ const create = (baseURL = 'http://cdn.weatherstem.com') => {
     // a list of the API functions from step 2
     get_all_stations,
     get_current,
+    get_movies,
     login_user,
     create_user,
     logoff_user,
