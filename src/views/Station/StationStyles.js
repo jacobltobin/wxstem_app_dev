@@ -7,8 +7,10 @@ export default StyleSheet.create({
     ...Fonts.style.detailBold,
   },
 
-  wrapper: {
+  swiper_wrapper: {
     height: 250,
+    marginBottom: 30,
+    overflow: 'hidden',
   },
   slide1: {},
   slide2: {},

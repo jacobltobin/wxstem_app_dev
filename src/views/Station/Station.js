@@ -73,7 +73,6 @@ class StationImageSwiper extends PureComponent {
     })
   }
   render() {
-    console.tron.log('rendering pure')
     let slides = []
     if (this.props.base_data) {
       let bd = this.props.base_data
@@ -125,8 +124,12 @@ class StationImageSwiper extends PureComponent {
     }
     return (
       <Swiper
-        style={Styles.wrapper}
+        style={Styles.swiper_wrapper}
         showsButtons
+        paginationStyle={{
+          position: 'relative',
+        }}
+        activeDotColor={Colors.darkGray}
         nextButton={<View />}
         prevButton={<View />}
       >
