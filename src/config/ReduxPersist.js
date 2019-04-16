@@ -7,6 +7,7 @@ const REDUX_PERSIST = {
   reducerVersion: '1.0',
   storeConfig: {
     key: 'primary',
+    keyPrefix: '',
     storage: AsyncStorage,
     // Reducer keys that you do NOT want stored to persistence here.
     blacklist: [],
